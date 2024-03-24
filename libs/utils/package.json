@@ -1,0 +1,19 @@
+{
+  "name": "@api-code/utils",
+  "version": "0.0.1",
+  "private": false,
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.6",
+    "dayjs": "^1.11.10",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.2.1",
+    "papaparse": "^5.4.1",
+    "unique-names-generator": "^4.7.1"
+  }
+}

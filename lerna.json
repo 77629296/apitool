@@ -1,0 +1,17 @@
+{
+  "npmClient": "pnpm",
+  "packages": [
+    "libs/*"
+  ],
+  "version": "0.0.1",
+  "command": {
+    "version": {
+      "forcePublish": true,
+      "exact": true,
+      "message": "chore(versions): 😊 publish %s"
+    },
+    "publish": {
+      "registry": "https://registry.npmjs.org/"
+    }
+  }
+}
