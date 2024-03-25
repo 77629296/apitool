@@ -45,9 +45,9 @@ async function bootstrap() {
   // Swagger (OpenAPI Docs)
   // This can be accessed by visiting {SERVER_URL}/api/docs
   const config = new DocumentBuilder()
-    .setTitle('Reactive Resume')
+    .setTitle('APICode')
     .setDescription(
-      "Reactive Resume is a free and open source resume builder that's built to make the mundane tasks of creating, updating and sharing your resume as easy as 1, 2, 3.",
+      "APICode is a free and open source api management platform.",
     )
     .addCookieAuth('Authentication', {
       type: 'http',

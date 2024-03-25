@@ -7,5 +7,4 @@ export * from "./namespaces/number";
 export * from "./namespaces/object";
 export * from "./namespaces/promise";
 export * from "./namespaces/string";
-export * from "./namespaces/style";
 export * from "./namespaces/types";
