@@ -1,16 +1,25 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "preserve",
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+    },
     "plugins": [
       {
         "name": "next"
@@ -22,12 +31,10 @@
     ]
   },
   "include": [
+    "src",
     "**/*.ts",
+    "**/*.d.ts",
     "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    "../../apps/client/.next/types/**/*.ts",
-    "../../dist/apps/client/.next/types/**/*.ts",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
@@ -36,5 +43,10 @@
     "jest.config.ts",
     "**/*.spec.ts",
     "**/*.test.ts"
-  ]
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }
