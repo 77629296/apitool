@@ -65,7 +65,6 @@
     "@types/passport-local": "^1.0.38",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
-    "@types/rtl-detect": "^1.0.3",
     "@types/semver": "^7.5.8",
     "@types/ua-parser-js": "^0.7.39",
     "@typescript-eslint/eslint-plugin": "^7.3.1",
@@ -92,6 +91,7 @@
     "vitest": "~1.4.0"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.5",
     "@auth/core": "^0.28.1",
     "@nestjs-modules/mailer": "^1.10.3",
     "@nestjs/axios": "^3.0.2",
@@ -137,6 +137,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.1.0",
+    "react-layout-kit": "^1.9.0",
     "react-router-dom": "^6.22.3",
     "semver": "^7.6.0",
     "swr": "^2.2.5",

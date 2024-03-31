@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.5
+        version: 5.3.5(react-dom@18.2.0)(react@18.2.0)
       '@auth/core':
         specifier: ^0.28.1
         version: 0.28.1(nodemailer@6.9.13)
@@ -143,6 +146,9 @@ importers:
       react-i18next:
         specifier: ^14.1.0
         version: 14.1.0(i18next@23.10.1)(react-dom@18.2.0)(react@18.2.0)
+      react-layout-kit:
+        specifier: ^1.9.0
+        version: 1.9.0(react@18.2.0)
       react-router-dom:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
@@ -276,9 +282,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.14
         version: 18.2.14
-      '@types/rtl-detect':
-        specifier: ^1.0.3
-        version: 1.0.3
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -5509,10 +5512,6 @@ packages:
 
   /@types/retry@0.12.0:
     resolution: {integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==}
-    dev: true
-
-  /@types/rtl-detect@1.0.3:
-    resolution: {integrity: sha512-qpstuHivwg/HoXxRrBo5/r/OVx5M2SkqJpVu2haasdLctt+jMGHWjqdbI0LL7Rk2wRmN/UHdHK4JZg9RUMcvKA==}
     dev: true
 
   /@types/scheduler@0.16.8:
@@ -14520,6 +14519,16 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+
+  /react-layout-kit@1.9.0(react@18.2.0):
+    resolution: {integrity: sha512-YjFXGaWTemwagfdmqz1VxTATXCpQmDfW/giHOSQDrGsddyBC6MEFdj+kNHYY9WpRamQDjyzAIkOQaJ1KxmcC2g==}
+    peerDependencies:
+      react: '>=18'
+    dependencies:
+      '@babel/runtime': 7.24.1
+      '@emotion/css': 11.11.2
+      react: 18.2.0
+    dev: false
 
   /react-router-dom@6.22.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-7ZILI7HjcE+p31oQvwbokjk6OA/bnFxrhJ19n82Ex9Ph8fNAq+Hm/7KchpMGlTgWhUxRHMMCut+vEtNpWpowKw==}

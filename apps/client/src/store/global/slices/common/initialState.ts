@@ -1,9 +1,8 @@
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export enum SidebarTabKey {
-  Chat = 'chat',
-  Market = 'market',
-  Setting = 'settings',
+  Workbench = 'workbench',
+  Settings = 'settings',
 }
 
 export enum SettingsTabs {
@@ -27,5 +26,5 @@ export interface GlobalCommonState {
 
 export const initialCommonState: GlobalCommonState = {
   isMobile: false,
-  sidebarKey: SidebarTabKey.Chat,
+  sidebarKey: SidebarTabKey.Workbench,
 };
