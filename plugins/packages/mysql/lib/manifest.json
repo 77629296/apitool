@@ -1,0 +1,137 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ToolJet/ToolJet/develop/plugins/schemas/manifest.schema.json",
+  "title": "Mysql datasource",
+  "description": "A schema defining mysql datasource",
+  "type": "database",
+  "source": {
+    "name": "MySQL",
+    "kind": "mysql",
+    "exposedVariables": {
+      "isLoading": false,
+      "data": {},
+      "rawData": {}
+    },
+    "options": {
+      "connection_type": {
+        "type": "string"
+      },
+      "host": {
+        "type": "string"
+      },
+      "port": {
+        "type": "string"
+      },
+      "database": {
+        "type": "string"
+      },
+      "socket_path": {
+        "type": "string"
+      },
+      "username": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string",
+        "encrypted": true
+      }
+    }
+  },
+  "defaults": {
+    "connection_type": {
+      "value": "hostname"
+    },
+    "host": {
+      "value": "localhost"
+    },
+    "port": {
+      "value": 3306
+    },
+    "database": {
+      "value": ""
+    },
+    "socket": {
+      "value": ""
+    },
+    "username": {
+      "value": ""
+    },
+    "password": {
+      "value": ""
+    },
+    "ssl_enabled": {
+      "value": false
+    }
+  },
+  "properties": {
+    "connection_type": {
+      "label": "Connection type",
+      "key": "connection_type",
+      "type": "dropdown-component-flip",
+      "description": "Single select dropdown for connection type",
+      "list": [
+        {
+          "value": "hostname",
+          "name": "Hostname"
+        },
+        {
+          "value": "socket_path",
+          "name": "Socket"
+        }
+      ],
+      "commonFields": {
+        "username": {
+          "label": "Username",
+          "key": "username",
+          "type": "text",
+          "description": "Enter username"
+        },
+        "password": {
+          "label": "Password",
+          "key": "password",
+          "type": "password",
+          "description": "Enter password"
+        },
+        "database": {
+          "label": "Database Name",
+          "key": "database",
+          "type": "text",
+          "description": "Name of the database"
+        }
+      }
+    },
+    "hostname": {
+      "host": {
+        "label": "Host",
+        "key": "host",
+        "type": "text",
+        "description": "Enter host"
+      },
+      "port": {
+        "label": "Port",
+        "key": "port",
+        "type": "text",
+        "description": "Enter port"
+      },
+      "ssl_enabled": {
+        "label": "SSL",
+        "key": "ssl_enabled",
+        "type": "toggle",
+        "description": "Toggle for ssl_enabled"
+      }
+    },
+    "socket_path": {
+      "socket": {
+        "label": "Socket Path",
+        "type": "text",
+        "name": "socket_path",
+        "description": "Enter the socket path"
+      }
+    }
+  },
+  "required": [
+    "connection_type",
+    "port",
+    "username",
+    "password"
+  ]
+}

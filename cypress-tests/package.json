@@ -1,0 +1,22 @@
+{
+  "name": "cypress-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cy:run": "cypress run --browser=chrome 103, --headless",
+    "cy:open": "cypress open --browser=chrome 103, --e2e"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.12.12",
+    "@cypress/webpack-preprocessor": "^5.12.0",
+    "@faker-js/faker": "^7.3.0",
+    "cypress": "^12.5.1"
+  },
+  "dependencies": {
+    "cypress-real-events": "^1.7.6",
+    "moment": "^2.29.4",
+    "node-xlsx": "^0.21.0",
+    "pdf-parse": "^1.1.1",
+    "pg": "^8.8.0"
+  }
+}

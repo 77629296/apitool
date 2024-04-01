@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ToolJet/ToolJet/develop/plugins/schemas/manifest.schema.json",
+  "title": "Airtable datasource",
+  "description": "A schema defining airtable datasource",
+  "type": "api",
+  "source": {
+    "name": "Airtable",
+    "kind": "airtable",
+    "exposedVariables": {
+      "isLoading": false,
+      "data": {},
+      "rawData": {}
+    },
+    "options": {
+      "personal_access_token": {
+        "type": "string",
+        "encrypted": true
+      }
+    },
+    "customTesting": true
+  },
+  "defaults": {
+    "personal_access_token": {
+      "value": ""
+    }
+  },
+  "properties": {
+    "personal_access_token": {
+      "label": "Personal access token",
+      "key": "personal_access_token",
+      "type": "password",
+      "description": "Personal access token for airtable",
+      "helpText": "For generating personal access token, visit: <a href='https://airtable.com/account' target='_blank' rel='noreferrer'>Airtable account page</a>"
+    }
+  },
+  "required": [
+    "personal_access_token"
+  ]
+}

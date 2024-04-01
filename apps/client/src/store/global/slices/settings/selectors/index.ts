@@ -1,1 +1,0 @@
-export { settingsSelectors } from './settings';

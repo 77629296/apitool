@@ -1,0 +1,37 @@
+@mixin theme-border($light-theme: true, $outline:false) {
+    @if $light-theme{
+      @if($outline) {
+        outline-color: $border-grey-light;
+      } @else {
+        border-color: $border-grey-light;
+      }
+    } @else {
+      @if($outline) {
+        outline-color: $border-grey-dark;
+      } @else {
+        border-color: $border-grey-dark;
+      }
+    }
+}
+
+
+@mixin button-outline($light-theme: true) {
+    border: 1px solid $primary;
+    box-sizing: border-box;
+    border-radius: $border-radius;
+    color: $primary;
+    @if $light-theme {
+      background: $white;
+      &:hover {
+        background: $primary;
+        color: #FFFFFC;
+      }
+    } @else {
+      background: transparent!important;
+      &:hover {
+        background: $primary!important;
+        color: #FFFFFC!important;
+
+      }
+    }
+}

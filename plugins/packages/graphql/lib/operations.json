@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ToolJet/ToolJet/develop/plugins/schemas/operations.schema.json",
+  "title": "Graphql data query schema",
+  "description": "A schema defining graphql data query",
+  "type": "api",
+  "defaults": {},
+  "properties": {
+    "query": {
+      "label": "Query",
+      "key": "query",
+      "type": "codehinter",
+      "description": "Enter query",
+      "height": "150px"
+    },
+    "variables": {
+      "label": "Variables",
+      "key": "variables",
+      "type": "codehinter",
+      "description": "Enter Variables",
+      "height": "150px"
+    },
+    "headers": {
+      "label": "Headers",
+      "key": "headers",
+      "type": "react-component-headers",
+      "description": "key-value pair headers for graphql api",
+      "height": "150px"
+    }
+  },
+  "required": [
+    "query"
+  ]
+}
