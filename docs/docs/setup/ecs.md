@@ -106,7 +106,7 @@ Follow the steps below to deploy ToolJet on a ECS cluster.
   </div>
   
   :::info
-  For the minimal setup, ToolJet requires: `TOOLJET_HOST`, `PG_HOST`, `PG_DB`, `PG_USER`, `PG_PASSWORD`, `SECRET_KEY_BASE` & `LOCKBOX_MASTER_KEY` keys in the secret.
+  For the minimal setup, ToolJet requires: `TOOLJET_HOST`, `POSTGRES_HOST`, `POSTGRES_DB`, `POSTGRES_USER`, `PG_PASSWORD`, `SECRET_KEY_BASE` & `LOCKBOX_MASTER_KEY` keys in the secret.
   
   Read **[environment variables reference](https://docs.tooljet.com/docs/setup/env-vars)**
   :::

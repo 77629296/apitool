@@ -14,7 +14,7 @@ export class PostgrestProxyService {
   async perform(req, res, next) {
     const organizationId = req.headers['tj-workspace-id'] || req.dataQuery?.app?.organizationId;
     req.url = await this.replaceTableNamesAtPlaceholder(req, organizationId);
-    const authToken = 'Bearer ' + this.signJwtPayload(this.configService.get<string>('PG_USER'));
+    const authToken = 'Bearer ' + this.signJwtPayload(this.configService.get<string>('POSTGRES_USER'));
     req.headers = {};
     req.headers['Authorization'] = authToken;
     req.headers['Prefer'] = 'count=exact'; // To get the total count of records

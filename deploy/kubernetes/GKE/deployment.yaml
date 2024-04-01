@@ -42,13 +42,13 @@ spec:
             periodSeconds: 5
             failureThreshold: 6
           env:
-            - name: PG_HOST
+            - name: POSTGRES_HOST
               value: ""
-            - name: PG_USER
+            - name: POSTGRES_USER
               value: "postgres"
-            - name: PG_PASS
+            - name: POSTGRES_PASSWORD
               value: ""
-            - name: PG_DB
+            - name: POSTGRES_DB
               value: ""
             - name: LOCKBOX_MASTER_KEY
               value: ""

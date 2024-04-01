@@ -75,11 +75,11 @@ Follow these steps to setup and run ToolJet on macOS for development purposes. O
    SECRET_KEY_BASE=4229d5774cfe7f60e75d6b3bf3a1dbb054a696b6d21b6d5de7b73291899797a222265e12c0a8e8d844f83ebacdf9a67ec42584edf1c2b23e1e7813f8a3339041
    NODE_ENV=development
    # DATABASE CONFIG
-   PG_HOST=postgres
+   POSTGRES_HOST=postgres
    PG_PORT=5432
-   PG_USER=postgres
-   PG_PASS=postgres
-   PG_DB=tooljet_development
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=postgres
+   POSTGRES_DB=tooljet_development
    ORM_LOGGING=all
    ```
 

@@ -19,11 +19,11 @@ env:
   LOCKBOX_MASTER_KEY: lockbox-master-key
   SECRET_KEY_BASE: secrret-key-base
   NODE_ENV: test
-  PG_HOST: postgres
+  POSTGRES_HOST: postgres
   PG_PORT: 5432
-  PG_USER: postgres
-  PG_PASS: postgres
-  PG_DB: tooljet_test
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: tooljet_test
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

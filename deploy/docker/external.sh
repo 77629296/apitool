@@ -62,28 +62,28 @@ generate_password() {
   openssl rand -base64 12 | tr -d '/+' | cut -c1-16
 }
 
-# Check if PG_USER, PG_HOST, PG_PASS, PG_DB are present or empty
-if [[ -z "$PG_USER" ]] || [[ -z "$PG_HOST" ]] || [[ -z "$PG_PASS" ]] || [[ -z "$PG_DB" ]]; then
+# Check if POSTGRES_USER, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_DB are present or empty
+if [[ -z "$POSTGRES_USER" ]] || [[ -z "$POSTGRES_HOST" ]] || [[ -z "$POSTGRES_PASSWORD" ]] || [[ -z "$POSTGRES_DB" ]]; then
   # Prompt user for values
-  read -p "Enter PostgreSQL database username: " PG_USER
-  read -p "Enter PostgreSQL database hostname: " PG_HOST
-  read -p "Enter PostgreSQL database password: " PG_PASS
-  read -p "Enter PostgreSQL database name: " PG_DB
+  read -p "Enter PostgreSQL database username: " POSTGRES_USER
+  read -p "Enter PostgreSQL database hostname: " POSTGRES_HOST
+  read -p "Enter PostgreSQL database password: " POSTGRES_PASSWORD
+  read -p "Enter PostgreSQL database name: " POSTGRES_DB
 
   # Update .env file
-  awk -v pg_user="$PG_USER" -v pg_host="$PG_HOST" -v pg_pass="$PG_PASS" -v pg_db="$PG_DB" '
+  awk -v pg_user="$POSTGRES_USER" -v pg_host="$POSTGRES_HOST" -v pg_pass="$POSTGRES_PASSWORD" -v pg_db="$POSTGRES_DB" '
     BEGIN { FS=OFS="=" }
-    /^PG_USER=/ { $2=pg_user; found=1 }
-    /^PG_HOST=/ { $2=pg_host; found=1 }
-    /^PG_PASS=/ { $2=pg_pass; found=1 }
-    /^PG_DB=/ { $2=pg_db; found=1 }
+    /^POSTGRES_USER=/ { $2=pg_user; found=1 }
+    /^POSTGRES_HOST=/ { $2=pg_host; found=1 }
+    /^POSTGRES_PASSWORD=/ { $2=pg_pass; found=1 }
+    /^POSTGRES_DB=/ { $2=pg_db; found=1 }
     1
     END {
       if (!found) {
-        print "PG_USER="pg_user
-        print "PG_HOST="pg_host
-        print "PG_PASS="pg_pass
-        print "PG_DB="pg_db
+        print "POSTGRES_USER="pg_user
+        print "POSTGRES_HOST="pg_host
+        print "POSTGRES_PASSWORD="pg_pass
+        print "POSTGRES_DB="pg_db
       }
     }
   ' .env > temp.env && mv temp.env .env
@@ -92,9 +92,9 @@ if [[ -z "$PG_USER" ]] || [[ -z "$PG_HOST" ]] || [[ -z "$PG_PASS" ]] || [[ -z "$
 fi
 
 # Copy values from PG to TOOLJET_DB
-TOOLJET_DB_USER=$PG_USER
-TOOLJET_DB_HOST=$PG_HOST
-TOOLJET_DB_PASS=$PG_PASS
+TOOLJET_DB_USER=$POSTGRES_USER
+TOOLJET_DB_HOST=$POSTGRES_HOST
+TOOLJET_DB_PASS=$POSTGRES_PASSWORD
 
 # Update .env file for TOOLJET_DB
 awk -v tj_user="$TOOLJET_DB_USER" -v tj_host="$TOOLJET_DB_HOST" -v tj_pass="$TOOLJET_DB_PASS" '
@@ -109,7 +109,7 @@ awk -v tj_user="$TOOLJET_DB_USER" -v tj_host="$TOOLJET_DB_HOST" -v tj_pass="$TOO
 echo "Successfully updated tooljet database values in the .env file"
 
 # Construct PGRST_DB_URI with user-provided values
-PGRST_DB_URI="postgres://$PG_USER:$PG_PASS@$PG_HOST/tooljet_db"
+PGRST_DB_URI="postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST/tooljet_db"
 
 # Update .env file for PGRST_DB_URI
 awk -v uri="$PGRST_DB_URI" '

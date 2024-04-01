@@ -22,11 +22,11 @@ function sslConfig(envVars) {
 function buildConnectionOptions(): TypeOrmModuleOptions {
   const data = getEnvVars();
   const connectionParams = {
-    database: data.PG_DB,
+    database: data.POSTGRES_DB,
     port: +data.PG_PORT || 5432,
-    username: data.PG_USER,
-    password: data.PG_PASS,
-    host: data.PG_HOST,
+    username: data.POSTGRES_USER,
+    password: data.POSTGRES_PASSWORD,
+    host: data.POSTGRES_HOST,
     connectTimeoutMS: 5000,
     extra: {
       max: 25,

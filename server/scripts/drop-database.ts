@@ -33,7 +33,7 @@ function dropDatabase(): void {
   const dbNameFromArg = process.argv[2];
   if (dbNameFromArg) return dropDb(envVars, dbNameFromArg);
 
-  dropDb(envVars, envVars.PG_DB);
+  dropDb(envVars, envVars.POSTGRES_DB);
 }
 
 function checkCommandAvailable(command: string) {
@@ -46,8 +46,8 @@ function checkCommandAvailable(command: string) {
 }
 
 function dropDb(envVars, dbName) {
-  const env = Object.assign({}, process.env, { PGPASSWORD: envVars.PG_PASS });
-  const dropDbArgs = ['-h', envVars.PG_HOST, '-p', envVars.PG_PORT, '-U', envVars.PG_USER, dbName];
+  const env = Object.assign({}, process.env, { PGPASSWORD: envVars.POSTGRES_PASSWORD });
+  const dropDbArgs = ['-h', envVars.POSTGRES_HOST, '-p', envVars.PG_PORT, '-U', envVars.POSTGRES_USER, dbName];
   const options = { env, stdio: 'pipe' } as ExecFileSyncOptions;
 
   try {

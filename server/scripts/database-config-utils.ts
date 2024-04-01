@@ -36,11 +36,11 @@ function buildDbConfigFromDatabaseURL(data): any {
 
   const { value: dbConfig, error } = validateDatabaseConfig({
     DATABASE_URL: data.DATBASE_URL,
-    PG_HOST: config?.host || data.PG_HOST,
+    POSTGRES_HOST: config?.host || data.POSTGRES_HOST,
     PG_PORT: config?.port || data.PG_PORT,
-    PG_PASS: config?.password || data.PG_PASS,
-    PG_USER: config?.user || data.PG_USER,
-    PG_DB: config?.database || data.PG_DB,
+    POSTGRES_PASSWORD: config?.password || data.POSTGRES_PASSWORD,
+    POSTGRES_USER: config?.user || data.POSTGRES_USER,
+    POSTGRES_DB: config?.database || data.POSTGRES_DB,
     PG_DB_OWNER: data.PG_DB_OWNER,
     ENABLE_TOOLJET_DB: data.ENABLE_TOOLJET_DB,
     TOOLJET_DB: TJDBconfig?.database || data.TOOLJET_DB,
@@ -86,11 +86,11 @@ function removeEmptyKeys(obj) {
 function validateDatabaseConfig(dbConfig: any): Joi.ValidationResult {
   const envVarsSchema = Joi.object()
     .keys({
-      PG_HOST: Joi.string().default('localhost'),
+      POSTGRES_HOST: Joi.string().default('localhost'),
       PG_PORT: Joi.number().positive().default(5432),
-      PG_PASS: Joi.string().default(''),
-      PG_USER: Joi.string().required(),
-      PG_DB: Joi.string().default('tooljet_production'),
+      POSTGRES_PASSWORD: Joi.string().default(''),
+      POSTGRES_USER: Joi.string().required(),
+      POSTGRES_DB: Joi.string().default('tooljet_production'),
       PG_DB_OWNER: Joi.string().default('true'),
       ...(dbConfig.ENABLE_TOOLJET_DB === 'true' && {
         TOOLJET_DB_HOST: Joi.string().default('localhost'),
@@ -109,11 +109,11 @@ function validateDatabaseConfig(dbConfig: any): Joi.ValidationResult {
 export function buildAndValidateDatabaseConfig(): Joi.ValidationResult {
   const config: any = getEnvVars();
   const dbConfig = {
-    PG_HOST: config.PG_HOST,
+    POSTGRES_HOST: config.POSTGRES_HOST,
     PG_PORT: config.PG_PORT,
-    PG_PASS: config.PG_PASS,
-    PG_USER: config.PG_USER,
-    PG_DB: config.PG_DB,
+    POSTGRES_PASSWORD: config.POSTGRES_PASSWORD,
+    POSTGRES_USER: config.POSTGRES_USER,
+    POSTGRES_DB: config.POSTGRES_DB,
     PG_DB_OWNER: config.PG_DB_OWNER,
     ENABLE_TOOLJET_DB: config.ENABLE_TOOLJET_DB,
     TOOLJET_DB: config.TOOLJET_DB,

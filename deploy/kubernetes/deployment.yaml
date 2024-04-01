@@ -42,22 +42,22 @@ spec:
             periodSeconds: 5
             failureThreshold: 6
           env:
-            - name: PG_HOST
+            - name: POSTGRES_HOST
               valueFrom:
                 secretKeyRef:
                   name: server
                   key: pg_host
-            - name: PG_USER
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: server
                   key: pg_user
-            - name: PG_PASS
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: server
                   key: pg_password
-            - name: PG_DB
+            - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   name: server

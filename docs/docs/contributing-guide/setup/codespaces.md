@@ -62,13 +62,13 @@ LOCKBOX_MASTER_KEY=
 
 SECRET_KEY_BASE=
 
-PG_USER=postgres
+POSTGRES_USER=postgres
 
-PG_HOST=localhost
+POSTGRES_HOST=localhost
 
-PG_PASS=postgres
+POSTGRES_PASSWORD=postgres
 
-PG_DB=tooljet_prod
+POSTGRES_DB=tooljet_prod
 
 SUB_PATH=/apps/tooljet/
 

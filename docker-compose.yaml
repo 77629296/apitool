@@ -45,7 +45,7 @@ services:
       - ./.env:/app/.env
       - ./.env.test:/app/.env.test
     ports:
-      - 5128:5128
+      - ${APITOOL_SERVER_PORT:-5128}:5128
     environment:
       - SERVE_CLIENT=false
       - FORCE_COLOR=1
@@ -65,13 +65,15 @@ services:
     image: postgres:13
     restart: always
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT:-5432}:5432
     volumes:
       - postgres:/data/postgres
     environment:
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"]
       interval: 10s
       timeout: 5s
       retries: 5

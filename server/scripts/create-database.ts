@@ -37,7 +37,7 @@ async function createDatabase(): Promise<void> {
   if (dbNameFromArg) {
     await createDb(envVars, dbNameFromArg);
   } else {
-    await createDb(envVars, envVars.PG_DB);
+    await createDb(envVars, envVars.POSTGRES_DB);
     if (process.env.ENABLE_TOOLJET_DB === 'true') {
       await createTooljetDb(envVars, envVars.TOOLJET_DB);
     }
@@ -67,11 +67,11 @@ async function createDb(envVars, dbName): Promise<void> {
   }
 
   try {
-    executeCreateDb(envVars.PG_HOST, envVars.PG_PORT, envVars.PG_USER, envVars.PG_PASS, dbName);
+    executeCreateDb(envVars.POSTGRES_HOST, envVars.PG_PORT, envVars.POSTGRES_USER, envVars.POSTGRES_PASSWORD, dbName);
     console.log(`Created database ${dbName}\n`);
   } catch (error) {
     if (error.message.includes(`database "${dbName}" already exists`)) {
-      console.log(`Using Application database\nPG_DB: ${dbName}\nPG_HOST: ${envVars.PG_HOST}\n`);
+      console.log(`Using Application database\nPG_DB: ${dbName}\nPG_HOST: ${envVars.POSTGRES_HOST}\n`);
     } else {
       throw error;
     }

@@ -38,7 +38,7 @@ jobs:
             "type": "web_service",
             "envVars": [
               {
-                "key": "PG_HOST",
+                "key": "POSTGRES_HOST",
                 "value": "${{ secrets.RENDER_PG_HOST }}"
               },
               {
@@ -46,15 +46,15 @@ jobs:
                 "value": "5432"
               },
               {
-                "key": "PG_USER",
+                "key": "POSTGRES_USER",
                 "value": "${{ secrets.RENDER_PG_USER }}"
               },
               {
-                "key": "PG_PASS",
+                "key": "POSTGRES_PASSWORD",
                 "value": "${{ secrets.RENDER_PG_PASS }}"
               },
               {
-                "key": "PG_DB",
+                "key": "POSTGRES_DB",
                 "value": "${{ env.PR_NUMBER }}"
               },
               {

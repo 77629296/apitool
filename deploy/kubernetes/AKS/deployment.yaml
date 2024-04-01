@@ -37,22 +37,22 @@ spec:
           periodSeconds: 5
           failureThreshold: 6
         env:
-          - name: PG_HOST
+          - name: POSTGRES_HOST
             valueFrom:
               secretKeyRef:
                 name: tooljet-secret
                 key: pg_host
-          - name: PG_USER
+          - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
                 name: tooljet-secret
                 key: pg_user
-          - name: PG_PASS
+          - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: tooljet-secret
                 key: pg_pass
-          - name: PG_DB
+          - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
                 name: tooljet-secret

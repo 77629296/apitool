@@ -62,17 +62,17 @@ generate_password() {
   openssl rand -base64 12 | tr -d '/+' | cut -c1-16
 }
 
-# Check if PG_PASS and TOOLJET_DB_PASS are present or empty
-if [[ -z "$PG_PASS" ]] && [[ -z "$TOOLJET_DB_PASS" ]]; then
+# Check if POSTGRES_PASSWORD and TOOLJET_DB_PASS are present or empty
+if [[ -z "$POSTGRES_PASSWORD" ]] && [[ -z "$TOOLJET_DB_PASS" ]]; then
   # Generate random passwords
   PASSWORD=$(generate_password)
 
   # Update .env file
   awk -v pass="$PASSWORD" '
     BEGIN { FS=OFS="=" }
-    /^(PG_PASS|TOOLJET_DB_PASS)=/ { $2=pass; found=1 }
+    /^(POSTGRES_PASSWORD|TOOLJET_DB_PASS)=/ { $2=pass; found=1 }
     1
-    END { if (!found) print "PG_PASS="pass ORS "TOOLJET_DB_PASS="pass }
+    END { if (!found) print "POSTGRES_PASSWORD="pass ORS "TOOLJET_DB_PASS="pass }
   ' .env > temp.env && mv temp.env .env
 
   echo "Successfully generated a secure password for the PostgreSQL database."
@@ -82,7 +82,7 @@ fi
 
 # Check if PGRST_DB_URI is present or empty
 if [[ -z "$PGRST_DB_URI" ]]; then
-  # Construct PGRST_DB_URI with PG_PASS
+  # Construct PGRST_DB_URI with POSTGRES_PASSWORD
   PGRST_DB_URI="postgres://postgres:$PASSWORD@postgresql/tooljet_db"
 
   # Update .env file for PGRST_DB_URI

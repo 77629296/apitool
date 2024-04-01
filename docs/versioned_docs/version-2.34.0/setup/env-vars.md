@@ -38,14 +38,14 @@ ToolJet server uses PostgreSQL as the database.
 
 | variable | description            |
 | -------- | ---------------------- |
-| PG_HOST  | postgres database host |
-| PG_DB    | name of the database   |
-| PG_USER  | username               |
-| PG_PASS  | password               |
+| POSTGRES_HOST  | postgres database host |
+| POSTGRES_DB    | name of the database   |
+| POSTGRES_USER  | username               |
+| POSTGRES_PASSWORD  | password               |
 | PG_PORT  | port                   |
 
 :::tip
-If you are using docker-compose setup, you can set PG_HOST as `postgres` which will be DNS resolved by docker
+If you are using docker-compose setup, you can set POSTGRES_HOST as `postgres` which will be DNS resolved by docker
 :::
 
 :::info
@@ -55,7 +55,7 @@ If you intent you use the DB connection url and if the connection does not suppo
 
 ### Disable database and extension creation (optional)
 
-ToolJet by default tries to create database based on `PG_DB` variable set and additionally my try to create postgres extensions. This requires the postgres user to have CREATEDB permission. If this cannot be granted you can disable this behaviour by setting `PG_DB_OWNER` as `false` and will have to manually run them.
+ToolJet by default tries to create database based on `POSTGRES_DB` variable set and additionally my try to create postgres extensions. This requires the postgres user to have CREATEDB permission. If this cannot be granted you can disable this behaviour by setting `PG_DB_OWNER` as `false` and will have to manually run them.
 
 ### Check for updates ( optional )
 

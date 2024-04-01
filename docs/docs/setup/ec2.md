@@ -48,10 +48,10 @@ Follow the steps below to deploy ToolJet on AWS EC2 instances.
    TOOLJET_HOST=http://<example>
    LOCKBOX_MASTER_KEY=<example>
    SECRET_KEY_BASE=<example>
-   PG_DB=tooljet_prod
-   PG_USER=<pg user name>
-   PG_HOST=<pg host>
-   PG_PASS=<pg user password>
+   POSTGRES_DB=tooljet_prod
+   POSTGRES_USER=<pg user name>
+   POSTGRES_HOST=<pg host>
+   POSTGRES_PASSWORD=<pg user password>
    ```
    Read **[environment variables reference](/docs/setup/env-vars)**
 

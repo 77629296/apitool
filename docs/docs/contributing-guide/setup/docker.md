@@ -68,11 +68,11 @@ Please find more information [here](https://docs.docker.com/desktop/windows/wsl/
     SECRET_KEY_BASE=ea85064ed42ad02cfc022e66d8bccf452e3fa1142421cbd7a13592d91a2cbb866d6001060b73a98a65be57e65524357d445efae00a218461088a706decd62dcb
     NODE_ENV=development
     # DATABASE CONFIG
-    PG_HOST=postgres
+    POSTGRES_HOST=postgres
     PG_PORT=5432
-    PG_USER=postgres
-    PG_PASS=postgres
-    PG_DB=tooljet_development
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=postgres
+    POSTGRES_DB=tooljet_development
     ORM_LOGGING=all
    ```
 
@@ -83,11 +83,11 @@ Please find more information [here](https://docs.docker.com/desktop/windows/wsl/
     SECRET_KEY_BASE=ea85064ed42ad02cfc022e66d8bccf452e3fa1142421cbd7a13592d91a2cbb866d6001060b73a98a65be57e65524357d445efae00a218461088a706decd62dcb
     NODE_ENV=test
     # DATABASE CONFIG
-    PG_HOST=postgres
+    POSTGRES_HOST=postgres
     PG_PORT=5432
-    PG_USER=postgres
-    PG_PASS=postgres
-    PG_DB=tooljet_test
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=postgres
+    POSTGRES_DB=tooljet_test
     ORM_LOGGING=error
    ```
 

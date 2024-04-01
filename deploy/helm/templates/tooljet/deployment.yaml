@@ -36,19 +36,19 @@ spec:
           env:
             - name: TOOLJET_HOST
               value: "{{ .Values.apps.tooljet.service.host }}"
-            - name: PG_HOST
+            - name: POSTGRES_HOST
               value: "{{ .Release.Name }}-postgresql"
-            - name: PG_USER
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Values.apps.tooljet.secret.name }}"
                   key: pg_user
-            - name: PG_PASS
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Values.apps.tooljet.secret.name }}"
                   key: pg_password
-            - name: PG_DB
+            - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Values.apps.tooljet.secret.name }}"
