@@ -20,7 +20,7 @@ env:
   SECRET_KEY_BASE: secrret-key-base
   NODE_ENV: test
   POSTGRES_HOST: postgres
-  PG_PORT: 5432
+  POSTGRES_PORT: 5432
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_DB: tooljet_test

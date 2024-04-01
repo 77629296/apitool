@@ -47,7 +47,7 @@ function checkCommandAvailable(command: string) {
 
 function dropDb(envVars, dbName) {
   const env = Object.assign({}, process.env, { PGPASSWORD: envVars.POSTGRES_PASSWORD });
-  const dropDbArgs = ['-h', envVars.POSTGRES_HOST, '-p', envVars.PG_PORT, '-U', envVars.POSTGRES_USER, dbName];
+  const dropDbArgs = ['-h', envVars.POSTGRES_HOST, '-p', envVars.POSTGRES_PORT, '-U', envVars.POSTGRES_USER, dbName];
   const options = { env, stdio: 'pipe' } as ExecFileSyncOptions;
 
   try {

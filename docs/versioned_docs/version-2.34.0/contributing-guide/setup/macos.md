@@ -76,7 +76,7 @@ Follow these steps to setup and run ToolJet on macOS for development purposes. O
    NODE_ENV=development
    # DATABASE CONFIG
    POSTGRES_HOST=postgres
-   PG_PORT=5432
+   POSTGRES_PORT=5432
    POSTGRES_USER=postgres
    POSTGRES_PASSWORD=postgres
    POSTGRES_DB=tooljet_development

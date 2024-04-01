@@ -49,6 +49,10 @@ services:
     environment:
       - SERVE_CLIENT=false
       - FORCE_COLOR=1
+      - APITOOL_SERVER_PORT=${APITOOL_SERVER_PORT:-5128}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
     command: npm run --prefix server start:dev
 
   postgrest:
@@ -69,11 +73,11 @@ services:
     volumes:
       - postgres:/data/postgres
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-postgres}
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-apitool}
+      POSTGRES_USER: ${POSTGRES_USER:-apitool}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-apitool}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-apitool} -d ${POSTGRES_DB:-apitool}"]
       interval: 10s
       timeout: 5s
       retries: 5

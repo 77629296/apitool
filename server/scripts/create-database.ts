@@ -67,7 +67,13 @@ async function createDb(envVars, dbName): Promise<void> {
   }
 
   try {
-    executeCreateDb(envVars.POSTGRES_HOST, envVars.PG_PORT, envVars.POSTGRES_USER, envVars.POSTGRES_PASSWORD, dbName);
+    executeCreateDb(
+      envVars.POSTGRES_HOST,
+      envVars.POSTGRES_PORT,
+      envVars.POSTGRES_USER,
+      envVars.POSTGRES_PASSWORD,
+      dbName
+    );
     console.log(`Created database ${dbName}\n`);
   } catch (error) {
     if (error.message.includes(`database "${dbName}" already exists`)) {

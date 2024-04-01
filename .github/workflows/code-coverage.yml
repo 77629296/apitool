@@ -53,7 +53,7 @@ jobs:
           echo "POSTGRES_USER=postgres" >> .env
           echo "POSTGRES_HOST=localhost" >> .env
           echo "POSTGRES_PASSWORD=postgres" >> .env
-          echo "PG_PORT=5432" >> .env
+          echo "POSTGRES_PORT=5432" >> .env
           echo "ENABLE_TOOLJET_DB=true" >> .env
           echo "TOOLJET_DB=tooljet" >> .env
           echo "TOOLJET_DB_USER=postgres" >> .env

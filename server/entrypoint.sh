@@ -12,16 +12,16 @@ if [ -f "./.env" ]; then
 fi
 
 if [ -z "$DATABASE_URL" ]; then
-  ./server/scripts/wait-for-it.sh $POSTGRES_HOST:${PG_PORT:-5432} --strict --timeout=300 -- $SETUP_CMD
+  ./server/scripts/wait-for-it.sh $POSTGRES_HOST:${POSTGRES_PORT:-5432} --strict --timeout=300 -- $SETUP_CMD
 else
   POSTGRES_HOST=$(echo "$DATABASE_URL" | awk -F'[/:@?]' '{print $6}')
-  PG_PORT=$(echo "$DATABASE_URL" | awk -F'[/:@?]' '{print $7}')
+  POSTGRES_PORT=$(echo "$DATABASE_URL" | awk -F'[/:@?]' '{print $7}')
 
   if [ -z "$DATABASE_PORT" ]; then
     DATABASE_PORT="5432"
   fi
 
-  ./server/scripts/wait-for-it.sh "$POSTGRES_HOST:$PG_PORT" --strict --timeout=300 -- $SETUP_CMD
+  ./server/scripts/wait-for-it.sh "$POSTGRES_HOST:$POSTGRES_PORT" --strict --timeout=300 -- $SETUP_CMD
 fi
 
 exec "$@"

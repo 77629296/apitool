@@ -23,7 +23,7 @@ function buildConnectionOptions(): TypeOrmModuleOptions {
   const data = getEnvVars();
   const connectionParams = {
     database: data.POSTGRES_DB,
-    port: +data.PG_PORT || 5432,
+    port: +data.POSTGRES_PORT || 5432,
     username: data.POSTGRES_USER,
     password: data.POSTGRES_PASSWORD,
     host: data.POSTGRES_HOST,

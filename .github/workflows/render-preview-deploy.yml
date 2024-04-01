@@ -42,7 +42,7 @@ jobs:
                 "value": "${{ secrets.RENDER_PG_HOST }}"
               },
               {
-                "key": "PG_PORT",
+                "key": "POSTGRES_PORT",
                 "value": "5432"
               },
               {

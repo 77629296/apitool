@@ -37,7 +37,7 @@ function buildDbConfigFromDatabaseURL(data): any {
   const { value: dbConfig, error } = validateDatabaseConfig({
     DATABASE_URL: data.DATBASE_URL,
     POSTGRES_HOST: config?.host || data.POSTGRES_HOST,
-    PG_PORT: config?.port || data.PG_PORT,
+    POSTGRES_PORT: config?.port || data.POSTGRES_PORT,
     POSTGRES_PASSWORD: config?.password || data.POSTGRES_PASSWORD,
     POSTGRES_USER: config?.user || data.POSTGRES_USER,
     POSTGRES_DB: config?.database || data.POSTGRES_DB,
@@ -87,7 +87,7 @@ function validateDatabaseConfig(dbConfig: any): Joi.ValidationResult {
   const envVarsSchema = Joi.object()
     .keys({
       POSTGRES_HOST: Joi.string().default('localhost'),
-      PG_PORT: Joi.number().positive().default(5432),
+      POSTGRES_PORT: Joi.number().positive().default(5432),
       POSTGRES_PASSWORD: Joi.string().default(''),
       POSTGRES_USER: Joi.string().required(),
       POSTGRES_DB: Joi.string().default('tooljet_production'),
@@ -110,7 +110,7 @@ export function buildAndValidateDatabaseConfig(): Joi.ValidationResult {
   const config: any = getEnvVars();
   const dbConfig = {
     POSTGRES_HOST: config.POSTGRES_HOST,
-    PG_PORT: config.PG_PORT,
+    POSTGRES_PORT: config.POSTGRES_PORT,
     POSTGRES_PASSWORD: config.POSTGRES_PASSWORD,
     POSTGRES_USER: config.POSTGRES_USER,
     POSTGRES_DB: config.POSTGRES_DB,

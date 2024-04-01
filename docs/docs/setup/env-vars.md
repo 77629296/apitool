@@ -42,7 +42,7 @@ ToolJet server uses PostgreSQL as the database.
 | POSTGRES_DB    | name of the database   |
 | POSTGRES_USER  | username               |
 | POSTGRES_PASSWORD  | password               |
-| PG_PORT  | port                   |
+| POSTGRES_PORT  | port                   |
 
 :::tip
 If you are using docker-compose setup, you can set POSTGRES_HOST as `postgres` which will be DNS resolved by docker
