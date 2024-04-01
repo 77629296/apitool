@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  postgrest:
+    image: postgrest/postgrest:v12.0.2
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:13
+    restart: always
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+      - postgres:/data/postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-apitool}
+      POSTGRES_USER: ${POSTGRES_USER:-apitool}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-apitool}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-apitool} -d ${POSTGRES_DB:-apitool}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres:

@@ -4,8 +4,8 @@ services:
   plugins:
     build:
       context: ./
-      dockerfile: ./docker/plugins.Dockerfile.dev
-    image: tooljet-plugins:development
+      dockerfile: ./docker/plugins.Dockerfile
+    image: apitool-plugins:development
     platform: linux/x86_64
     volumes:
       - ./plugins:/app/plugins
@@ -14,8 +14,8 @@ services:
   client:
     build:
       context: ./
-      dockerfile: ./docker/client.Dockerfile.dev
-    image: tooljet-client:development
+      dockerfile: ./docker/client.Dockerfile
+    image: apitool-client:development
     platform: linux/x86_64
     volumes:
       - ./frontend:/app/frontend:delegated
@@ -32,8 +32,8 @@ services:
   server:
     build:
       context: ./
-      dockerfile: ./docker/server.Dockerfile.dev
-    image: tooljet-server:development
+      dockerfile: ./docker/server.Dockerfile
+    image: apitool-server:development
     platform: linux/x86_64
     depends_on:
       postgres:
