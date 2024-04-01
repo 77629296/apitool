@@ -365,7 +365,7 @@ Cypress.Commands.add("getPosition", (componentName) => {
 
 Cypress.Commands.add("defaultWorkspaceLogin", () => {
   cy.apiLogin();
-  cy.intercept("GET", "http://localhost:3000/api/library_apps").as(
+  cy.intercept("GET", "http://localhost:5128/api/library_apps").as(
     "library_apps"
   );
   cy.visit("/my-workspace");

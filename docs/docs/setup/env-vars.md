@@ -82,14 +82,14 @@ Use this environment variable to enable/disable the feature that allows users to
 
 Use this environment variable to enable/disable the developement mode that allows developers to build the plugin.
 
-| variable                   | value             |
-| -------------------------- | ----------------- |
+| variable                    | value             |
+| --------------------------- | ----------------- |
 | ENABLE_MARKETPLACE_DEV_MODE | `true` or `false` |
 
 ### User Session Expiry Time (Optional)
 
-| variable         | description                                     |
-| ---------------- | ----------------------------------------------- |
+| variable            | description                                                                                                                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | USER_SESSION_EXPIRY | This variable controls the user session expiry time. By default, the session expires after **10** days. The variable expects the value in minutes. ex: USER_SESSION_EXPIRY = 120 which is 2 hours |
 
 ### Enable ToolJet Database ( optional )
@@ -121,9 +121,9 @@ If you intent you use the DB connection url and if the connection does not suppo
 
 You can specify a different server for backend if it is hosted on another server.
 
-| variable    | value                                                                                             |
-| ----------- | ------------------------------------------------------------------------------------------------- |
-| SERVER_HOST | Configure a hostname for the server as a proxy pass. If no value is set, it defaults to `server`. |
+| variable            | value                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------- |
+| APITOOL_SERVER_HOST | Configure a hostname for the server as a proxy pass. If no value is set, it defaults to `server`. |
 
 ### Hide account setup link
 
@@ -265,11 +265,11 @@ This is required when client is built separately.
 
 ### Server Port ( optional)
 
-This could be used to for local development, it will set the server url like so: `http://localhost:<TOOLJET_SERVER_PORT>`
+This could be used to for local development, it will set the server url like so: `http://localhost:<APITOOL_SERVER_PORT>`
 
 | variable            | description                             |
 | ------------------- | --------------------------------------- |
-| TOOLJET_SERVER_PORT | the port of ToolJet server ( eg: 3000 ) |
+| APITOOL_SERVER_PORT | the port of ToolJet server ( eg: 3000 ) |
 
 ### Asset path ( optionally required )
 
@@ -309,8 +309,8 @@ Please make sure that DB_URI is given in the format `postgrest://[USERNAME]:[PAS
 
 If a log file path is specified in environment variables, a log file containing all the data from audit logs will be created at the specified path. The file will be updated every time a new audit log is created.
 
-| Variable | Description                                                                 |
-| -------- | --------------------------------------------------------------------------- |
+| Variable      | Description                                                                      |
+| ------------- | -------------------------------------------------------------------------------- |
 | LOG_FILE_PATH | the path where the log file will be created ( eg: tooljet/log/tooljet-audit.log) |
 
 ## ToolJet Apps
@@ -319,8 +319,8 @@ If a log file path is specified in environment variables, a log file containing 
 
 By default, only embedding of public apps is permitted. By setting this variable, users will be able to embed private ToolJet Apps.
 
-| Variable        | Description                           |
-| --------------- | ------------------------------------- |
+| Variable                 | Description       |
+| ------------------------ | ----------------- |
 | ENABLE_PRIVATE_APP_EMBED | `true` or `false` |
 
 :::caution
@@ -330,22 +330,22 @@ The option is only available starting from ToolJet Enterprise Edition `2.8.0` or
 ## Configuring the Default Language
 To change the default language, set the LANGUAGE variable to your desired language code. 
 
-| Variable        | Description                           |
-| --------------- | ------------------------------------- |
+| Variable | Description     |
+| -------- | --------------- |
 | LANGUAGE | `LANGUAGE_CODE` |
 
 Available Languages with their codes and native names:
 
-| Language    | Code | Native Name       |
-|-------------|------|-------------------|
-| English     | en   | English           |
-| French      | fr   | Français          |
-| Spanish     | es   | Español           |
-| Italian     | it   | Italiano          |
-| Indonesian  | id   | Bahasa Indonesia  |
-| Ukrainian   | uk   | Українська        |
-| Russian     | ru   | Русский           |
-| German      | de   | Deutsch           |
+| Language   | Code | Native Name      |
+| ---------- | ---- | ---------------- |
+| English    | en   | English          |
+| French     | fr   | Français         |
+| Spanish    | es   | Español          |
+| Italian    | it   | Italiano         |
+| Indonesian | id   | Bahasa Indonesia |
+| Ukrainian  | uk   | Українська       |
+| Russian    | ru   | Русский          |
+| German     | de   | Deutsch          |
 
 For instance, to set the language to French, you can set the LANGUAGE variable to `fr`. 
 

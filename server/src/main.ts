@@ -126,7 +126,7 @@ async function bootstrap() {
   });
 
   const listen_addr = process.env.LISTEN_ADDR || '::';
-  const port = parseInt(process.env.PORT) || 3000;
+  const port = parseInt(process.env.APITOOL_SERVER_PORT);
 
   if (process.env.SERVE_CLIENT !== 'false' && process.env.NODE_ENV === 'production') {
     replaceSubpathPlaceHoldersInStaticAssets();

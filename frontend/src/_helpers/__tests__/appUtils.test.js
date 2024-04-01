@@ -4,7 +4,7 @@ jest.mock(
   'config',
   () => {
     return {
-      apiUrl: `http://localhost:3000/api`,
+      apiUrl: `http://localhost:${process.env.APITOOL_SERVER_PORT}/api`,
       SERVER_IP: process.env.SERVER_IP,
       COMMENT_FEATURE_ENABLE: true,
       ENABLE_MULTIPLAYER_EDITING: true,

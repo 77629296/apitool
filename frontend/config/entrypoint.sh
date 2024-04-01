@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 set -eu
 
-export SERVER_HOST="${SERVER_HOST:=server}"
-export SERVER_USER="${SERVER_USER:=root}"
-VARS_TO_SUBSTITUTE='$SERVER_HOST:$SERVER_USER'
+export APITOOL_SERVER_HOST="${APITOOL_SERVER_HOST:=server}"
+export APITOOL_SERVER_USER="${APITOOL_SERVER_USER:=root}"
+VARS_TO_SUBSTITUTE='$APITOOL_SERVER_HOST:$APITOOL_SERVER_USER'
 
 envsubst "${VARS_TO_SUBSTITUTE}" < /etc/openresty/nginx.conf.template > /etc/openresty/nginx.conf
 

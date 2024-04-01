@@ -6,7 +6,7 @@ Cypress.Commands.add(
     workspaceId = ""
   ) => {
     cy.request({
-      url: `http://localhost:3000/api/authenticate/${workspaceId}`,
+      url: `http://localhost:5128/api/authenticate/${workspaceId}`,
       method: "POST",
       body: {
         email: userEmail,
@@ -67,7 +67,7 @@ Cypress.Commands.add("apiCreateApp", (appName = "testApp") => {
     Cypress.env("authToken", `tj_auth_token=${cookie.value}`);
     cy.request({
       method: "POST",
-      url: "http://localhost:3000/api/apps",
+      url: "http://localhost:5128/api/apps",
       headers: {
         "Tj-Workspace-Id": Cypress.env("workspaceId"),
         Cookie: `tj_auth_token = ${cookie.value}`,
@@ -101,7 +101,7 @@ Cypress.Commands.add("apiDeleteApp", (appId = Cypress.env("appId")) => {
   cy.request(
     {
       method: "DELETE",
-      url: `http://localhost:3000/api/apps/${Cypress.env("appId")}`,
+      url: `http://localhost:5128/api/apps/${Cypress.env("appId")}`,
       headers: {
         "Tj-Workspace-Id": Cypress.env("workspaceId"),
         Cookie: Cypress.env("authToken"),
@@ -138,7 +138,7 @@ Cypress.Commands.add("apiCreateWorkspace", (workspaceName, workspaceSlug) => {
     cy.request(
       {
         method: "POST",
-        url: "http://localhost:3000/api/organizations",
+        url: "http://localhost:5128/api/organizations",
         headers: {
           "Tj-Workspace-Id": Cypress.env("workspaceId"),
           Cookie: `tj_auth_token=${cookie.value}`,
@@ -160,7 +160,7 @@ Cypress.Commands.add("logoutApi", () => {
     cy.request(
       {
         method: "GET",
-        url: "http://localhost:3000/api/logout",
+        url: "http://localhost:5128/api/logout",
         headers: {
           "Tj-Workspace-Id": Cypress.env("workspaceId"),
           Cookie: `tj_auth_token=${cookie.value}`,
@@ -178,7 +178,7 @@ Cypress.Commands.add("userInviteApi", (userName, userEmail) => {
     cy.request(
       {
         method: "POST",
-        url: "http://localhost:3000/api/organization_users",
+        url: "http://localhost:5128/api/organization_users",
         headers: {
           "Tj-Workspace-Id": Cypress.env("workspaceId"),
           Cookie: `tj_auth_token=${cookie.value}`,
@@ -204,7 +204,7 @@ Cypress.Commands.add("addQueryApi", (queryName, query, dataQueryId) => {
     };
     cy.request({
       method: "PATCH",
-      url: `http://localhost:3000/api/data_queries/${dataQueryId}`,
+      url: `http://localhost:5128/api/data_queries/${dataQueryId}`,
       headers: headers,
       body: {
         name: queryName,
@@ -231,7 +231,7 @@ Cypress.Commands.add(
 
       cy.request({
         method: "GET",
-        url: `http://localhost:3000/api/apps/${appId}`,
+        url: `http://localhost:5128/api/apps/${appId}`,
         headers: {
           "Tj-Workspace-Id": workspaceId,
           Cookie: `${authToken}; app_id=${appId}`,
@@ -243,7 +243,7 @@ Cypress.Commands.add(
 
         cy.request({
           method: "POST",
-          url: "http://localhost:3000/api/data_queries",
+          url: "http://localhost:5128/api/data_queries",
           headers: {
             "Content-Type": "application/json",
             Cookie: authToken,

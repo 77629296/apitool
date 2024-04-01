@@ -14,7 +14,7 @@ const environment = process.env.NODE_ENV === 'production' ? 'production' : 'deve
 
 const API_URL = {
   production: process.env.TOOLJET_SERVER_URL || (process.env.SERVE_CLIENT !== 'false' ? '__REPLACE_SUB_PATH__' : ''),
-  development: `http://localhost:${process.env.TOOLJET_SERVER_PORT || 3000}`,
+  development: `http://localhost:${process.env.APITOOL_SERVER_PORT}`,
 };
 
 const ASSET_PATH = process.env.ASSET_PATH || '';

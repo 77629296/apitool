@@ -49,9 +49,9 @@ sudo openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \
      -out /etc/fallback-certs/resty-auto-ssl-fallback.crt
 
 # Setup nginx config
-export SERVER_HOST="${SERVER_HOST:=localhost}"
-export SERVER_USER="${SERVER_USER:=www-data}"
-VARS_TO_SUBSTITUTE='$SERVER_HOST:$SERVER_USER'
+export APITOOL_SERVER_HOST="${APITOOL_SERVER_HOST:=localhost}"
+export APITOOL_SERVER_USER="${APITOOL_SERVER_USER:=www-data}"
+VARS_TO_SUBSTITUTE='$APITOOL_SERVER_HOST:$APITOOL_SERVER_USER'
 envsubst "${VARS_TO_SUBSTITUTE}" < /tmp/nginx.conf > /tmp/nginx-substituted.conf
 sudo cp /tmp/nginx-substituted.conf /usr/local/openresty/nginx/conf/nginx.conf
 

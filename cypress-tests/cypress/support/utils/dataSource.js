@@ -80,7 +80,7 @@ export const addQueryN = (queryName, query, dbName) => {
       cy.clearAndType('[data-cy="gds-querymanager-search-bar"]', `${dbName}`);
     }
   });
-  cy.intercept("POST", "http://localhost:3000/api/data_queries").as(
+  cy.intercept("POST", "http://localhost:5128/api/data_queries").as(
     "createQuery"
   );
 
@@ -99,7 +99,7 @@ export const addQueryN = (queryName, query, dbName) => {
 export const addQuery = (queryName, query, dbName) => {
   cy.get('[data-cy="show-ds-popover-button"]').click();
   cy.get(".css-1rrkggf-Input").type(`${dbName}`);
-  cy.intercept("POST", "http://localhost:3000/api/data_queries").as(
+  cy.intercept("POST", "http://localhost:5128/api/data_queries").as(
     "createQuery"
   );
   cy.contains(`[id*="react-select-"]`, dbName).click();
@@ -117,7 +117,7 @@ export const addQuery = (queryName, query, dbName) => {
 export const addQueryAndOpenEditor = (queryName, query, dbName, appName) => {
   cy.get('[data-cy="show-ds-popover-button"]').click();
   cy.get(".css-1rrkggf-Input").type(`${dbName}`);
-  cy.intercept("POST", "http://localhost:3000/api/data_queries").as(
+  cy.intercept("POST", "http://localhost:5128/api/data_queries").as(
     "createQuery"
   );
   cy.contains(`[id*="react-select-"]`, dbName).click();
