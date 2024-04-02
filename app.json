@@ -13,12 +13,12 @@
       "description": "Environment [production/development]",
       "value": "production"
     },
-    "TOOLJET_HOST": {
+    "APITOOL_HOST": {
       "description": "Public URL of ToolJet installation. This is usually https://<app-name-in-first-step>.herokuapp.com",
       "value": "https://<app-name-in-first-step>.herokuapp.com"
     },
-    "TOOLJET_SERVER_URL": {
-      "description": "URL of ToolJet server installation. (This is same as the TOOLJET_HOST for Heroku deployments)",
+    "APITOOL_SERVER_URL": {
+      "description": "URL of ToolJet server installation. (This is same as the APITOOL_HOST for Heroku deployments)",
       "value": "https://<app-name-in-first-step>.herokuapp.com"
     },
     "LOCKBOX_MASTER_KEY": {

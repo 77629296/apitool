@@ -130,7 +130,7 @@ function validateAndMaybeSetOAuthHeaders(sourceOptions, context, headers): Query
 
 export function getAuthUrl(sourceOptions: any): string {
   const customQueryParams = sanitizeCustomParams(sourceOptions['custom_query_params']);
-  const host = process.env.TOOLJET_HOST;
+  const host = process.env.APITOOL_HOST;
   const subpath = process.env.SUB_PATH;
   const fullUrl = `${host}${subpath ? subpath : '/'}`;
 

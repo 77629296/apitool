@@ -15,7 +15,7 @@ If you decide to self-host ToolJet, there are a few additional steps you need to
 2. Assign the corresponding values obtained from the previous step to the following environment variables:
    - `GOOGLE_CLIENT_ID`
    - `GOOGLE_CLIENT_SECRET`
-   - `TOOLJET_HOST`
+   - `APITOOL_HOST`
 3. Activate the Google Sheets API within the Google Cloud Platform (GCP) console.
 
 ## Connection

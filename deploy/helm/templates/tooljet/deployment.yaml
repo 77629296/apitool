@@ -34,7 +34,7 @@ spec:
             periodSeconds: 5
             failureThreshold: 6
           env:
-            - name: TOOLJET_HOST
+            - name: APITOOL_HOST
               value: "{{ .Values.apps.tooljet.service.host }}"
             - name: POSTGRES_HOST
               value: "{{ .Release.Name }}-postgresql"

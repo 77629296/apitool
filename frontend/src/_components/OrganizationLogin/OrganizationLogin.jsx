@@ -285,7 +285,7 @@ class OrganizationLogin extends React.Component {
                       </label>
                       <div className="d-flex justify-content-between form-control align-items-center">
                         <p id="login-url" data-cy="workspace-login-url">
-                          {`${window.public_config?.TOOLJET_HOST}${
+                          {`${window.public_config?.APITOOL_HOST}${
                             window.public_config?.SUB_PATH ? window.public_config?.SUB_PATH : '/'
                           }login/${
                             authenticationService?.currentSessionValue?.current_organization_slug ||

@@ -34,10 +34,10 @@ spec:
     - key: CA_CERT
       scope: RUN_TIME
       value: ${pg-db.CA_CERT}
-    - key: TOOLJET_HOST
+    - key: APITOOL_HOST
       scope: RUN_TIME
       value: ${APP_URL}
-    - key: TOOLJET_SERVER_URL
+    - key: APITOOL_SERVER_URL
       scope: RUN_TIME
       value: ${APP_URL}
   databases:

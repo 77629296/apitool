@@ -39,7 +39,7 @@ npm --prefix server run db:setup:prod
 
 if sudo systemctl start nest
 then
-  echo "The app will be served at ${TOOLJET_HOST}"
+  echo "The app will be served at ${APITOOL_HOST}"
 else
   echo "Failed to start the server!"
   exit 1

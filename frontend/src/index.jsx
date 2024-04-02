@@ -33,7 +33,7 @@ appService
       });
 
     if (window.public_config.APM_VENDOR === 'sentry') {
-      const tooljetServerUrl = window.public_config.TOOLJET_SERVER_URL;
+      const tooljetServerUrl = window.public_config.APITOOL_SERVER_URL;
       const tracingOrigins = ['localhost', /^\//];
       const releaseVersion = window.public_config.RELEASE_VERSION
         ? `tooljet-${window.public_config.RELEASE_VERSION}`

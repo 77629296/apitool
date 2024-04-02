@@ -54,7 +54,7 @@ spec:
               value: ""
             - name: SECRET_KEY_BASE
               value: ""
-            - name: TOOLJET_HOST
+            - name: APITOOL_HOST
               value: "https://tooljet.your-domain.com"
             - name: DEPLOYMENT_PLATFORM
               value: "k8s:gke"

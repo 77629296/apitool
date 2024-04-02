@@ -13,7 +13,7 @@ const version = fs.readFileSync(versionPath, 'utf-8').trim();
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 const API_URL = {
-  production: process.env.TOOLJET_SERVER_URL || (process.env.SERVE_CLIENT !== 'false' ? '__REPLACE_SUB_PATH__' : ''),
+  production: process.env.APITOOL_SERVER_URL || (process.env.SERVE_CLIENT !== 'false' ? '__REPLACE_SUB_PATH__' : ''),
   development: `http://localhost:${process.env.APITOOL_SERVER_PORT}`,
 };
 

@@ -32,7 +32,7 @@ RUN echo "[supervisord] \n" \
     "stdout_logfile_maxbytes=0 \n" | sed 's/ //' > /etc/supervisor/conf.d/supervisord.conf
 
 # ENV defaults
-ENV TOOLJET_HOST=http://localhost \
+ENV APITOOL_HOST=http://localhost \
     PORT=80 \
     NODE_ENV=production \
     LOCKBOX_MASTER_KEY=replace_with_lockbox_master_key \

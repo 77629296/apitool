@@ -20,7 +20,7 @@ export class CommentUsersService {
 
   private async getAppLinks(appVersionsId: string, comment: Comment) {
     const appVersion = await this.appVersionsRepository.findOne({ where: { id: appVersionsId }, relations: ['app'] });
-    const appLink = `${process.env.TOOLJET_HOST}/apps/${appVersion.app.id}`;
+    const appLink = `${process.env.APITOOL_HOST}/apps/${appVersion.app.id}`;
     const commentLink = `${appLink}?threadId=${comment.threadId}&commentId=${comment.id}`;
 
     return [appLink, commentLink, appVersion.app.name];

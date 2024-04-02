@@ -617,7 +617,7 @@ export const generateRedirectUrl = async (
     (ou) => ou.organizationId === current_organization?.id
   )?.invitationToken;
 
-  return `${process.env['TOOLJET_HOST']}${
+  return `${process.env['APITOOL_HOST']}${
     isOrgInvitation ? `/organization-invitations/${organizationToken}` : `/invitations/${user.invitationToken}`
   }${
     organizationToken

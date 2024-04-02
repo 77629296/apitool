@@ -79,7 +79,7 @@ COPY --from=builder /app/server/dist ./app/server/dist
 WORKDIR /app
 
 # ENV defaults
-ENV TOOLJET_HOST=http://localhost:80 \
+ENV APITOOL_HOST=http://localhost:80 \
     PGRST_HOST=http://localhost:3000 \
     PGRST_JWT_SECRET=r9iMKoe5CRMgvJBBtp4HrqN7QiPpUToj \
     TOOLJET_DB=tooljet_db \

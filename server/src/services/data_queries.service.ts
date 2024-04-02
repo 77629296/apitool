@@ -277,7 +277,7 @@ export class DataQueriesService {
 
   /* This function fetches the access token from the token url set in REST API (oauth) datasource */
   async fetchOAuthToken(sourceOptions: any, code: string, userId: any, isMultiAuthEnabled: boolean): Promise<any> {
-    const tooljetHost = process.env.TOOLJET_HOST;
+    const tooljetHost = process.env.APITOOL_HOST;
     const isUrlEncoded = this.checkIfContentTypeIsURLenc(sourceOptions['access_token_custom_headers']);
     const accessTokenUrl = sourceOptions['access_token_url'];
 

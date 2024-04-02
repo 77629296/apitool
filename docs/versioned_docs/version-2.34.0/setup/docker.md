@@ -56,18 +56,18 @@ Confused about which setup to select? Feel free to ask the community via Slack: 
   docker-compose up -d
   ```
 
-  4. **(Optional)** `TOOLJET_HOST` environment variable can either be the public ipv4 address of your server or a custom domain that you want to use. Which can be modified in the .env file.
+  4. **(Optional)** `APITOOL_HOST` environment variable can either be the public ipv4 address of your server or a custom domain that you want to use. Which can be modified in the .env file.
 
   Also, for setting up additional environment variables in the .env file, please check our documentation on [environment variable](/docs/setup/env-vars)
 
   Examples:
-  `TOOLJET_HOST=http://12.34.56.78` or
-  `TOOLJET_HOST=https://tooljet.yourdomain.com`
+  `APITOOL_HOST=http://12.34.56.78` or
+  `APITOOL_HOST=https://tooljet.yourdomain.com`
   
-  If you've set a custom domain for `TOOLJET_HOST`, add a `A record` entry in your DNS settings to point to the IP address of the server. 
+  If you've set a custom domain for `APITOOL_HOST`, add a `A record` entry in your DNS settings to point to the IP address of the server. 
 
   :::info
-  i. Please make sure that `TOOLJET_HOST` starts with either `http://` or `https://`
+  i. Please make sure that `APITOOL_HOST` starts with either `http://` or `https://`
 
   ii. Setup docker to run without root privileges by following the instructions written here https://docs.docker.com/engine/install/linux-postinstall/
 
@@ -109,18 +109,18 @@ Confused about which setup to select? Feel free to ask the community via Slack: 
   docker-compose up -d
   ```
 
-  5. **(Optional)** `TOOLJET_HOST` environment variable can either be the public ipv4 address of your server or a custom domain that you want to use. Which can be modified in the .env file.
+  5. **(Optional)** `APITOOL_HOST` environment variable can either be the public ipv4 address of your server or a custom domain that you want to use. Which can be modified in the .env file.
 
   Also, for setting up additional environment variables in the .env file, please check our documentation on [environment variable](/docs/setup/env-vars)
 
   Examples:
-  `TOOLJET_HOST=http://12.34.56.78` or
-  `TOOLJET_HOST=https://tooljet.yourdomain.com`
+  `APITOOL_HOST=http://12.34.56.78` or
+  `APITOOL_HOST=https://tooljet.yourdomain.com`
   
-  If you've set a custom domain for `TOOLJET_HOST`, add a `A record` entry in your DNS settings to point to the IP address of the server.
+  If you've set a custom domain for `APITOOL_HOST`, add a `A record` entry in your DNS settings to point to the IP address of the server.
 
   :::info
-  i. Please make sure that `TOOLJET_HOST` starts with either `http://` or `https://`
+  i. Please make sure that `APITOOL_HOST` starts with either `http://` or `https://`
 
   ii. If there are self signed HTTPS endpoints that Tooljet needs to connect to, please make sure that `NODE_EXTRA_CA_CERTS` environment variable is set to the absolute path containing the certificates.
 

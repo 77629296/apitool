@@ -94,7 +94,7 @@ describe.skip('Git Onboarding', () => {
           current_user = user;
           current_organization = user.organization;
 
-          const redirect_url = `${process.env['TOOLJET_HOST']}/invitations/${user.invitationToken}?source=sso`;
+          const redirect_url = `${process.env['APITOOL_HOST']}/invitations/${user.invitationToken}?source=sso`;
 
           expect(response.statusCode).toBe(201);
           expect(response.body.redirect_url).toEqual(redirect_url);

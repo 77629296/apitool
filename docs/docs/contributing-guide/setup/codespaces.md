@@ -56,7 +56,7 @@ Create a `.env` file by running the command `touch .env`. More information on th
 **For basic set-up you add the below env variables:**
 
 ```
-TOOLJET_HOST=http://localhost:3000
+APITOOL_HOST=http://localhost:3000
 
 LOCKBOX_MASTER_KEY=
 

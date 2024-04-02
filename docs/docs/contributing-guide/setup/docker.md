@@ -63,7 +63,7 @@ Please find more information [here](https://docs.docker.com/desktop/windows/wsl/
 
    ```bash
     cat .env
-    TOOLJET_HOST=http://localhost:8082
+    APITOOL_HOST=http://localhost:8082
     LOCKBOX_MASTER_KEY=13c9b8364ae71f714774c82498ba328813069e48d80029bb29f49d0ada5a8e40
     SECRET_KEY_BASE=ea85064ed42ad02cfc022e66d8bccf452e3fa1142421cbd7a13592d91a2cbb866d6001060b73a98a65be57e65524357d445efae00a218461088a706decd62dcb
     NODE_ENV=development
@@ -78,7 +78,7 @@ Please find more information [here](https://docs.docker.com/desktop/windows/wsl/
 
    ```bash
     cat .env.test
-    TOOLJET_HOST=http://localhost:8082
+    APITOOL_HOST=http://localhost:8082
     LOCKBOX_MASTER_KEY=13c9b8364ae71f714774c82498ba328813069e48d80029bb29f49d0ada5a8e40
     SECRET_KEY_BASE=ea85064ed42ad02cfc022e66d8bccf452e3fa1142421cbd7a13592d91a2cbb866d6001060b73a98a65be57e65524357d445efae00a218461088a706decd62dcb
     NODE_ENV=test

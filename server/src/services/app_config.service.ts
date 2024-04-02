@@ -16,13 +16,13 @@ export class AppConfigService {
 
   fetchDefaultConfig() {
     return [
-      'TOOLJET_SERVER_URL',
+      'APITOOL_SERVER_URL',
       'RELEASE_VERSION',
       'GOOGLE_MAPS_API_KEY',
       'APM_VENDOR',
       'SENTRY_DNS',
       'SENTRY_DEBUG',
-      'TOOLJET_HOST',
+      'APITOOL_HOST',
       'SUB_PATH',
       'ENABLE_MARKETPLACE_FEATURE',
       'ENABLE_TOOLJET_DB',

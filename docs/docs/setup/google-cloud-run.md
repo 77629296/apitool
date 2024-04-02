@@ -67,7 +67,7 @@ Follow the steps below to deploy ToolJet on Cloud run with `gcloud` CLI.
 
 5. Under environmental variable please add the below Tooljet application variables. You can also refer env variable [**here**](/docs/setup/env-vars). 
 
-  Update `TOOLJET_HOST` environment variable if you want to use the default url assigned with Cloud run after the initial deploy.
+  Update `APITOOL_HOST` environment variable if you want to use the default url assigned with Cloud run after the initial deploy.
 
   <div style={{textAlign: 'center'}}>
   <img className="screenshot-full" src="/img/cloud-run/env-variable-tooljet.png" alt="env-variable-tooljet" />

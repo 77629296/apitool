@@ -41,7 +41,7 @@ A webhook trigger allows you to run the workflow when a webhook is received. You
 - Find the API endpoint URL in the **Endpoint** field. You can use this URL to send a POST request to trigger the workflow. You can also click on the **Copy** button to copy the URL to the clipboard. You can either select `Copy URL` or `Copy as cURL` from the dropdown menu. The `Copy as cURL` option copies the URL as a cURL command which will include details such as the `API token` and `Environment`. An example of the Endpoint URL is as follows:
 
   ```
-  http://{TOOLJET_HOST}/api/v2/webhooks/workflows/:id/trigger
+  http://{APITOOL_HOST}/api/v2/webhooks/workflows/:id/trigger
   ```
 
   <div style={{textAlign: 'center'}}>
@@ -105,7 +105,7 @@ For limiting parallel executions, the following environment variables can be use
 | WEBHOOK_THROTTLE_LIMIT | 100 | Maximum number of requests within the TTL that will be throttled |
 
 :::tip Whitelisting API endpoints
-For Virtual Private Clouds (VPCs), restrict access only to the `{TOOLJET_HOST}/api/v2/workflows/*` endpoint.
+For Virtual Private Clouds (VPCs), restrict access only to the `{APITOOL_HOST}/api/v2/workflows/*` endpoint.
 :::
 
 ## Manual

@@ -202,7 +202,7 @@ export const generateInviteURL = (
   organizationId?: string,
   source?: string
 ) => {
-  const host = process.env.TOOLJET_HOST;
+  const host = process.env.APITOOL_HOST;
   const subpath = process.env.SUB_PATH;
 
   return `${host}${subpath ? subpath : '/'}invitations/${invitationToken}${
@@ -211,7 +211,7 @@ export const generateInviteURL = (
 };
 
 export const generateOrgInviteURL = (organizationToken: string, organizationId?: string) => {
-  const host = process.env.TOOLJET_HOST;
+  const host = process.env.APITOOL_HOST;
   const subpath = process.env.SUB_PATH;
   return `${host}${subpath ? subpath : '/'}organization-invitations/${organizationToken}${
     organizationId ? `?oid=${organizationId}` : ''

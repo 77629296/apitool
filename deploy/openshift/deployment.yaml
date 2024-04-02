@@ -72,7 +72,7 @@ spec:
                 secretKeyRef:
                   name: server
                   key: secret_key_base
-            - name: TOOLJET_HOST
+            - name: APITOOL_HOST
               valueFrom:
                 secretKeyRef:
                   name: server

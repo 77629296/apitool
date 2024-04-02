@@ -102,7 +102,7 @@ jobs:
                 "value": "80"
               },
               {
-                "key": "TOOLJET_HOST",
+                "key": "APITOOL_HOST",
                 "value": "https://tooljet-pr-${{ env.PR_NUMBER }}.onrender.com"
               },
               {

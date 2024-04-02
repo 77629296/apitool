@@ -17,9 +17,9 @@ SERVE_CLIENT=false npm run build
 ## Deploying ToolJet client on Firebase
 
 :::tip
-You should set the environment variable `TOOLJET_SERVER_URL` ( URL of the server ) while building the frontend and also set `SERVE_CLIENT` to `false`` for standalone client build.
+You should set the environment variable `APITOOL_SERVER_URL` ( URL of the server ) while building the frontend and also set `SERVE_CLIENT` to `false`` for standalone client build.
 
-For example: `SERVE_CLIENT=false TOOLJET_SERVER_URL=https://server.tooljet.com npm run build && firebase deploy`
+For example: `SERVE_CLIENT=false APITOOL_SERVER_URL=https://server.tooljet.com npm run build && firebase deploy`
 :::
 
 1. Initialize firebase project
@@ -35,10 +35,10 @@ For example: `SERVE_CLIENT=false TOOLJET_SERVER_URL=https://server.tooljet.com n
 ## Deploying ToolJet client with Google Cloud Storage
 
 :::tip
-You should set the environment variable `TOOLJET_SERVER_URL` ( URL of the server ) while building the frontend.
+You should set the environment variable `APITOOL_SERVER_URL` ( URL of the server ) while building the frontend.
 
 
-For example: `SERVE_CLIENT=false TOOLJET_SERVER_URL=https://server.tooljet.io npm run build`
+For example: `SERVE_CLIENT=false APITOOL_SERVER_URL=https://server.tooljet.io npm run build`
 :::
 
 #### Using Load balancer

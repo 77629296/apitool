@@ -45,7 +45,7 @@ Follow the steps below to deploy ToolJet on AWS EC2 instances.
 
    The default `.env` file looks like this:
    ```bash
-   TOOLJET_HOST=http://<example>
+   APITOOL_HOST=http://<example>
    LOCKBOX_MASTER_KEY=<example>
    SECRET_KEY_BASE=<example>
    POSTGRES_DB=tooljet_prod
@@ -59,26 +59,26 @@ Follow the steps below to deploy ToolJet on AWS EC2 instances.
    If there are self signed HTTPS endpoints that Tooljet needs to connect to, please make sure that `NODE_EXTRA_CA_CERTS` environment variable is set to the absolute path containing the certificates.
    :::
 
-8. `TOOLJET_HOST` environment variable determines where you can access the ToolJet client. It can either be the public ipv4 address of your instance or a custom domain that you want to use.
+8. `APITOOL_HOST` environment variable determines where you can access the ToolJet client. It can either be the public ipv4 address of your instance or a custom domain that you want to use.
 
    Examples:
-   `TOOLJET_HOST=http://12.34.56.78` or
-   `TOOLJET_HOST=https://yourdomain.com` or
-   `TOOLJET_HOST=https://tooljet.yourdomain.com`
+   `APITOOL_HOST=http://12.34.56.78` or
+   `APITOOL_HOST=https://yourdomain.com` or
+   `APITOOL_HOST=https://tooljet.yourdomain.com`
 
    :::info
    We use a [lets encrypt](https://letsencrypt.org/) plugin on top of nginx to create TLS certificates on the fly.
    :::
 
    :::info
-   Please make sure that `TOOLJET_HOST` starts with either `http://` or `https://`
+   Please make sure that `APITOOL_HOST` starts with either `http://` or `https://`
    :::
 
 9. Once you've configured the `.env` file, run `./setup_app`. This script will install all the dependencies of ToolJet and then will start the required services.
 
-10. If you've set a custom domain for `TOOLJET_HOST`, add a `A record` entry in your DNS settings to point to the IP address of the EC2 instance.
+10. If you've set a custom domain for `APITOOL_HOST`, add a `A record` entry in your DNS settings to point to the IP address of the EC2 instance.
 
-12. You're all done, ToolJet client would now be served at the value you've set in `TOOLJET_HOST`.
+12. You're all done, ToolJet client would now be served at the value you've set in `APITOOL_HOST`.
 
 #### Deploying Tooljet Database
 

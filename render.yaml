@@ -17,7 +17,7 @@ services:
         value: 'tooljet_db'
       - key: ENABLE_TOOLJET_DB
         value: 'true'
-      - key: TOOLJET_HOST
+      - key: APITOOL_HOST
         fromService:
           type: web
           name: ToolJet

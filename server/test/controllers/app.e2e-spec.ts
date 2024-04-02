@@ -578,7 +578,7 @@ describe('Authentication', () => {
         } = response;
         expect(status).toBe(200);
         expect(redirect_url).toBe(
-          `${process.env['TOOLJET_HOST']}/organization-invitations/${invitationToken}?oid=${orgUser.organizationId}`
+          `${process.env['APITOOL_HOST']}/organization-invitations/${invitationToken}?oid=${orgUser.organizationId}`
         );
       });
 
@@ -598,7 +598,7 @@ describe('Authentication', () => {
           status,
         } = response;
         expect(status).toBe(200);
-        expect(redirect_url).toBe(`${process.env['TOOLJET_HOST']}/invitations/${invitationToken}`);
+        expect(redirect_url).toBe(`${process.env['APITOOL_HOST']}/invitations/${invitationToken}`);
       });
     });
   });

@@ -17,12 +17,12 @@ handlebars.registerHelper('highlightMentionedUser', function (comment) {
 @Injectable()
 export class EmailService {
   private FROM_EMAIL;
-  private TOOLJET_HOST;
+  private APITOOL_HOST;
   private NODE_ENV;
 
   constructor() {
     this.FROM_EMAIL = process.env.DEFAULT_FROM_EMAIL || 'hello@tooljet.io';
-    this.TOOLJET_HOST = this.stripTrailingSlash(process.env.TOOLJET_HOST);
+    this.APITOOL_HOST = this.stripTrailingSlash(process.env.APITOOL_HOST);
     this.NODE_ENV = process.env.NODE_ENV || 'development';
   }
 
@@ -147,7 +147,7 @@ export class EmailService {
 
   async sendPasswordResetEmail(to: string, token: string) {
     const subject = 'password reset instructions';
-    const url = `${this.TOOLJET_HOST}/reset-password/${token}`;
+    const url = `${this.APITOOL_HOST}/reset-password/${token}`;
     const html = `
       Please use this link to reset your password: <a href="${url}">${url}</a>
     `;

@@ -46,7 +46,7 @@ async function bootstrap() {
     abortOnError: false,
   });
   const configService = app.get<ConfigService>(ConfigService);
-  const host = new URL(process.env.TOOLJET_HOST);
+  const host = new URL(process.env.APITOOL_HOST);
   const domain = host.hostname;
 
   app.useLogger(app.get(Logger));
@@ -133,7 +133,7 @@ async function bootstrap() {
   }
 
   await app.listen(port, listen_addr, function () {
-    const tooljetHost = configService.get<string>('TOOLJET_HOST');
+    const tooljetHost = configService.get<string>('APITOOL_HOST');
     console.log(`Ready to use at ${tooljetHost} 🚀`);
   });
 }
