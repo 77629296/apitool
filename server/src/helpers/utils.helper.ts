@@ -4,6 +4,7 @@ import { EntityManager, getManager } from 'typeorm';
 import { isEmpty } from 'lodash';
 import { ConflictException } from '@nestjs/common';
 import { DataBaseConstraints } from './db_constraints.constants';
+import { Resource } from 'src/entities/resource.entity';
 const protobuf = require('protobufjs');
 const semver = require('semver');
 
@@ -277,4 +278,46 @@ export const getMaxCopyNumber = (existNameList) => {
   // Creating the new name with maxNumber + 1
   const maxNumber = Math.max(...numbers, 0);
   return maxNumber + 1;
+};
+
+const getActionName = (originArray: Resource[], newItem: Resource): 'push' | 'unshift' => {
+  const originItem = originArray?.[0];
+  if (originItem && newItem.index > originItem.index) {
+    return 'push';
+  }
+  return 'unshift';
+};
+
+export const buildTree = (
+  flatList: Resource[],
+  idFieldName: string = 'id',
+  parentKeyFieldName: string = 'pid',
+  fieldNameForChildren: string = 'children'
+): Resource[] => {
+  const rootElements = [];
+  const lookup = {};
+  for (let index = 0; index < flatList.length; index++) {
+    const flatItem = flatList[index];
+    const itemId = flatItem[idFieldName];
+    lookup[itemId] = flatItem;
+    flatItem[fieldNameForChildren] = [];
+  }
+  for (let index = 0; index < flatList.length; index++) {
+    const flatItem = flatList[index];
+    const parentKey = flatItem[parentKeyFieldName];
+    if (parentKey != null) {
+      const parentObject = lookup[flatItem[parentKeyFieldName]];
+      if (parentObject) {
+        const actionName = getActionName(parentObject[fieldNameForChildren], flatItem);
+        parentObject[fieldNameForChildren][actionName](flatItem);
+      } else {
+        const actionName = getActionName(rootElements, flatItem);
+        rootElements[actionName](flatItem);
+      }
+    } else {
+      const actionName = getActionName(rootElements, flatItem);
+      rootElements[actionName](flatItem);
+    }
+  }
+  return rootElements;
 };

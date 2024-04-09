@@ -42,6 +42,8 @@ import { Layout } from 'src/entities/layout.entity';
 import { ComponentsService } from '@services/components.service';
 import { PageService } from '@services/page.service';
 import { EventsService } from '@services/events_handler.service';
+import { Resource } from 'src/entities/resource.entity';
+import { ResourcesService } from '@services/resources.service';
 
 @Module({
   imports: [
@@ -64,6 +66,7 @@ import { EventsService } from '@services/events_handler.service';
       Plugin,
       Component,
       Page,
+      Resource,
       EventHandler,
       Layout,
     ]),
@@ -84,6 +87,7 @@ import { EventsService } from '@services/events_handler.service';
     AppEnvironmentService,
     ComponentsService,
     PageService,
+    ResourcesService,
     EventsService,
   ],
   controllers: [AppsController, AppsControllerV2, AppUsersController, AppsImportExportController],

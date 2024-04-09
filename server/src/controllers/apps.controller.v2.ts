@@ -22,6 +22,7 @@ import { App } from 'src/entities/app.entity';
 import { User } from 'src/decorators/user.decorator';
 
 import { CreatePageDto, DeletePageDto } from '@dto/pages.dto';
+import { CreateResourceDto, DeleteResourceDto } from '@dto/resources.dto';
 import { CreateComponentDto, DeleteComponentDto, UpdateComponentDto, LayoutUpdateDto } from '@dto/component.dto';
 
 import { ValidAppInterceptor } from 'src/interceptors/valid.app.interceptor';
@@ -32,6 +33,7 @@ import { PageService } from '@services/page.service';
 import { EventsService } from '@services/events_handler.service';
 import { AppVersionUpdateDto } from '@dto/app-version-update.dto';
 import { CreateEventHandlerDto, UpdateEventHandlerDto } from '@dto/event-handler.dto';
+import { ResourcesService } from '@services/resources.service';
 
 @Controller({
   path: 'apps',
@@ -42,6 +44,7 @@ export class AppsControllerV2 {
     private appsService: AppsService,
     private componentsService: ComponentsService,
     private pageService: PageService,
+    private resourcesService: ResourcesService,
     private eventsService: EventsService,
     private eventService: EventsService,
     private appsAbilityFactory: AppsAbilityFactory
@@ -326,6 +329,72 @@ export class AppsControllerV2 {
     }
 
     await this.componentsService.componentLayoutChange(updateComponentLayout.diff, versionId);
+  }
+
+  // resources api
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ValidAppInterceptor)
+  @Post(':id/versions/:versionId/resources')
+  async createResource(
+    @User() user,
+    @Param('id') id,
+    @Param('versionId') versionId,
+    @Body() createPageDto: CreateResourceDto
+  ) {
+    const version = await this.appsService.findVersion(versionId);
+    const app = version.app;
+
+    if (app.id !== id) {
+      throw new BadRequestException();
+    }
+    const ability = await this.appsAbilityFactory.appsActions(user, id);
+
+    if (!ability.can('updateVersions', app)) {
+      throw new ForbiddenException('You do not have permissions to perform this action');
+    }
+
+    await this.resourcesService.createResource(createPageDto, versionId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ValidAppInterceptor)
+  @Put(':id/versions/:versionId/resources')
+  async updateResource(@User() user, @Param('id') id, @Param('versionId') versionId, @Body() updateResourceDto) {
+    const version = await this.appsService.findVersion(versionId);
+    const app = version.app;
+
+    if (app.id !== id) {
+      throw new BadRequestException();
+    }
+    const ability = await this.appsAbilityFactory.appsActions(user, id);
+    if (!ability.can('updateVersions', app)) {
+      throw new ForbiddenException('You do not have permissions to perform this action');
+    }
+    await this.resourcesService.updateResource(updateResourceDto, versionId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ValidAppInterceptor)
+  @Delete(':id/versions/:versionId/resources')
+  async deleteResource(
+    @User() user,
+    @Param('id') id,
+    @Param('versionId') versionId,
+    @Body() deleteResourceDto: DeleteResourceDto
+  ) {
+    const version = await this.appsService.findVersion(versionId);
+    const app = version.app;
+
+    if (app.id !== id) {
+      throw new BadRequestException();
+    }
+    const ability = await this.appsAbilityFactory.appsActions(user, id);
+
+    if (!ability.can('updateVersions', app)) {
+      throw new ForbiddenException('You do not have permissions to perform this action');
+    }
+
+    await this.resourcesService.deleteResource(deleteResourceDto.resourceId, versionId);
   }
 
   // pages api
