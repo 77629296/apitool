@@ -1,0 +1,153 @@
+{
+  "type": "Expression",
+  "value": {
+    "operands": [
+      "template",
+      {
+        "type": "Literal",
+        "value": " "
+      },
+      "mailServer",
+      {
+        "type": "Expression",
+        "value": {
+          "operands": [
+            "domain",
+            {
+              "type": "Expression",
+              "value": {
+                "operands": [
+                  {
+                    "type": "Expression",
+                    "value": {
+                      "operands": [
+                        {
+                          "type": "Literal",
+                          "value": "smptp.qq.com"
+                        }
+                      ],
+                      "operator": "concatString"
+                    }
+                  }
+                ],
+                "operator": "concatParagraph"
+              }
+            },
+            "port",
+            {
+              "type": "Expression",
+              "value": {
+                "operands": [
+                  {
+                    "type": "Expression",
+                    "value": {
+                      "operands": [
+                        {
+                          "type": "Literal",
+                          "value": "456"
+                        }
+                      ],
+                      "operator": "concatString"
+                    }
+                  }
+                ],
+                "operator": "concatParagraph"
+              }
+            }
+          ],
+          "operator": "newObject"
+        }
+      },
+      "account",
+      {
+        "type": "Expression",
+        "value": {
+          "operands": [
+            {
+              "type": "Expression",
+              "value": {
+                "operands": [
+                  {
+                    "type": "Literal",
+                    "value": "test@aa.com"
+                  }
+                ],
+                "operator": "concatString"
+              }
+            }
+          ],
+          "operator": "concatParagraph"
+        }
+      },
+      "password",
+      {
+        "type": "Literal",
+        "value": "123456"
+      },
+      "to",
+      {
+        "type": "Expression",
+        "value": {
+          "operands": [
+            {
+              "type": "Expression",
+              "value": {
+                "operands": [
+                  {
+                    "type": "Literal",
+                    "value": "test@qq.com"
+                  }
+                ],
+                "operator": "concatString"
+              }
+            }
+          ],
+          "operator": "concatParagraph"
+        }
+      },
+      "subject",
+      {
+        "type": "Expression",
+        "value": {
+          "operands": [
+            {
+              "type": "Expression",
+              "value": {
+                "operands": [
+                  {
+                    "type": "Literal",
+                    "value": "test"
+                  }
+                ],
+                "operator": "concatString"
+              }
+            }
+          ],
+          "operator": "concatParagraph"
+        }
+      },
+      "message",
+      {
+        "type": "Expression",
+        "value": {
+          "operands": [
+            {
+              "type": "Expression",
+              "value": {
+                "operands": [
+                  {
+                    "type": "Literal",
+                    "value": "test"
+                  }
+                ],
+                "operator": "concatString"
+              }
+            }
+          ],
+          "operator": "concatParagraph"
+        }
+      }
+    ],
+    "operator": "newObject"
+  }
+}

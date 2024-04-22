@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    id 'testing.java-conventions'
+}
+
+dependencies {
+    implementation platform(libs.spring.boot.dependencies)
+    implementation(platform(libs.aws))
+
+    implementation(libs.spring.boot.starter)
+    implementation(libs.aws.s3)
+    implementation(libs.minio)
+    implementation(libs.qiniu)
+    implementation(libs.huaweicloud.obs)
+    implementation(libs.slf4j)
+    implementation(libs.bundles.hutool)
+    implementation(libs.gson)
+    testImplementation(libs.spring.boot.test)
+}

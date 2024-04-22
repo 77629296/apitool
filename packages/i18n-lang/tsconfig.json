@@ -1,0 +1,31 @@
+{
+  "extends": "../../common-tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "allowJs": true,
+    "paths": {
+      "*": [
+        "*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "ESNext.Array",
+      "ES2020.String"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/language.manifest.json"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/__tests__/*.ts"
+  ]
+}

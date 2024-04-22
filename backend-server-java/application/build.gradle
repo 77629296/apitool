@@ -1,0 +1,177 @@
+import java.nio.charset.StandardCharsets
+import java.time.LocalDateTime
+
+plugins {
+    id 'testing.java-conventions'
+    alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.protobuf)
+}
+
+dependencies {
+    // shard module dependencies
+    implementation project(':shared:core')
+    implementation project(':shared:starters:sms')
+    implementation project(':shared:starters:mail')
+    implementation project(':shared:starters:amqp')
+    implementation project(':shared:starters:oss')
+    implementation project(':shared:starters:socketio')
+    implementation project(':shared:starters:beetl')
+    implementation project(':shared:starters:databus')
+
+    // spring boot starters dependencies
+    implementation platform(libs.spring.boot.dependencies)
+    annotationProcessor libs.spring.boot.configuration.processor
+    implementation libs.spring.boot.web
+    implementation libs.spring.boot.webflux
+    implementation libs.spring.boot.mail
+    implementation libs.spring.boot.actuator
+    implementation libs.spring.boot.aop
+    implementation libs.spring.boot.validation
+    implementation libs.spring.boot.security
+    implementation libs.spring.boot.integration
+    implementation libs.spring.boot.thymeleaf
+    implementation libs.spring.integration.redis
+    implementation libs.spring.session.redis
+    implementation libs.mysql
+    runtimeOnly libs.mysql
+    implementation libs.spring.security.cas
+    annotationProcessor libs.lombok
+    compileOnly libs.lombok
+    implementation libs.commons.pool2
+    implementation libs.jedis
+    implementation libs.prometheus.pushgateway
+    implementation libs.httpclient5
+    implementation libs.annotation.api
+
+    // other spring boot starter dependencies
+    implementation(libs.mybatis.plus) {
+        exclude(group: 'org.mybatis', module: 'mybatis-spring')
+    }
+    implementation libs.mybatis.spring
+
+    // sentry dependencies
+    implementation(platform(libs.sentry.dependencies))
+    implementation libs.bundles.sentry
+    implementation libs.bundles.apidoc
+
+    // protobuf dependencies
+    implementation(platform(libs.protobuf.dependencies))
+    implementation(libs.protobuf.java)
+
+    // io-grpc dependencies
+    implementation(platform(libs.iogrpc.dependencies))
+    implementation libs.bundles.iogrpc
+    implementation(libs.grpc) {
+        exclude(group: 'io.grpc', module: 'grpc-netty-shaded')
+    }
+
+    // utilities dependencies
+    implementation libs.p6spy
+    implementation libs.semver
+    implementation libs.jsoup
+    implementation(libs.bundles.easyexcel) {
+        exclude(group: 'org.apache.commons', module: 'commons-compress')
+    }
+    implementation(libs.commons.compress)
+    implementation libs.bundles.hutool
+    implementation(libs.bundles.pdfbox) {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
+    implementation libs.bundles.shedlock
+
+    // for enterprise module
+    implementation(libs.bundles.social) {
+        exclude(group: 'com.thoughtworks.xstream', module: 'xstream')
+    }
+    implementation(libs.xstream)
+    implementation(libs.v.client) {
+        exclude(group: 'log4j', module: 'log4j')
+    }
+    implementation libs.auth0
+    implementation libs.pingpp
+    implementation libs.alipay.easy
+    implementation libs.wechatpay
+    implementation libs.stripe
+    implementation(libs.aliyun.core) {
+        exclude(group: 'commons-logging', module: 'commons-logging')
+    }
+    implementation libs.aliyun.afs
+    implementation libs.nimbus
+    implementation libs.jose4j
+    implementation libs.wx.open
+    implementation libs.sensors
+    implementation libs.posthog
+
+    // test framework dependencies
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+    testImplementation libs.spring.boot.test
+    testImplementation libs.spring.security.test
+    testImplementation libs.mybatis.plus.test
+    testImplementation libs.visible.assertions
+    testImplementation libs.reactor
+    testImplementation libs.assertj
+    testImplementation libs.awaitility
+    testImplementation libs.iogrpc.testing
+}
+
+jar {
+    enabled = false
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+compileJava.dependsOn processResources
+bootJar.dependsOn processResources
+
+// Compile Java Setting
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = StandardCharsets.UTF_8
+    options.warnings = false
+    options.compilerArgs += '-Xlint:-deprecation'
+}
+
+bootJar {
+    mainClass.set('com.apitable.Application')
+    manifest {
+        attributes 'Start-Class': 'com.apitable.Application'
+        attributes 'Implementation-Version': archiveVersion
+        attributes 'Built-Gradle': gradle.gradleVersion
+        attributes 'Build-OS': System.getProperty("os.name")
+        attributes 'Built-By': System.getProperty("user.name")
+        attributes 'Build-Jdk': System.getProperty("java.version")
+        attributes 'Build-Timestamp': LocalDateTime.now().toString()
+    }
+}
+
+// SpringBoot Plugin On Gradle
+springBoot {
+    mainClass = 'com.apitable.Application'
+}
+
+test {
+    // Stops test execution after the first failed test.
+    failFast = true
+    jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
+}
+
+def protobufVersion = libs.versions.protobuf.asProvider().get()
+def iogrpcVersion = libs.versions.iogrpc.get()
+
+protobuf {
+    // use the specified version of protoc executable same as protobuf version in project
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${iogrpcVersion}"
+        }
+    }
+
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}

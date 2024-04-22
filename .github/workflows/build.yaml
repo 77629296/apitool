@@ -1,0 +1,138 @@
+name: build
+
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'release/**'
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+    tags:
+      - 'v*.*.*'
+  pull_request:
+    branches: [ develop ]
+    # paths-ignore:
+    #   - '**.md'
+    #   - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  build-test: ## build only local for test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.15.0'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.7.5
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          cache: 'gradle'
+      - name: Install build-essential
+        run: sudo apt-get update -y && sudo apt-get install -y build-essential
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          override: true
+      - name: Test
+        run: |
+          make install
+          make build
+
+  unit-test: ## unit test with docker-compose.unit-test.yaml
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        command: [ test-init-db-docker, test-ut-backend-docker, test-ut-room-docker, _test-ut-core ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.15.0'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.7.5
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          cache: 'gradle'
+      - name: Running Test
+        shell: bash
+        run: |
+          make ${{ matrix.command }}
+
+  build-push: ## build and push to docker registry
+    needs: unit-test
+    runs-on: ubuntu-latest
+    #if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    strategy:
+      matrix:
+        target: [ backend-server, room-server, web-server, init-db, openresty ]
+    env:
+      APITABLE_DOCKER_HUB_TOKEN: ${{ secrets.APITABLE_DOCKER_HUB_TOKEN }}
+    steps:
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build APITable and Push
+        run: |
+          eval "$(./scripts/semver-ci.sh)"
+          make buildpush-docker target=${{ matrix.target }}
+
+  build-push-all-in-one: ## build and push to docker registry
+    needs: build-push
+    runs-on: ubuntu-latest
+    #if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    env:
+      APITABLE_DOCKER_HUB_TOKEN: ${{ secrets.APITABLE_DOCKER_HUB_TOKEN }}
+    steps:
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+      - name: Build APITable and Push
+        run: |
+          cp -pr gateway/ packaging/all-in-one/all-in-one/
+          eval "$(./scripts/semver-ci.sh)"
+          make buildpush-docker target=all-in-one
+
+  # https://github.com/apitable/apitable/issues/1379
+  build-push-experimental: ## build and push to docker registry
+    needs: build-push
+    runs-on: ubuntu-latest
+    #if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    strategy:
+      matrix:
+        target: [ web-server-experimental ]
+    env:
+      APITABLE_DOCKER_HUB_TOKEN: ${{ secrets.APITABLE_DOCKER_HUB_TOKEN }}
+    steps:
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build APITable and Push
+        run: |
+          eval "$(./scripts/semver-ci.sh)"
+          make buildpush-docker target=${{ matrix.target }}

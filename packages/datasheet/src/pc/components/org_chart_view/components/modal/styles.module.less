@@ -1,0 +1,23 @@
+@import "~pc/styles/lib_var.less";
+
+.modal {
+  position: fixed;
+  color: var(--firstLevelText);
+  background-color: var(--bgCommonHigh);
+  border: 1px solid var(--borderCommonDefault);
+  border-radius: 4px;
+  box-shadow: var(--shadowCommonHigh);
+  padding: 16px;
+  z-index: 200;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & > div {
+      box-sizing: unset;
+    }
+  }
+  .content {
+    padding-top: 8px;
+  }
+}

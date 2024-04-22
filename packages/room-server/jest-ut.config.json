@@ -1,0 +1,26 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "./",
+  "testEnvironment": "node",
+  "testMatch": ["<rootDir>/src/**/*.(spec|test).[jt]s?(x)"],
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "transformIgnorePatterns": [
+    "^.+\\.js$"
+  ],
+  "moduleDirectories": [
+    "src",
+    "node_modules"
+  ],
+  "moduleNameMapper": {
+    "@apitable/databus-wasm-web": "<rootDir>/src/_skip_transpile_databus_wasm_web.ts",
+    "@apitable/databus-wasm-nodejs": "<rootDir>/src/_skip_transpile_databus_wasm_web.ts"
+  },
+  "setupFiles": [
+    "dotenv/config"
+  ],
+  "setupFilesAfterEnv": [
+    "@apitable/i18n-lang"
+  ]
+}

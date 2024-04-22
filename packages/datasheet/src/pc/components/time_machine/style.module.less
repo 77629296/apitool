@@ -1,0 +1,121 @@
+@import '~pc/styles/lib_var.less';
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  i {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+}
+
+.apitableWarpper {
+  padding-top: 24px;
+  height: calc(100% - 50px);
+}
+
+.tabs {
+  padding-left: 0 !important;
+  height: calc(100% - 50px);
+  :global {
+    .ant-tabs-nav-list {
+      margin-left: 16px;
+    }
+    .ant-tabs-tab {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+    .ant-tabs-content,
+    .ant-tabs-tabpane {
+      height: 100%;
+    }
+  }
+}
+
+.wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--fc8);
+  z-index: var(--zIndex-1);
+  :global {
+    .ant-tabs {
+      color: inherit !important;
+    }
+  }
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 49px;
+  padding: 0 16px;
+  box-shadow: inset 0px -1px 0px var(--lineColor);
+}
+
+.content {
+  display: flex;
+  padding: 0 8px 16px 8px;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: scroll;
+  height: 100%;
+}
+.bottomTip {
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.listItem {
+  cursor:pointer;
+  padding: 8px;
+  border-radius: 4px;
+  .title {
+    color: var(--textCommonSecondary);
+    font-size: 14px;
+    margin-bottom: 4px;
+    span {
+      line-height: 22px;
+    }
+  }
+  &[data-active='true']{
+    background-color: var(--bgBglessActive);
+  }
+  &:hover {
+    background-color: var(--bgBglessHover);
+  }
+  &:active {
+    background-color: var(--bgBrandLightDefault);
+  }
+}
+
+.timestamp {
+  color: var(--textCommonTertiary);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.danger {
+  color: red;
+}
+
+.noList {
+  text-align: center;
+  padding-top: 24vh;
+  p {
+    margin-top: 16px;
+  }
+}

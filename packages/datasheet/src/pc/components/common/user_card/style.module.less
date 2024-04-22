@@ -1,0 +1,171 @@
+@import "~pc/styles/lib_var.less";
+@import "~pc/styles/lib_mixins.less";
+
+.userCard {
+  width: 256px;
+ 
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  border-radius: 8px;
+  min-height: 120px;
+  background-color: var(--highBg);
+  box-shadow: var(--shadowCommonDefault);
+  position: relative;
+
+  .avatarWrapper {
+   
+    padding: 16px 16px 0px;
+  }
+
+  
+
+  .cardTool {
+   position: absolute;
+   top: 16px;
+   right: 16px;
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   cursor: pointer;
+   
+   span {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--textCommonSecondary);
+   }
+  }
+
+  .nameWrapper {
+    margin-top: 8px;
+    h6 {
+      display: inline-block;
+      color: var(--firstLevelText);
+      font-size: 14px;
+      line-height: 22px;
+      margin-bottom: 0;
+      vertical-align: middle;
+      span {
+        line-height: 22px;
+      }
+    }
+    .permissionWrapper {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  .settingPermissionBtn {
+    margin-right: 4px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      fill: var(--textCommonTertiary)!important;
+    }
+    
+  }
+  
+  .email {
+    color: var(--textCommonSecondary);
+    padding: 4px 16px 0px;
+    p {
+      margin: 0;
+    }
+  }
+
+  .tag {
+    display: inline-block;
+    border-radius: 2px;
+    padding: 0px 8px;
+    background-color: var(--lowestBg);
+    margin-left: 4px;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 22px;
+    p {
+      margin: 0 0;
+    }
+  }
+  
+  .dangerTag {
+    display: inline-block;
+    border-radius: 2px;
+    padding: 0px 8px;
+    margin-left: 4px;
+    max-width: 100%;
+    border: 1px solid var(--borderDangerDefault);
+    font-size: 14px;
+    line-height: 22px;
+    p {
+      margin: 0 0;
+    }
+  }
+  
+}
+
+.infoContent {
+  max-height: 179px;
+  overflow-y: overlay;
+  padding: 0px 16px;
+  margin-bottom: 16px;
+}
+
+.infoWrapper {
+  .infoText {
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    svg {
+      flex-shrink: 0;
+      margin: 2px 5px 0 0;
+      fill: var(--textCommonTertiary)!important;
+    }
+  }
+  
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--textCommonTertiary);
+    margin: 0;
+    margin-bottom: 4px;
+    min-width: 30px;
+    
+  }
+
+  .teamList {
+    color: var(--textCommonSecondary);
+  }
+
+  .teamItem {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 20px;
+    margin-bottom: 8px;
+    color: var(--textCommonPrimary);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    p {
+      margin: 0;
+      min-width: 0;
+      margin-right: 4px;
+      word-wrap: break-word;
+    }
+  }
+  .teamText {
+    color: var(--textCommonPrimary)
+  }
+}
+
+.userCardTrigger:global(.rc-trigger-popup) {
+  z-index: var(--triggerIndex);
+  border-radius: 8px;
+}

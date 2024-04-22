@@ -1,0 +1,40 @@
+@import "~pc/styles/lib_mixins.less";
+
+.title {
+  display: flex;
+  align-items: center;
+
+  & > span {
+    display: flex;
+    align-items: center;
+  }
+
+  svg {
+    margin-right: 4px;
+  }
+
+  .name {
+    flex: 1;
+    .ellipsis();
+  }
+}
+
+.tags {
+  margin-top: 16px;
+}
+.beta {
+  display: flex;
+  align-items: center;
+}
+.betaTag {
+  margin-left: 4px;
+  border-radius: 4px;
+  background: var(--bgBrandLightDefault);
+  width: 42px;
+  height: 24px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--textBrandDefault);
+}

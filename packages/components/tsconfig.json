@@ -1,0 +1,44 @@
+{
+  "extends": "../../common-tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "rootDir": "src",
+    "baseUrl": "src",
+    "target": "es2015",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "es2015",
+    "jsx": "react",
+    "outDir": "dist",
+    "paths": {
+      "*": [
+        "*"
+      ]
+    }
+  },
+  "include": [
+    "src/*",
+    "./jest.setup.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "setup.ts"
+  ]
+}

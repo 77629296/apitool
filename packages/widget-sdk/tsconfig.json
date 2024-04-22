@@ -1,0 +1,60 @@
+{
+  "extends": "../../common-tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "module": "ESNext",
+    "jsx": "react",
+    "rootDir": "src",
+    "outDir": "dist",
+    "paths": {
+      "*": [
+        "*"
+      ]
+    },
+    "baseUrl": "src",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "plugins": [
+      {
+        "transform": "typescript-plugin-styled-components",
+        "type": "config",
+        "componentIdPrefix": "ws",
+        "displayName": false,
+        "minify": true,
+        "ssr": true
+      }
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "typings/index.d.ts"
+  ],
+  "typings": "./src/typings/",
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "__tests__/*",
+    "src/setupTests.ts",
+    "tslint:latest",
+    "tslint-config-prettier"
+  ]
+}

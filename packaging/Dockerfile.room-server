@@ -1,0 +1,82 @@
+# Install dependencies only when needed
+FROM apitable/node:v16.15.0 AS deps
+
+WORKDIR /app
+
+# install packages can use cache
+COPY ./pnpm-workspace.yaml ./package.json ./pnpm-lock.yaml ./common-tsconfig.json ./
+COPY ./patches/ ./patches
+
+COPY packages/i18n-lang/package.json ./packages/i18n-lang/
+
+COPY packages/core/package.json ./packages/core/
+
+COPY packages/databus-wasm-web/package.json ./packages/databus-wasm-web/
+COPY packages/databus-wasm-nodejs/package.json ./packages/databus-wasm-nodejs/
+
+COPY packages/room-server/package.json ./packages/room-server/
+
+RUN pnpm install --filter @apitable/room-server --filter root
+
+# stage builder
+FROM apitable/node:v16.15.0 AS builder
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/patches ./patches
+COPY --from=deps /app/packages/i18n-lang/node_modules ./packages/i18n-lang/node_modules
+COPY --from=deps /app/packages/core/node_modules ./packages/core/node_modules
+COPY --from=deps /app/packages/room-server/node_modules ./packages/room-server/node_modules
+
+COPY ./pnpm-workspace.yaml ./package.json ./pnpm-lock.yaml ./common-tsconfig.json ./nx.json ./
+
+COPY packages/i18n-lang ./packages/i18n-lang
+
+COPY packages/databus-wasm-web ./packages/databus-wasm-web
+COPY packages/databus-wasm-nodejs ./packages/databus-wasm-nodejs
+
+COPY packages/core ./packages/core
+
+COPY packages/room-server ./packages/room-server
+
+RUN pnpm run build:sr
+
+ARG KEEP_DEV_DEP
+
+RUN if [ "$KEEP_DEV_DEP" = "" ] ; then pnpm install --filter @apitable/room-server; fi
+
+# stage runner
+FROM apitable/node:v16.15.0 AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV production
+
+ARG SEMVER_FULL
+ENV SEMVER_FULL=${SEMVER_FULL}
+
+# agenthub
+COPY --from=builder /app/packages/room-server/app-config.json /root/
+COPY --from=builder /app /app
+
+RUN npm install pm2@latest --global  \
+    && rm -fr packages/*/src
+
+COPY packages/i18n-lang/src/config ./packages/i18n-lang/src/config
+
+# (room|socket):http
+EXPOSE 3001
+EXPOSE 3333
+# room:grpc port
+EXPOSE 3334
+# socket:notification
+EXPOSE 3002
+# socket:workdoc
+EXPOSE 3006
+# socket:room
+EXPOSE 3005
+# socket:rpcx
+EXPOSE 3007
+
+CMD [ "pm2-runtime", "packages/room-server/ecosystem.config.js" ]

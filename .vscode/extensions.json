@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "eamodio.gitlens",
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "styled-components.vscode-styled-components",
+    "sonarsource.sonarlint-vscode",
+    "souche.vscode-mindmap"
+  ]
+}

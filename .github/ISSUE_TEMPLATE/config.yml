@@ -1,5 +1,8 @@
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
-  - name: ❓ Get Support from Slack Community
-    url: https://tooljet.com/slack
-    about: Please ask and answer questions here. 🏥
+  - name: Discord Community
+    url: https://discord.gg/TwNb9nfdBU
+    about: Discuss ideas
+  - name: Help Center
+    url: https://help.apitable.com
+    about: Help Center of APITable, includes tutorial, manual, FAQ.

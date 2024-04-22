@@ -1,0 +1,22 @@
+@import "~pc/styles/lib_var.less";
+@import "~pc/styles/lib_screen.less";
+
+.userCenterDrawer {
+  :global {
+    .ant-drawer-header {
+      background: transparent;
+    }
+    .ant-drawer-wrapper-body {
+      background: var(--primaryColor)
+      url("./workbench_img_membercard.png")
+      no-repeat center;
+      background-size: cover;
+    }
+    .ant-drawer-body {
+      background: transparent;
+      height: 90%;
+      overflow: auto;
+      padding: 0;
+    }
+  }
+}

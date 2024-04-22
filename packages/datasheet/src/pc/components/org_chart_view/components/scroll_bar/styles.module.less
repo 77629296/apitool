@@ -1,0 +1,28 @@
+@import "~pc/styles/lib_mixins.less";
+
+
+.scrollBarWrap, .scrollBarVWrap {
+  will-change: transform;
+  position: absolute;
+  cursor: pointer;
+
+  .lx-scroll-bar(true);
+}
+
+.scrollBarWrap {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--scrollBar);
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.scrollBarVWrap {
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: var(--scrollBar);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

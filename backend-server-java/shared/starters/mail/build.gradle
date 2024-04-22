@@ -1,0 +1,14 @@
+plugins {
+    id 'java-library'
+    id 'testing.java-conventions'
+}
+
+dependencies {
+    implementation platform(libs.spring.boot.dependencies)
+    implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.mail)
+    implementation(libs.qcloud.ses)
+    implementation(libs.bundles.hutool)
+    implementation(libs.slf4j)
+    testImplementation(libs.spring.boot.test)
+}

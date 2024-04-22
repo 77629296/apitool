@@ -1,0 +1,59 @@
+@import "~pc/styles/lib_var.less";
+@import "~pc/styles/lib_mixins.less";
+
+
+.memberListContainer {
+  padding-bottom: 50px;
+  position: relative;
+  :global {
+    .ant-list-item { 
+      border-bottom: none!important;
+    }
+  }
+}
+
+.memberListWrapper {
+  .rc-virtual-list-holder-inner {
+    .default-scroll-bar();
+  }
+}
+
+.selectItem {
+  background: var(--rowSelectedBg);
+}
+
+
+
+.listItem {
+    padding: 0;
+    cursor: pointer;
+    // height: 70px;
+    width: 100%;
+    border-bottom: none!important;
+    padding-left: 20px;
+}
+
+.lodingWrapper {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 50px;
+  width: 100%;
+  padding: 18px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--defaultBg);
+  color: var(--textCommonTertiary);
+  svg {
+    margin: 0 0;
+  }
+  p {
+    margin: 0 0;
+    padding-left: 10px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}

@@ -1,0 +1,41 @@
+@import "~pc/styles/lib_var.less";
+@import "~pc/styles/lib_mixins.less";
+
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  margin-left: 8px;
+  padding: 0 8px;
+  border-radius: 2px;
+
+  &.tagCorpCertified {
+    background: var(--rainbowPurple1);
+
+    .text {
+      color: var(--textBrandDefault)
+    }
+  }
+
+  &.tagCorpUncertified {
+    background: var(--bgControlsDefault);
+
+    .text {
+      color: var(--fc1);
+    }
+  }
+
+  .text {
+    font-size: 12px;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2px;
+    font-size: 16px;
+  }
+}

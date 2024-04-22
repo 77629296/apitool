@@ -1,0 +1,51 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<!--
+ APITable <https://github.com/apitable/apitable>
+ Copyright (C) 2022 APITable Ltd. <https://apitable.com>
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="V0.8-20211027-001" author="Chambers" labels="node">
+        <comment>Node Table add space id index</comment>
+        <sql>
+            ALTER TABLE `${table.prefix}node`
+            ADD INDEX `idx_space_id`(`space_id`) USING BTREE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="V0.8-20211027-002" author="penglongfeng" labels="automation">
+        <comment>Robot Table add x_service_token、seq_id and uk_seq_resource_id</comment>
+        <sql>
+            ALTER TABLE `${table.prefix}automation_robot`
+            ADD COLUMN `seq_id` varchar(64) NULL COMMENT 'Request source request number' AFTER `updated_at`,
+            ADD COLUMN `x_service_token` varchar(128) NULL COMMENT 'Service Provider Certification Token' AFTER `seq_id`,
+            ADD UNIQUE INDEX `uk_seq_resource_id`(`seq_id`, `resource_id`) USING BTREE COMMENT 'Unique number of single table robot creation request';
+        </sql>
+    </changeSet>
+
+    <changeSet id="V0.8-20211027-003" author="penglongfeng" labels="automation">
+        <comment>Automation Action Table add robot id index</comment>
+        <sql>
+            ALTER TABLE `${table.prefix}automation_action`
+            ADD INDEX `idx_robot_id`(`robot_id`) USING BTREE COMMENT 'Robot ID Index';
+        </sql>
+    </changeSet>
+</databaseChangeLog>

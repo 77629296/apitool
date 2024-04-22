@@ -1,46 +1,16 @@
 spec:
-  name: tooljet
+  name: apitable
   services:
-  - name: tooljet
+  - name: apitable
     image:
       registry_type: DOCKER_HUB
-      registry: tooljet
-      repository: tooljet
+      registry: apitable
+      repository: all-in-one
       tag: latest
-    run_command: "./server/scripts/digitalocean-postbuild.sh"
-    instance_size_slug: "basic-s"
+    instance_size_slug: professional-l
+    instance_count: 1
     health_check:
-      initial_delay_seconds: 10
-      http_path: /api/health
-    envs:
-    - key: NODE_ENV
-      value: "production"
-    - key: NODE_OPTIONS
-      value: "--max-old-space-size=4096"
-    - key: LOCKBOX_MASTER_KEY
-      type: SECRET
-      value: "REPLACE_ME"
-    - key: SECRET_KEY_BASE
-      value: "REPLACE_ME"
-      type: SECRET
-    - key: DISABLE_SIGNUPS
-      value: "false"
-      scope: RUN_TIME
-    - key: DEPLOYMENT_PLATFORM
-      value: "digitalocean"
-    - key: DATABASE_URL
-      scope: RUN_TIME
-      value: ${pg-db.DATABASE_URL}
-    - key: CA_CERT
-      scope: RUN_TIME
-      value: ${pg-db.CA_CERT}
-    - key: APITOOL_HOST
-      scope: RUN_TIME
-      value: ${APP_URL}
-    - key: APITOOL_SERVER_URL
-      scope: RUN_TIME
-      value: ${APP_URL}
-  databases:
-    - name: pg-db
-      engine: PG
-      production: false
+      initial_delay_seconds: 30
+      http_path: /login
+      failure_threshold: 180
+    http_port: 80

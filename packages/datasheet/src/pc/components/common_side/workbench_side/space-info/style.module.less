@@ -1,0 +1,27 @@
+
+.spaceInfo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  .spaceName {
+    width: 100%;
+    padding-left: 22px;
+  }
+
+  .logo {
+    position: absolute;
+    top: 4px;
+    left: 17px;
+  }
+}
+
+.popover {
+  :global {
+    .ant-popover-inner {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  }
+}

@@ -1,54 +1,75 @@
-# Contributing to ToolJet
-We love your input! We want to make contributing to this project as easy and transparent as possible, whether it's:
+# Contributing to APITable
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
+Welcome, and thank you for your interest in contributing to APITable!
 
-## Setup 
+There are many ways in which you can contribute, beyond writing code. 
 
-- [Mac OS](https://docs.tooljet.io/docs/contributing-guide/setup/macos)
-- [Docker](https://docs.tooljet.io/docs/contributing-guide/setup/docker)
-- [Ubuntu](https://docs.tooljet.io/docs/contributing-guide/setup/ubuntu)
+The goal of this document is to provide a high-level overview of how you can get involved.
 
-## We Develop with GitHub
-We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
+For new contributors, please take a look at issues with a tag called [Good first issue](https://github.com/apitable/apitable/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
 
-## First-time contributors
-We've tagged some issues to make it easy to get started :smile:
-[Good first issues](https://github.com/ToolJet/ToolJet/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) 
+## Providing Feedback
 
-If you're interested in working on an issue, make sure it has either a `good-first-issue` or `up-for-grabs` label added. Add a comment on the issue and wait for the issue to be assigned before you start working on it. This helps to avoid multiple people working on similar issues.
+<div>
+    <!-- Discord -->
+    <a target="_blank" href="https://discord.gg/TwNb9nfdBU">
+        <img src="https://img.shields.io/discord/1016320471010115666?label=discord&logo=discord&style=social" />
+    </a>
+    <!-- Twitter -->
+    <a target="_blank" href="https://twitter.com/apitable_com">
+        <img src="https://img.shields.io/twitter/follow/apitable_com?label=Twitter&style=social" />
+    </a>
+</div>
 
-## We Use [GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow), So All Code Changes Happen Through Pull Requests
-Pull requests are the best way to propose changes to the codebase (we use [Git-Flow](https://nvie.com/posts/a-successful-git-branching-model/)). We actively welcome your pull requests:
+We look forward to receiving your comments and feedback.
+Join [APITable Discord](https://discord.gg/TwNb9nfdBU) and follow [APITable on Twitter](https://twitter.com/apitable_com) to leave some feedback.
 
-1. Fork the repo and create your branch from `develop`. Please create the branch in the format feature/<issue-id>-<issue-name> (eg: feature/176-chart-widget)
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue that pull request!
 
-## Any contributions you make will be under the AGPL v3 License
-In short, when you submit code changes, your submissions are understood to be under the same [AGPL v3 License](https://www.gnu.org/licenses/agpl-3.0.en.html) that covers the project.
 
-## Report bugs using GitHub's [issues](https://github.com/ToolJet/ToolJet/issues)
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/ToolJet/ToolJet/issues/new/choose). It's that easy!
+## Reporting Issues
 
-**Great Bug Reports** tend to have:
+Have you identified any bugs in APITable?
+Have a feature idea?
 
-- A quick summary and/or background
-- Steps to reproduce
-  - Be specific!
-  - Give sample code if you can.
-- What you expected would happen
-- What actually happens
-- Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
+Thank you for report new issue!
 
-## License
-By contributing, you agree that your contributions will be licensed under its AGPL v3 License.
+Do a search in [APITable open issues](https://github.com/apitable/apitable/issues) to see if the issue or feature request has already been filed.
 
-## Questions? 
-Contact us [on Slack](https://tooljet.com/slack) or [email us at hello@tooljet.io](mailto:hello@tooljet.io).
+If you cannot find an existing issue that describes your bug or feature, create a new issue.
+
+
+
+### Security issues
+If you believe you've found a security vulnerability, please read our [security policy](./SECURITY.md) for more details.
+
+
+## Answering questions
+
+You can help us answer questions through the links below.
+
+- [APITable Discord](https://discord.gg/TwNb9nfdBU)
+- [Stack Overflow #apitable](https://stackoverflow.com/questions/tagged/apitable)
+- [APITable on Twitter](https://twitter.com/apitable_com)
+- [APITable open issues](https://github.com/apitable/apitable/issues)
+
+## Write Documentation, Tweet, Blog
+
+You can write documentation into the [/docs](./docs) directory.
+
+You can write tweets or blogs that share APITable to your friends.
+
+
+## Contributing Code
+
+See [Developer Guide](./docs/contribute/developer-guide.md) to set up your development environment.
+
+
+## Localization & Translation 
+
+Get into our [Crowdin Translation Project](https://crowdin.com/project/apitablecode/invite?h=f48bc26f9eb188dcd92d5eb4a66f2c1f1555185) to help us translate.
+
+
+## Thank You!
+
+For more information, please contact us at <support@apitable.com>. 
+

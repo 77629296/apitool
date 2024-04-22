@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ APITable <https://github.com/apitable/apitable>
+ Copyright (C) 2022 APITable Ltd. <https://apitable.com>
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.apitable.automation.mapper.AutomationRunHistoryMapper">
+
+    <select id="selectIdByRobotIdAndSpaceIdAndBetweenWithPage" resultType="java.lang.Long">
+        SELECT id
+        FROM ${tablePrefix}automation_run_history
+        WHERE robot_id = #{robotId}
+        AND space_id = #{spaceId}
+        AND created_at BETWEEN #{startAt} AND #{endAt}
+        AND status IN (0, 1, 2, 4)
+        ORDER BY created_at desc
+    </select>
+
+    <select id="selectByIds" resultType="com.apitable.automation.model.AutomationRunHistoryDTO">
+        SELECT task_id, robot_id, status, created_at,
+        JSON_KEYS(`data`->'$.nodeByIds') as action_ids,
+        JSON_EXTRACT(`data`->'$.nodeByIds', '$**.typeId') as action_type_ids,
+        JSON_EXTRACT(`data`->'$.nodeByIds', '$**.errorStacks[0].message') as error_messages
+        FROM ${tablePrefix}automation_run_history
+        WHERE id IN
+        <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByTaskId" resultType="com.apitable.automation.entity.AutomationRunHistoryEntity">
+        SELECT * FROM ${tablePrefix}automation_run_history
+        WHERE task_id = #{taskId}
+    </select>
+</mapper>

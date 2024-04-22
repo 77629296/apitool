@@ -1,0 +1,44 @@
+@import "~pc/styles/lib_var.less";
+
+.loading {
+  background-color: var(--defaultBg);
+  padding: 12px 24px;
+  height: 100%;
+}
+
+.dataspaceRight {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--lowestBg);
+  transition: background-color .3s ease;
+
+  &.loading {
+    background-color: var(--defaultBg);
+  }
+}
+
+div.previewing {
+  position: fixed;
+    left: calc(50% - 320px);
+    bottom: 24px;
+    width: 640px;
+    height: 48px;
+    border: 1px solid var(--borderOnbrandLight);
+    background: linear-gradient(0deg, var(--bgBrandLightDefault) 0%, var(--bgBrandLightDefault) 100%), var(--bgCommonDefault);
+    & > div {
+      display: block;
+      margin-right: 0;
+    }
+    .previewTip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        min-width: 68px;
+        span {
+          vertical-align: baseline;
+        }
+      }
+    }
+}

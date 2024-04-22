@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  mysql:
+    ports:
+      - "3306:3306"
+
+  rabbitmq:
+    ports:
+      - "5671:5671"
+      - "5672:5672"
+      - "15672:15672"
+
+  databus-server:
+    ports:
+      - "8625:8625"
