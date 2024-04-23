@@ -1,1 +1,0 @@
-export const DASHBOARD_PANEL_ID = 'DASHBOARD_PANEL_ID';

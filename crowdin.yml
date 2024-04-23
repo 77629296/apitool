@@ -1,11 +1,9 @@
+base_path: .
+preserve_hierarchy: false
+
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+
 files:
-  - source: /README.md
-    translation: /docs/readme/%locale%/%original_file_name%
-  - source: /docs/contribute/*
-    translation: /docs/readme/%locale%/docs/contribute/%original_file_name%
-  - source: /packages/l10n/base/backend.en-US.json
-    translation: /packages/l10n/base/backend.%locale%.json
-  - source: /packages/l10n/base/strings.en-US.json
-    translation: /packages/l10n/base/strings.%locale%.json
-  - source: /packages/l10n/l10n-apitable-ce/strings.en-US.json
-    translation: /packages/l10n/l10n-apitable-ce/strings.%locale%.json
+  - source: /apps/client/src/locales/en-US/messages.po
+    translation: /apps/client/src/locales/%locale%/messages.po

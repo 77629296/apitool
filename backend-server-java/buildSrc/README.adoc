@@ -1,3 +1,0 @@
-= Gradle Custom Plugin
-
-BuildSrc module is a custom gradle plugin module to make building more comfortable

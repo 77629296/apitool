@@ -1,0 +1,136 @@
+version: "3.8"
+
+# In this Docker Compose example, we use Docker Swarm to deploy APITool on multiple servers, with Traefik as the load balancer.
+# Ensure that the overlay network is created before deploying this stack. You can do so by running the following command:
+# docker network create --driver=overlay --attachable apitool_network
+
+services:
+  # Database (Postgres)
+  postgres:
+    image: postgres:15-alpine
+    networks:
+      - apitool_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  # Redis (for cache & server session management)
+  redis:
+    image: redis:alpine
+    command: redis-server --save 60 1 --loglevel warning --bind 0.0.0.0 --requirepass password
+    networks:
+      - apitool_network
+    volumes:
+      - redis_data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+
+  app:
+    image: apitool:latest
+    networks:
+      - apitool_network
+    environment:
+      # -- Environment Variables --
+      PORT: 3000
+      NODE_ENV: production
+
+      # -- URLs --
+      PUBLIC_URL: https://example.com
+
+      # -- Database (Postgres) --
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
+
+      # -- Auth --
+      ACCESS_TOKEN_SECRET: access_token_secret
+      REFRESH_TOKEN_SECRET: refresh_token_secret
+
+      # -- Emails --
+      MAIL_FROM: noreply@example.com
+      # SMTP_URL: smtp://user:pass@smtp:587 # Optional
+
+      # -- Cache (Redis) --
+      REDIS_URL: redis://default:password@redis:6379
+
+      # -- Crowdin (Optional) --
+      CROWDIN_PROJECT_ID:
+      CROWDIN_PERSONAL_TOKEN:
+
+      # -- Email (Optional) --
+      # DISABLE_EMAIL_AUTH: true
+      # VITE_DISABLE_SIGNUPS: true
+
+      # -- GitHub (Optional) --
+      GITHUB_CLIENT_ID: github_client_id
+      GITHUB_CLIENT_SECRET: github_client_secret
+      GITHUB_CALLBACK_URL: https://example.com/api/auth/github/callback
+
+      # -- Google (Optional) --
+      GOOGLE_CLIENT_ID: google_client_id
+      GOOGLE_CLIENT_SECRET: google_client_secret
+      GOOGLE_CALLBACK_URL: https://example.com/api/auth/google/callback
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.app.rule=Host(`example.com`)
+        - traefik.http.routers.app.entrypoints=websecure
+        - traefik.http.routers.app.tls.certresolver=letsencrypt
+        - traefik.http.services.app.loadbalancer.server.port=3000
+
+  traefik:
+    image: traefik
+    command:
+      - --api=true
+      - --providers.docker=true
+      - --providers.docker.swarmMode=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=apitool_network
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=noreply@example.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+
+      # Let's Encrypt Staging Server (for testing)
+      # - --certificatesResolvers.letsencrypt.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+
+      # Redirect all HTTP requests to HTTPS
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - apitool_network
+    volumes:
+      - letsencrypt_data:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+volumes:
+  redis_data:
+  postgres_data:
+  letsencrypt_data:
+
+networks:
+  apitool_network:
+    external: true

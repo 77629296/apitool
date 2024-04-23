@@ -1,0 +1,57 @@
+{
+  "extends": ["plugin:@nx/react", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "extends": [
+        "plugin:tailwindcss/recommended",
+        "plugin:@tanstack/eslint-plugin-query/recommended"
+      ],
+      "settings": {
+        "tailwindcss": {
+          "callees": ["cn", "clsx", "cva"],
+          "config": "tailwind.config.js"
+        }
+      },
+      "plugins": ["lingui"],
+      "rules": {
+        // react-hooks
+        "react-hooks/exhaustive-deps": "off",
+
+        // lingui
+        "lingui/no-unlocalized-strings": [
+          2,
+          {
+            "ignoreFunction": ["cn"],
+            "ignoreAttribute": ["alt"]
+          }
+        ],
+        "lingui/t-call-in-function": 2,
+        "lingui/no-single-variables-to-translate": 2,
+        "lingui/no-expression-in-message": 2,
+        "lingui/no-single-tag-to-translate": 2,
+        "lingui/no-trans-inside-trans": 2,
+        "lingui/text-restrictions": [
+          2,
+          {
+            "rules": [
+              {
+                "patterns": ["''", "\"", "’", "“"],
+                "message": "This string contains forbidden characters"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}

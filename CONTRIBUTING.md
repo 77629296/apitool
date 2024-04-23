@@ -1,75 +1,83 @@
-# Contributing to APITable
+# Contributing to APITool
 
-Welcome, and thank you for your interest in contributing to APITable!
+## Getting the project set up locally
 
-There are many ways in which you can contribute, beyond writing code. 
+There are a number of Docker Compose examples that are suitable for a wide variety of deployment strategies depending on your use-case. All of the examples can be found in the `tools/compose` folder.
 
-The goal of this document is to provide a high-level overview of how you can get involved.
+To run the development environment of the application locally on your computer, please follow these steps:
 
-For new contributors, please take a look at issues with a tag called [Good first issue](https://github.com/apitable/apitable/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22).
+#### Requirements
 
-## Providing Feedback
+- Docker (with Docker Compose)
+- Node.js 18 or higher (with pnpm)
 
-<div>
-    <!-- Discord -->
-    <a target="_blank" href="https://discord.gg/TwNb9nfdBU">
-        <img src="https://img.shields.io/discord/1016320471010115666?label=discord&logo=discord&style=social" />
-    </a>
-    <!-- Twitter -->
-    <a target="_blank" href="https://twitter.com/apitable_com">
-        <img src="https://img.shields.io/twitter/follow/apitable_com?label=Twitter&style=social" />
-    </a>
-</div>
+### 1. Fork and Clone the Repository
 
-We look forward to receiving your comments and feedback.
-Join [APITable Discord](https://discord.gg/TwNb9nfdBU) and follow [APITable on Twitter](https://twitter.com/apitable_com) to leave some feedback.
+```sh
+git clone https://github.com/{your-github-username}/apitool.git
+cd apitool
+```
 
+### 2. Install dependencies
 
+```sh
+pnpm install
+```
 
-## Reporting Issues
+### 3. Copy .env.example to .env
 
-Have you identified any bugs in APITable?
-Have a feature idea?
+```sh
+cp .env.example .env
+```
 
-Thank you for report new issue!
+Please have a brief look over the environment variables and change them if necessary, for example, change the ports if you have a conflicting service running on your machine already.
 
-Do a search in [APITable open issues](https://github.com/apitable/apitable/issues) to see if the issue or feature request has already been filed.
+### 4. Fire up all the required services through Docker Compose
 
-If you cannot find an existing issue that describes your bug or feature, create a new issue.
+```sh
+docker compose -f tools/compose/development.yml --env-file .env -p apitool up -d
+```
 
+It should take just under half a minute for all the services to be booted up correctly. You can check the status of all services by running `docker compose -p apitool ps`
 
+### 5. Run the development server
 
-### Security issues
-If you believe you've found a security vulnerability, please read our [security policy](./SECURITY.md) for more details.
+```sh
+pnpm prisma:migrate:dev
+pnpm dev
+```
 
+If everything went well, the frontend should be running on `http://localhost:5173` and the backend api should be accessible through `http://localhost:3000`. There is a proxy present to also route all requests to `http://localhost:5173/api` directly to the API. If you need to change the `PORT` environment variable for the server, please make sure to update the `apps/client/proxy.conf.json` file as well with the new endpoint.
 
-## Answering questions
+You can also visit `http://localhost:3000/api/health`, the health check endpoint of the server to check if the server is running correctly, and it is able to connect to all it's dependent services. The output of the health check endpoint should look like this:
 
-You can help us answer questions through the links below.
+```json
+{
+  "status": "ok",
+  "info": {
+    "database": { "status": "up" },
+    "redis": { "status": "up" }
+  },
+  "error": {},
+  "details": {
+    "database": { "status": "up" },
+    "redis": { "status": "up" }
+  }
+}
+```
 
-- [APITable Discord](https://discord.gg/TwNb9nfdBU)
-- [Stack Overflow #apitable](https://stackoverflow.com/questions/tagged/apitable)
-- [APITable on Twitter](https://twitter.com/apitable_com)
-- [APITable open issues](https://github.com/apitable/apitable/issues)
+---
 
-## Write Documentation, Tweet, Blog
+## Pushing changes to the app
 
-You can write documentation into the [/docs](./docs) directory.
+Firstly, ensure that there is a GitHub Issue created for the feature or bugfix you are working on. If it does not exist, create an issue and assign it to yourself.
 
-You can write tweets or blogs that share APITable to your friends.
+Once you are happy with the changes you've made locally, commit it to your repository. Note that the project makes use of Conventional Commits, so commit messages would have to be in a specific format for it to be accepted. For example, a commit message to fix the translation on the homepage could look like:
 
+```
+git commit -m "fix(homepage): fix typo on homepage in the faq section"
+```
 
-## Contributing Code
+It helps to be as descriptive as possible in commit messages so that users can be aware of the changes made by you.
 
-See [Developer Guide](./docs/contribute/developer-guide.md) to set up your development environment.
-
-
-## Localization & Translation 
-
-Get into our [Crowdin Translation Project](https://crowdin.com/project/apitablecode/invite?h=f48bc26f9eb188dcd92d5eb4a66f2c1f1555185) to help us translate.
-
-
-## Thank You!
-
-For more information, please contact us at <support@apitable.com>. 
-
+Finally, create a pull request to merge the changes on your forked repository to the original repository hosted on AmruthPillai/apitool. I can take a look at the changes you've made when I have the time and have it merged onto the app.

@@ -1,39 +1,22 @@
-node_modules
-**/node_modules
-dist
-scripts
-packages/datasheet/web_build
-
-# All secrets
-**/.env.local
-**/.env.development
-**/.env.*.local
-
-# Docker related
+!README.md
 .dockerignore
-Dockerfile
-Dockerfile.*
-docker-compose.*.yml
-docker-compose.yml
-
-
-# By default all git files
-.git
-.gitignore
-.github
-
-# Log files
-logs
-.logs
-*.log
-
-# Temp files
-tmp
-*.tmp
-
-# IDE related
-.idea
-.vscode
-
-# other
 .DS_Store
+.editorconfig
+.eslint*
+.git
+.github
+.gitignore
+.husky
+.nx
+.prettier*
+.vscode
+*.env*
+*.md
+compose*.yml
+dist
+Dockerfile
+node_modules
+Thumbs.db
+tmp
+tools/compose/*
+tools/scripts/*

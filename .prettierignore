@@ -1,6 +1,7 @@
-
-**/*.json
-**/*.yaml
-**/*.yml
-
-**/*.*.json
+/dist
+/coverage
+/.nx/cache
+stats.html
+pnpm-lock.yaml
+compose-dev.yml
+compose.yml

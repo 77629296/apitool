@@ -1,0 +1,127 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { t } from "@lingui/macro";
+import { defaultVolunteer, volunteerSchema } from "@apitool/schema";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  RichInput,
+} from "@apitool/ui";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { AiActions } from "@/client/components/ai-actions";
+
+import { SectionDialog } from "../sections/shared/section-dialog";
+import { URLInput } from "../sections/shared/url-input";
+
+const formSchema = volunteerSchema;
+
+type FormValues = z.infer<typeof formSchema>;
+
+export const VolunteerDialog = () => {
+  const form = useForm<FormValues>({
+    defaultValues: defaultVolunteer,
+    resolver: zodResolver(formSchema),
+  });
+
+  return (
+    <SectionDialog<FormValues> id="volunteer" form={form} defaultValues={defaultVolunteer}>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <FormField
+          name="organization"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t`Organization`}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="position"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t`Position`}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="date"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t`Date or Date Range`}</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder={t`March 2023 - Present`} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="location"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t`Location`}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="url"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className="sm:col-span-2">
+              <FormLabel>{t`Website`}</FormLabel>
+              <FormControl>
+                <URLInput {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="summary"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className="sm:col-span-2">
+              <FormLabel>{t`Summary`}</FormLabel>
+              <FormControl>
+                <RichInput
+                  {...field}
+                  content={field.value}
+                  onChange={(value) => field.onChange(value)}
+                  footer={(editor) => (
+                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+    </SectionDialog>
+  );
+};
