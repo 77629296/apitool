@@ -28,7 +28,7 @@ export const VerifyEmailPage = () => {
         title: t`Your email address has been verified successfully.`,
       });
 
-      navigate("/dashboard/resumes", { replace: true });
+      navigate("/dashboard/projects", { replace: true });
     };
 
     if (!token) return;

@@ -2,7 +2,6 @@ import { defaultSections } from "@apitool/schema";
 import { RichInput } from "@apitool/ui";
 import { cn } from "@apitool/utils";
 
-import { AiActions } from "@/client/components/ai-actions";
 import { useResumeStore } from "@/client/stores/resume";
 
 import { getSectionIcon } from "./shared/section-icon";
@@ -31,9 +30,6 @@ export const SummarySection = () => {
         <RichInput
           content={section.content}
           onChange={(value) => setValue("sections.summary.content", value)}
-          footer={(editor) => (
-            <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
-          )}
         />
       </main>
     </section>

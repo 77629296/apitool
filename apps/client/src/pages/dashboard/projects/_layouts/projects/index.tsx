@@ -3,25 +3,17 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { useResumes } from "@/client/services/resume";
 
-import { BaseListItem } from "./_components/base-item";
-import { CreateResumeListItem } from "./_components/create-item";
-import { ImportResumeListItem } from "./_components/import-item";
-import { ResumeListItem } from "./_components/resume-item";
+import { BaseCard } from "./_components/base-card";
+import { CreateResumeCard } from "./_components/create-card";
+import { ResumeCard } from "./_components/resume-card";
 
-export const ListView = () => {
+export const Projects = () => {
   const { resumes, loading } = useResumes();
 
   return (
-    <div className="grid gap-y-2">
-      <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}>
-        <CreateResumeListItem />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
-      >
-        <ImportResumeListItem />
+    <div className="grid grid-cols-1 gap-8 sm:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
+      <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
+        <CreateResumeCard />
       </motion.div>
 
       {loading &&
@@ -31,7 +23,7 @@ export const ListView = () => {
             className="duration-300 animate-in fade-in"
             style={{ animationFillMode: "backwards", animationDelay: `${i * 300}ms` }}
           >
-            <BaseListItem className="bg-secondary/40" />
+            <BaseCard />
           </div>
         ))}
 
@@ -41,12 +33,13 @@ export const ListView = () => {
             .sort((a, b) => sortByDate(a, b, "updatedAt"))
             .map((resume, index) => (
               <motion.div
+                layout
                 key={resume.id}
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0, transition: { delay: (index + 2) * 0.1 } }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0, transition: { delay: (index + 2) * 0.1 } }}
                 exit={{ opacity: 0, filter: "blur(8px)", transition: { duration: 0.5 } }}
               >
-                <ResumeListItem resume={resume} />
+                <ResumeCard resume={resume} />
               </motion.div>
             ))}
         </AnimatePresence>

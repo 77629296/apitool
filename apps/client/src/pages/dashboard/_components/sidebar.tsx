@@ -71,19 +71,19 @@ export const Sidebar = ({ setOpen }: SidebarProps) => {
   const navigate = useNavigate();
 
   useKeyboardShortcut(["shift", "r"], () => {
-    navigate("/dashboard/resumes");
+    navigate("/dashboard/projects");
     setOpen?.(false);
   });
 
   useKeyboardShortcut(["shift", "s"], () => {
-    navigate("/dashboard/settings");
+    navigate("/dashboard/projects");
     setOpen?.(false);
   });
 
   const sidebarItems: SidebarItem[] = [
     {
-      path: "/dashboard/resumes",
-      name: t`Resumes`,
+      path: "/dashboard/projects",
+      name: t`Projects`,
       shortcut: "⇧R",
       icon: <ReadCvLogo />,
     },

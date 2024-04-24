@@ -13,8 +13,6 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { AiActions } from "@/client/components/ai-actions";
-
 import { SectionDialog } from "../sections/shared/section-dialog";
 import { URLInput } from "../sections/shared/url-input";
 
@@ -98,9 +96,6 @@ export const CertificationsDialog = () => {
                   {...field}
                   content={field.value}
                   onChange={(value) => field.onChange(value)}
-                  footer={(editor) => (
-                    <AiActions value={editor.getText()} onChange={editor.commands.setContent} />
-                  )}
                 />
               </FormControl>
               <FormMessage />
