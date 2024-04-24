@@ -1,4 +1,4 @@
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import {
   defaultCertification,
   defaultEducation,
@@ -77,7 +77,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       if (twitterHandle) {
         result.sections.profiles.items.push({
           ...defaultProfile,
-          id: createId(),
+          id: uuidv4(),
           icon: "twitter",
           network: "Twitter",
           username: twitterHandle,
@@ -98,7 +98,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       for (const position of data["Positions"]) {
         result.sections.experience.items.push({
           ...defaultExperience,
-          id: createId(),
+          id: uuidv4(),
           company: position["Company Name"],
           position: position.Title,
           location: position.Location,
@@ -113,7 +113,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       for (const education of data["Education"]) {
         result.sections.education.items.push({
           ...defaultEducation,
-          id: createId(),
+          id: uuidv4(),
           institution: avoidTooShort(education["School Name"], 2),
           studyType: avoidTooShort(education["Degree Name"], 2),
           summary: avoidTooShort(education.Notes ?? "", 2),
@@ -127,7 +127,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       for (const skill of data["Skills"]) {
         result.sections.skills.items.push({
           ...defaultSkill,
-          id: createId(),
+          id: uuidv4(),
           name: skill.Name,
         });
       }
@@ -138,7 +138,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       for (const language of data["Languages"]) {
         result.sections.languages.items.push({
           ...defaultLanguage,
-          id: createId(),
+          id: uuidv4(),
           name: language.Name,
           description: language.Proficiency ?? "",
         });
@@ -150,7 +150,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       for (const certification of data["Certifications"]) {
         result.sections.certifications.items.push({
           ...defaultCertification,
-          id: createId(),
+          id: uuidv4(),
           name: certification.Name,
           issuer: certification.Authority,
           url: { ...defaultCertification.url, href: certification.Url },
@@ -164,7 +164,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       for (const project of data["Projects"]) {
         result.sections.projects.items.push({
           ...defaultProject,
-          id: createId(),
+          id: uuidv4(),
           name: project.Title,
           description: project.Description,
           url: { ...defaultProject.url, href: project.Url ?? "" },

@@ -1,4 +1,4 @@
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import {
   defaultAward,
   defaultCertification,
@@ -72,7 +72,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const profile of data.basics.profiles) {
         result.sections.profiles.items.push({
           ...defaultProfile,
-          id: createId(),
+          id: uuidv4(),
           icon: profile.network?.toLocaleLowerCase() ?? "",
           network: profile.network ?? "",
           username: profile.username ?? "",
@@ -86,7 +86,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const work of data.work) {
         result.sections.experience.items.push({
           ...defaultExperience,
-          id: createId(),
+          id: uuidv4(),
           company: work.name ?? "",
           position: work.position ?? "",
           summary: work.summary ?? "",
@@ -101,7 +101,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const volunteer of data.volunteer) {
         result.sections.volunteer.items.push({
           ...defaultVolunteer,
-          id: createId(),
+          id: uuidv4(),
           organization: volunteer.organization ?? "",
           date: `${volunteer.startDate} - ${volunteer.endDate}`,
           position: volunteer.position ?? "",
@@ -116,7 +116,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const education of data.education) {
         result.sections.education.items.push({
           ...defaultEducation,
-          id: createId(),
+          id: uuidv4(),
           institution: education.institution ?? "",
           studyType: education.studyType ?? "",
           area: education.area ?? "",
@@ -132,7 +132,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const award of data.awards) {
         result.sections.awards.items.push({
           ...defaultAward,
-          id: createId(),
+          id: uuidv4(),
           title: award.title ?? "",
           date: award.date ?? "",
           awarder: award.awarder ?? "",
@@ -146,7 +146,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const certificate of data.certificates) {
         result.sections.certifications.items.push({
           ...defaultCertification,
-          id: createId(),
+          id: uuidv4(),
           name: certificate.name ?? "",
           date: certificate.date ?? "",
           issuer: certificate.issuer ?? "",
@@ -160,7 +160,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const publication of data.publications) {
         result.sections.publications.items.push({
           ...defaultPublication,
-          id: createId(),
+          id: uuidv4(),
           name: publication.name ?? "",
           publisher: publication.publisher ?? "",
           summary: publication.summary ?? "",
@@ -175,7 +175,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const skill of data.skills) {
         result.sections.skills.items.push({
           ...defaultSkill,
-          id: createId(),
+          id: uuidv4(),
           name: skill.name ?? "",
           description: skill.level ?? "",
           keywords: skill.keywords ?? [],
@@ -188,7 +188,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const language of data.languages) {
         result.sections.languages.items.push({
           ...defaultLanguage,
-          id: createId(),
+          id: uuidv4(),
           name: language.language ?? "",
           description: language.fluency ?? "",
         });
@@ -200,7 +200,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const interest of data.interests) {
         result.sections.interests.items.push({
           ...defaultInterest,
-          id: createId(),
+          id: uuidv4(),
           name: interest.name ?? "",
           keywords: interest.keywords ?? [],
         });
@@ -212,7 +212,7 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
       for (const reference of data.references) {
         result.sections.references.items.push({
           ...defaultReference,
-          id: createId(),
+          id: uuidv4(),
           name: reference.name ?? "",
           summary: reference.reference ?? "",
         });

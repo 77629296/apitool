@@ -1,5 +1,5 @@
 import { t } from "@lingui/macro";
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import { ResumeDto } from "@apitool/dto";
 import { CustomSectionGroup, defaultSection, SectionKey } from "@apitool/schema";
 import { removeItemInLayout } from "@apitool/utils";
@@ -41,7 +41,7 @@ export const useResumeStore = create<ResumeStore>()(
       addSection: () => {
         const section: CustomSectionGroup = {
           ...defaultSection,
-          id: createId(),
+          id: uuidv4(),
           name: t`Custom Section`,
           items: [],
         };

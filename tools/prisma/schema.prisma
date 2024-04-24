@@ -7,59 +7,197 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Provider {
+enum provider {
   email
   github
   google
 }
 
-enum Visibility {
+enum visibility {
   public
   private
 }
 
+model ProjectEnvironment {
+  id               String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectVersionId String?          @db.Uuid
+  name             String           @db.VarChar
+  default          Boolean          @default(false)
+  createdAt        DateTime?        @default(now()) @db.Timestamp(6)
+  updatedAt        DateTime?        @default(now()) @db.Timestamp(6)
+  organizationId   String?          @db.Uuid
+  priority         Int?             @default(1)
+  enabled          Boolean          @default(true)
+  projectVersion   ProjectVersion[]
+
+  @@unique([projectVersionId, name])
+}
+
+model ProjectGroupPermission {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId         String          @db.Uuid
+  groupPermissionId String          @db.Uuid
+  read              Boolean         @default(false)
+  update            Boolean         @default(false)
+  delete            Boolean         @default(false)
+  createdAt         DateTime        @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime        @default(now()) @db.Timestamp(6)
+  hideFromDashboard Boolean         @default(false)
+  groupPermission   GroupPermission @relation(fields: [groupPermissionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  project           Project         @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model ProjectUser {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId String    @db.Uuid
+  userId    String    @db.Uuid
+  role      String    @db.VarChar
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  updatedAt DateTime? @default(now()) @db.Timestamp(6)
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model ProjectVersion {
+  id                   String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String?             @db.VarChar
+  projectId            String              @db.Uuid
+  createdAt            DateTime?           @default(now()) @db.Timestamp(6)
+  updatedAt            DateTime?           @default(now()) @db.Timestamp(6)
+  currentEnvironmentId String?             @db.Uuid
+  projectEnvironment   ProjectEnvironment? @relation(fields: [currentEnvironmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  project              Project             @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  resource             Resource[]
+
+  @@unique([name, projectId])
+}
+
+model Project {
+  id                     String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                   String?                  @db.VarChar
+  userId                 String                   @db.Uuid
+  currentVersionId       String?                  @db.Uuid
+  isPublic               Boolean?
+  organizationId         String                   @db.Uuid
+  createdAt              DateTime?                @default(now()) @db.Timestamp(6)
+  updatedAt              DateTime?                @default(now()) @db.Timestamp(6)
+  icon                   String?                  @db.VarChar(255)
+  isMaintenanceOn        Boolean                  @default(false)
+  projectGroupPermission ProjectGroupPermission[]
+  projectUser            ProjectUser[]
+  projectVersion         ProjectVersion[]
+  organization           Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model GroupPermission {
+  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId          String                    @db.Uuid
+  group                   String                    @db.VarChar
+  createdAt               DateTime                  @default(now()) @db.Timestamp(6)
+  updatedAt               DateTime                  @default(now()) @db.Timestamp(6)
+  projectCreate           Boolean                   @default(false)
+  projectDelete           Boolean                   @default(false)
+  projectGroupPermission  ProjectGroupPermission[]
+  organization            Organization              @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  userGroupPermission     UserGroupPermission[]
+  resourceGroupPermission ResourceGroupPermission[]
+
+  @@unique([organizationId, group])
+}
+
+model OrganizationUser {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId  String       @db.Uuid
+  userId          String       @db.Uuid
+  role            String       @db.VarChar
+  status          String       @default("invited") @db.VarChar
+  createdAt       DateTime?    @default(now()) @db.Timestamp(6)
+  updatedAt       DateTime?    @default(now()) @db.Timestamp(6)
+  invitationToken String?      @db.VarChar
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Organization {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String?            @unique @db.VarChar
+  createdAt        DateTime?          @default(now()) @db.Timestamp(6)
+  updatedAt        DateTime?          @default(now()) @db.Timestamp(6)
+  Project          Project[]
+  groupPermission  GroupPermission[]
+  organizationUser OrganizationUser[]
+  user             User[]
+}
+
+model ResourceGroupPermission {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  resource_id       String          @db.Uuid
+  groupPermissionId String          @db.Uuid
+  read              Boolean         @default(false)
+  update            Boolean         @default(false)
+  delete            Boolean         @default(false)
+  createdAt         DateTime        @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime        @default(now()) @db.Timestamp(6)
+  hideFromDashboard Boolean         @default(false)
+  groupPermission   GroupPermission @relation(fields: [groupPermissionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  resource          Resource        @relation(fields: [resource_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Resource {
+  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  pid                     String?                   @db.Uuid
+  type                    String                    @db.VarChar
+  index                   Int                       @default(autoincrement())
+  disabled                Boolean                   @default(false)
+  name                    String                    @db.VarChar
+  createdAt               DateTime?                 @default(now()) @db.Timestamp(6)
+  updatedAt               DateTime?                 @default(now()) @db.Timestamp(6)
+  projectVersionId        String                    @db.Uuid
+  projectVersion          ProjectVersion            @relation(fields: [projectVersionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  resourceGroupPermission ResourceGroupPermission[]
+}
+
+model UserGroupPermission {
+  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId            String          @db.Uuid
+  groupPermissionId String          @db.Uuid
+  createdAt         DateTime        @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime        @default(now()) @db.Timestamp(6)
+  groupPermission   GroupPermission @relation(fields: [groupPermissionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
 model User {
-  id               String   @id @default(cuid())
-  name             String
-  picture          String?
-  username         String   @unique
-  email            String   @unique
-  locale           String   @default("en-US")
-  emailVerified    Boolean  @default(false)
-  twoFactorEnabled Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  provider         Provider
-  secrets          Secrets?
-  resumes          Resume[]
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String                @db.VarChar
+  picture             String?
+  username            String                @unique
+  email               String                @unique
+  organizationId      String?               @db.Uuid
+  role                String                @default("") @db.VarChar
+  locale              String                @default("en-US")
+  emailVerified       Boolean               @default(false)
+  twoFactorEnabled    Boolean               @default(false)
+  createdAt           DateTime              @default(now()) @db.Timestamp(6)
+  updatedAt           DateTime              @default(now()) @db.Timestamp(6)
+  provider              provider
+  phoneNumber         String?               @db.VarChar
+  secrets             Secrets?
+  projectUser         ProjectUser[]
+  organization        Organization?         @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  organizationUser    OrganizationUser[]
+  userGroupPermission UserGroupPermission[]
 }
 
 model Secrets {
-  id                   String    @id @default(cuid())
-  password             String?
+  id                   String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  password             String?   @db.VarChar
   lastSignedIn         DateTime?
-  verificationToken    String?
-  twoFactorSecret      String?
+  verificationToken    String?   @db.VarChar
+  twoFactorSecret      String?   @db.VarChar
   twoFactorBackupCodes String[]  @default([])
-  refreshToken         String?
+  refreshToken         String?   @db.VarChar
   resetToken           String?   @unique
-  userId               String    @unique
+  userId               String    @unique @db.Uuid
   user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Resume {
-  id         String     @id @default(cuid())
-  title      String
-  slug       String
-  data       Json       @default("{}")
-  visibility Visibility @default(private)
-  locked     Boolean    @default(false)
-  userId     String
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-
-  @@unique([userId, id])
-  @@unique([userId, slug])
-  @@index(fields: [userId])
 }

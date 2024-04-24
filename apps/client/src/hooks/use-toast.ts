@@ -1,4 +1,4 @@
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import { ToastActionElement, ToastProps } from "@apitool/ui";
 import { useEffect, useState } from "react";
 
@@ -127,7 +127,7 @@ function dispatch(action: Action) {
 type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
-  const id = createId();
+  const id = uuidv4();
 
   const update = (props: ToasterToast) =>
     dispatch({

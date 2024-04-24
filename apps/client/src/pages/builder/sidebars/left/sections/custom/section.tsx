@@ -1,5 +1,5 @@
 import { t } from "@lingui/macro";
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import { DotsSixVertical, Plus, X } from "@phosphor-icons/react";
 import { CustomField as ICustomField } from "@apitool/schema";
 import { Button, Input } from "@apitool/ui";
@@ -76,7 +76,7 @@ export const CustomFieldsSection = ({ className }: Props) => {
   const onAddCustomField = () => {
     setValue("basics.customFields", [
       ...customFields,
-      { id: createId(), icon: "", name: "", value: "" },
+      { id: uuidv4(), icon: "", name: "", value: "" },
     ]);
   };
 

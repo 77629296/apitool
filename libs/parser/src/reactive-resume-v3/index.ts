@@ -1,4 +1,4 @@
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import {
   defaultAward,
   defaultCertification,
@@ -74,7 +74,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
       for (const profile of data.basics.profiles) {
         result.sections.profiles.items.push({
           ...defaultProfile,
-          id: createId(),
+          id: uuidv4(),
           network: profile.network ?? "",
           username: profile.username ?? "",
           icon: (profile.network ?? "").toLocaleLowerCase(),
@@ -90,7 +90,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.experience.items.push({
           ...defaultExperience,
-          id: createId(),
+          id: uuidv4(),
           company: work.name ?? "",
           position: work.position ?? "",
           summary: work.summary ?? "",
@@ -107,7 +107,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.awards.items.push({
           ...defaultAward,
-          id: createId(),
+          id: uuidv4(),
           title: award.title ?? "",
           awarder: award.awarder ?? "",
           date: award.date ?? "",
@@ -124,7 +124,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.skills.items.push({
           ...defaultSkill,
-          id: createId(),
+          id: uuidv4(),
           name: skill.name ?? "",
           level: Math.floor(skill.levelNum / 2),
           description: skill.level ?? "",
@@ -142,7 +142,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.projects.items.push({
           ...defaultProject,
-          id: createId(),
+          id: uuidv4(),
           name: project.name ?? "",
           summary: project.summary ?? "",
           description: project.description ?? "",
@@ -162,7 +162,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.education.items.push({
           ...defaultEducation,
-          id: createId(),
+          id: uuidv4(),
           institution: education.institution ?? "",
           studyType: education.degree ?? "",
           area: education.area ?? "",
@@ -181,7 +181,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.interests.items.push({
           ...defaultInterest,
-          id: createId(),
+          id: uuidv4(),
           name: interest.name ?? "",
           keywords: Array.isArray(interest.keywords)
             ? (interest.keywords.filter(Boolean) as string[])
@@ -197,7 +197,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.languages.items.push({
           ...defaultLanguage,
-          id: createId(),
+          id: uuidv4(),
           name: language.name ?? "",
           description: language.level ?? "",
           level: Math.floor(language.levelNum / 2),
@@ -212,7 +212,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.volunteer.items.push({
           ...defaultVolunteer,
-          id: createId(),
+          id: uuidv4(),
           organization: volunteer.organization ?? "",
           position: volunteer.position ?? "",
           summary: volunteer.summary ?? "",
@@ -229,7 +229,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.references.items.push({
           ...defaultReference,
-          id: createId(),
+          id: uuidv4(),
           name: reference.name ?? "",
           summary: reference.summary ?? "",
           description: reference.relationship ?? "",
@@ -244,7 +244,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.publications.items.push({
           ...defaultPublication,
-          id: createId(),
+          id: uuidv4(),
           name: publication.name ?? "",
           summary: publication.summary ?? "",
           date: publication.date ?? "",
@@ -260,7 +260,7 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
 
         result.sections.certifications.items.push({
           ...defaultCertification,
-          id: createId(),
+          id: uuidv4(),
           name: certification.name ?? "",
           issuer: certification.issuer ?? "",
           summary: certification.summary ?? "",

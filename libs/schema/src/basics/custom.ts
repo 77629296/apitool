@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const customFieldSchema = z.object({
-  id: z.string().cuid2(),
+  id: z.string().uuid(),
   icon: z.string(),
   name: z.string(),
   value: z.string(),

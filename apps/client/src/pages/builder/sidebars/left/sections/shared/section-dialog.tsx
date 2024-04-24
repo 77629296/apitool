@@ -1,5 +1,5 @@
 import { t } from "@lingui/macro";
-import { createId } from "@paralleldrive/cuid2";
+import { v4 as uuidv4 } from 'uuid';
 import { CopySimple, PencilSimple, Plus } from "@phosphor-icons/react";
 import { SectionItem, SectionWithItem } from "@apitool/schema";
 import {
@@ -70,7 +70,7 @@ export const SectionDialog = <T extends SectionItem>({
       setValue(
         `sections.${id}.items`,
         produce(section.items, (draft: T[]): void => {
-          draft.push({ ...values, id: createId() });
+          draft.push({ ...values, id: uuidv4() });
         }),
       );
     }
@@ -109,9 +109,9 @@ export const SectionDialog = <T extends SectionItem>({
   };
 
   const onReset = () => {
-    if (isCreate) form.reset({ ...defaultValues, id: createId() } as T);
+    if (isCreate) form.reset({ ...defaultValues, id: uuidv4() } as T);
     if (isUpdate) form.reset({ ...defaultValues, ...payload.item });
-    if (isDuplicate) form.reset({ ...payload.item, id: createId() } as T);
+    if (isDuplicate) form.reset({ ...payload.item, id: uuidv4() } as T);
     if (isDelete) form.reset({ ...defaultValues, ...payload.item });
   };
 
