@@ -1,7 +1,7 @@
 import { sortByDate } from "@apitool/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useResumes } from "@/client/services/resume";
+import { useOrganizations } from "@/client/services/resume";
 
 import { BaseListItem } from "./_components/base-item";
 import { CreateResumeListItem } from "./_components/create-item";
@@ -9,7 +9,7 @@ import { ImportResumeListItem } from "./_components/import-item";
 import { ResumeListItem } from "./_components/resume-item";
 
 export const Members = () => {
-  const { resumes, loading } = useResumes();
+  const { organizations, loading } = useOrganizations();
 
   return (
     <div className="grid gap-y-2">
@@ -35,9 +35,9 @@ export const Members = () => {
           </div>
         ))}
 
-      {resumes && (
+      {organizations && (
         <AnimatePresence>
-          {resumes
+          {organizations
             .sort((a, b) => sortByDate(a, b, "updatedAt"))
             .map((resume, index) => (
               <motion.div

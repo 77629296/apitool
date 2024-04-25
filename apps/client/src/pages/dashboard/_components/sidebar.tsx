@@ -11,6 +11,7 @@ import { Icon } from "@/client/components/icon";
 import { UserAvatar } from "@/client/components/user-avatar";
 import { UserOptions } from "@/client/components/user-options";
 import { useUser } from "@/client/services/user";
+import { ToggleSpace } from "./toggle-space";
 
 type Props = {
   className?: string;
@@ -103,6 +104,9 @@ export const Sidebar = ({ setOpen }: SidebarProps) => {
             <Icon size={24} className="mx-auto hidden lg:block" />
           </Link>
         </Button>
+        <div className="w-40">
+          <ToggleSpace />
+        </div>
       </div>
 
       <Separator className="opacity-50" />

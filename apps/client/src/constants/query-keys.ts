@@ -7,3 +7,5 @@ export const LANGUAGES_KEY: QueryKey = ["translation", "languages"];
 
 export const APITOOL_KEY: QueryKey = ["resume"];
 export const APITOOLS_KEY: QueryKey = ["resumes"];
+
+export const ORGANIZATIONS_KEY: QueryKey = ["organizations"];

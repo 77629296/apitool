@@ -1,14 +1,14 @@
 import { sortByDate } from "@apitool/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useResumes } from "@/client/services/resume";
+import { useOrganizations } from "@/client/services/resume";
 
 import { BaseCard } from "./_components/base-card";
 import { CreateResumeCard } from "./_components/create-card";
 import { ResumeCard } from "./_components/resume-card";
 
 export const Projects = () => {
-  const { resumes, loading } = useResumes();
+  const { organizations, loading } = useOrganizations();
 
   return (
     <div className="grid grid-cols-1 gap-8 sm:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
@@ -27,9 +27,9 @@ export const Projects = () => {
           </div>
         ))}
 
-      {resumes && (
+      {organizations && (
         <AnimatePresence>
-          {resumes
+          {organizations
             .sort((a, b) => sortByDate(a, b, "updatedAt"))
             .map((resume, index) => (
               <motion.div
