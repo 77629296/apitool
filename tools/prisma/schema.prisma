@@ -28,7 +28,7 @@ model ProjectEnvironment {
   organizationId   String?          @db.Uuid
   priority         Int?             @default(1)
   enabled          Boolean          @default(true)
-  projectVersion   ProjectVersion[]
+  projectVersions  ProjectVersion[]
 
   @@unique([projectVersionId, name])
 }
@@ -67,40 +67,40 @@ model ProjectVersion {
   currentEnvironmentId String?             @db.Uuid
   projectEnvironment   ProjectEnvironment? @relation(fields: [currentEnvironmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   project              Project             @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  resource             Resource[]
+  resources            Resource[]
 
   @@unique([name, projectId])
 }
 
 model Project {
-  id                     String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                   String?                  @db.VarChar
-  userId                 String                   @db.Uuid
-  currentVersionId       String?                  @db.Uuid
-  isPublic               Boolean?
-  organizationId         String                   @db.Uuid
-  createdAt              DateTime?                @default(now()) @db.Timestamp(6)
-  updatedAt              DateTime?                @default(now()) @db.Timestamp(6)
-  icon                   String?                  @db.VarChar(255)
-  isMaintenanceOn        Boolean                  @default(false)
-  projectGroupPermission ProjectGroupPermission[]
-  projectUser            ProjectUser[]
-  projectVersion         ProjectVersion[]
-  organization           Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                    String?                  @db.VarChar
+  slug                    String?                  @unique @db.VarChar
+  userId                  String                   @db.Uuid
+  currentVersionId        String?                  @db.Uuid
+  isPublic                Boolean?
+  organizationId          String                   @db.Uuid
+  createdAt               DateTime?                @default(now()) @db.Timestamp(6)
+  updatedAt               DateTime?                @default(now()) @db.Timestamp(6)
+  icon                    String?                  @db.VarChar(255)
+  isMaintenanceOn         Boolean                  @default(false)
+  projectGroupPermissions ProjectGroupPermission[]
+  projectUsers            ProjectUser[]
+  projectVersions         ProjectVersion[]
+  organization            Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model GroupPermission {
-  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  organizationId          String                    @db.Uuid
-  group                   String                    @db.VarChar
-  createdAt               DateTime                  @default(now()) @db.Timestamp(6)
-  updatedAt               DateTime                  @default(now()) @db.Timestamp(6)
-  projectCreate           Boolean                   @default(false)
-  projectDelete           Boolean                   @default(false)
-  projectGroupPermission  ProjectGroupPermission[]
-  organization            Organization              @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  userGroupPermission     UserGroupPermission[]
-  resourceGroupPermission ResourceGroupPermission[]
+  id                      String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId          String                   @db.Uuid
+  group                   String                   @db.VarChar
+  createdAt               DateTime                 @default(now()) @db.Timestamp(6)
+  updatedAt               DateTime                 @default(now()) @db.Timestamp(6)
+  projectCreate           Boolean                  @default(false)
+  projectDelete           Boolean                  @default(false)
+  projectGroupPermissions ProjectGroupPermission[]
+  organization            Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  userGroupPermissions    UserGroupPermission[]
 
   @@unique([organizationId, group])
 }
@@ -119,42 +119,15 @@ model OrganizationUser {
 }
 
 model Organization {
-  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name             String?            @unique @db.VarChar
-  createdAt        DateTime?          @default(now()) @db.Timestamp(6)
-  updatedAt        DateTime?          @default(now()) @db.Timestamp(6)
-  Project          Project[]
-  groupPermission  GroupPermission[]
-  organizationUser OrganizationUser[]
-  user             User[]
-}
-
-model ResourceGroupPermission {
-  id                String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  resource_id       String          @db.Uuid
-  groupPermissionId String          @db.Uuid
-  read              Boolean         @default(false)
-  update            Boolean         @default(false)
-  delete            Boolean         @default(false)
-  createdAt         DateTime        @default(now()) @db.Timestamp(6)
-  updatedAt         DateTime        @default(now()) @db.Timestamp(6)
-  hideFromDashboard Boolean         @default(false)
-  groupPermission   GroupPermission @relation(fields: [groupPermissionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  resource          Resource        @relation(fields: [resource_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-}
-
-model Resource {
-  id                      String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  pid                     String?                   @db.Uuid
-  type                    String                    @db.VarChar
-  index                   Int                       @default(autoincrement())
-  disabled                Boolean                   @default(false)
-  name                    String                    @db.VarChar
-  createdAt               DateTime?                 @default(now()) @db.Timestamp(6)
-  updatedAt               DateTime?                 @default(now()) @db.Timestamp(6)
-  projectVersionId        String                    @db.Uuid
-  projectVersion          ProjectVersion            @relation(fields: [projectVersionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  resourceGroupPermission ResourceGroupPermission[]
+  id                String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name              String             @unique @db.VarChar
+  slug              String?            @unique @db.VarChar
+  createdAt         DateTime?          @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime?          @default(now()) @db.Timestamp(6)
+  projects          Project[]
+  groupPermissions  GroupPermission[]
+  organizationUsers OrganizationUser[]
+  users             User[]
 }
 
 model UserGroupPermission {
@@ -168,25 +141,38 @@ model UserGroupPermission {
 }
 
 model User {
-  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                String                @db.VarChar
-  picture             String?
-  username            String                @unique
-  email               String                @unique
-  organizationId      String?               @db.Uuid
-  role                String                @default("") @db.VarChar
-  locale              String                @default("en-US")
-  emailVerified       Boolean               @default(false)
-  twoFactorEnabled    Boolean               @default(false)
-  createdAt           DateTime              @default(now()) @db.Timestamp(6)
-  updatedAt           DateTime              @default(now()) @db.Timestamp(6)
-  provider              provider
-  phoneNumber         String?               @db.VarChar
-  secrets             Secrets?
-  projectUser         ProjectUser[]
-  organization        Organization?         @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  organizationUser    OrganizationUser[]
-  userGroupPermission UserGroupPermission[]
+  id                   String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String                @db.VarChar
+  picture              String?
+  username             String                @unique
+  email                String                @unique
+  organizationId       String?               @db.Uuid
+  role                 String                @default("") @db.VarChar
+  locale               String                @default("en-US")
+  emailVerified        Boolean               @default(false)
+  twoFactorEnabled     Boolean               @default(false)
+  createdAt            DateTime              @default(now()) @db.Timestamp(6)
+  updatedAt            DateTime              @default(now()) @db.Timestamp(6)
+  provider             provider
+  phoneNumber          String?               @db.VarChar
+  secrets              Secrets?
+  projectUsers         ProjectUser[]
+  organization         Organization?         @relation(fields: [organizationId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  organizationUsers    OrganizationUser[]
+  userGroupPermissions UserGroupPermission[]
+}
+
+model Resource {
+  id               String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  pid              String?        @db.Uuid
+  type             String         @db.VarChar
+  index            Int            @default(autoincrement())
+  disabled         Boolean        @default(false)
+  name             String         @db.VarChar
+  createdAt        DateTime?      @default(now()) @db.Timestamp(6)
+  updatedAt        DateTime?      @default(now()) @db.Timestamp(6)
+  projectVersionId String         @db.Uuid
+  projectVersion   ProjectVersion @relation(fields: [projectVersionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model Secrets {
