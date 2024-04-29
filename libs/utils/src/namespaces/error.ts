@@ -14,4 +14,8 @@ export enum ErrorMessage {
   SlugAlreadyExists = "SlugAlreadyExists",
   NotFound = "NotFound",
   SomethingWentWrong = "SomethingWentWrong",
+
+  // Organization
+  OrganizationSlugAlreadyExists = "OrganizationSlugAlreadyExists",
+  OrganizationNotFound = "OrganizationNotFound",
 }
