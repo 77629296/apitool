@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
-import { User } from "@prisma/client";
-import { processUsername } from "@apitool/utils";
 import { ErrorMessage } from "@apitool/utils";
 import { Profile, Strategy, StrategyOptions, VerifyCallback } from "passport-google-oauth20";
 
 import { UserService } from "@/server/user/user.service";
+import { AuthService } from "@/server/auth/auth.service";
+import { UserDto } from "@apitool/dto";
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
@@ -14,6 +14,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     readonly clientSecret: string,
     readonly callbackURL: string,
     private readonly userService: UserService,
+    private readonly authService: AuthService,
   ) {
     super({ clientID, clientSecret, callbackURL, scope: ["email", "profile"] } as StrategyOptions);
   }
@@ -24,12 +25,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     profile: Profile,
     done: VerifyCallback,
   ) {
-    const { displayName, emails, photos, username } = profile;
+    const { emails, photos, username } = profile;
 
     const email = emails?.[0].value ?? `${username}@google.com`;
     const picture = photos?.[0].value;
 
-    let user: User | null = null;
+    let user: UserDto;
 
     if (!email) throw new BadRequestException();
 
@@ -41,16 +42,17 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
       done(null, user);
     } catch (error) {
       try {
-        user = await this.userService.create({
-          email,
-          picture,
-          locale: "en-US",
-          name: displayName,
-          provider: "google",
-          emailVerified: true, // auto-verify emails
-          username: processUsername(username ?? email.split("@")[0]),
-          secrets: { create: {} },
-        });
+        user = await this.authService.signup({
+          userProfile: {
+            email,
+            username,
+            picture,
+            locale: "en-US",
+            provider: "google",
+            emailVerified: true, // auto-verify emails
+          },
+          secrets: { create: {} }
+        })
 
         done(null, user);
       } catch (error) {

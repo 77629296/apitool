@@ -4,11 +4,12 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotAcceptableException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { AuthProvidersDto, LoginDto, RegisterDto, UserWithSecrets } from "@apitool/dto";
+import { AuthProvidersDto, CreateUserDto, LoginDto, RegisterDto, SecretsDto, UpdateUserDto, UserDto, UserWithSecrets } from "@apitool/dto";
 import { ErrorMessage } from "@apitool/utils";
 import * as bcryptjs from "bcryptjs";
 import { randomBytes } from "crypto";
@@ -19,16 +20,20 @@ import { MailService } from "../mail/mail.service";
 import { UserService } from "../user/user.service";
 import { UtilsService } from "../utils/utils.service";
 import { Payload } from "./utils/payload";
+import { PrismaService } from "nestjs-prisma";
+import { OrganizationService } from "../organization/organization.service";
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly prisma: PrismaService,
     private readonly configService: ConfigService<Config>,
     private readonly userService: UserService,
+    private readonly organizationService: OrganizationService,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
     private readonly utils: UtilsService,
-  ) {}
+  ) { }
 
   private hash(password: string): Promise<string> {
     return bcryptjs.hash(password, 10);
@@ -94,21 +99,26 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
+    if (!registerDto.password) {
+      throw new NotAcceptableException('Need password');
+    }
     const hashedPassword = await this.hash(registerDto.password);
 
     try {
-      const user = await this.userService.create({
-        name: registerDto.name,
-        email: registerDto.email,
-        username: registerDto.username,
-        locale: registerDto.locale,
-        provider: "email",
-        emailVerified: false, // Set to true if you don't want to verify user's email
-        secrets: { create: { password: hashedPassword } },
-      });
+      const user = await this.signup({
+        userProfile: {
+          username: registerDto.username,
+          email: registerDto.email,
+          picture: "",
+          locale: "en-US",
+          provider: "email",
+          emailVerified: false, // Set to true if you don't want to verify user's email
+        },
+        secrets: { create: { password: hashedPassword } }
+      })
 
       // Do not `await` this function, otherwise the user will have to wait for the email to be sent before the response is returned
-      this.sendVerificationEmail(user.email);
+      // this.sendVerificationEmail(user.email);
 
       return user as UserWithSecrets;
     } catch (error) {
@@ -139,6 +149,59 @@ export class AuthService {
     } catch (error) {
       throw new BadRequestException(ErrorMessage.InvalidCredentials);
     }
+  }
+
+  async signup({
+    userProfile,
+    secrets
+  }: {
+    userProfile: CreateUserDto,
+    secrets: Object
+  }) {
+    let user: UserDto;
+    const existingUser = (await this.userService.findOne(userProfile.email)) ||
+      (userProfile.username && await this.userService.findOne(userProfile.username)) || false;
+
+    try {
+      const generateNextNameAndSlug = (firstWord: string) => {
+        const name = `${firstWord} ${Date.now()}`;
+        const slug = name.replace(/\s+/g, '-').toLowerCase();
+        return {
+          name,
+          slug,
+        };
+      };
+      const { name, slug } = generateNextNameAndSlug('My workspace');
+      const groups = ['all_users', 'admin']
+      await this.prisma.$transaction(async (prisma) => {
+
+        const organization = await this.organizationService.create(
+          name,
+          slug,
+          null,
+          prisma
+        );
+        user = await this.userService.create({
+          userProfile,
+          secrets,
+          organization,
+          groups,
+          existingUser,
+          prisma,
+        })
+
+        await prisma.organizationUser.create({
+          data: {
+            userId: user.id,
+            organizationId: organization.id,
+            role: 'all-users',
+          }
+        })
+      });
+    } catch (error) {
+      console.error('Error creating user and organization:', error);
+    }
+    return user!;
   }
 
   // Password Reset Flows

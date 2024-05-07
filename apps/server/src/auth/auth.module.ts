@@ -16,6 +16,7 @@ import { JwtStrategy } from "./strategy/jwt.strategy";
 import { LocalStrategy } from "./strategy/local.strategy";
 import { RefreshStrategy } from "./strategy/refresh.strategy";
 import { TwoFactorStrategy } from "./strategy/two-factor.strategy";
+import { OrganizationService } from "../organization/organization.service";
 
 @Module({})
 export class AuthModule {
@@ -30,18 +31,19 @@ export class AuthModule {
         JwtStrategy,
         RefreshStrategy,
         TwoFactorStrategy,
+        OrganizationService,
 
         // OAuth2 Strategies
         {
           provide: GitHubStrategy,
-          inject: [ConfigService, UserService],
-          useFactory: (configService: ConfigService<Config>, userService: UserService) => {
+          inject: [ConfigService, UserService, AuthService],
+          useFactory: (configService: ConfigService<Config>, userService: UserService, authService: AuthService) => {
             try {
               const clientID = configService.getOrThrow("GITHUB_CLIENT_ID");
               const clientSecret = configService.getOrThrow("GITHUB_CLIENT_SECRET");
               const callbackURL = configService.getOrThrow("GITHUB_CALLBACK_URL");
 
-              return new GitHubStrategy(clientID, clientSecret, callbackURL, userService);
+              return new GitHubStrategy(clientID, clientSecret, callbackURL, userService, authService);
             } catch (error) {
               return new DummyStrategy();
             }
@@ -50,14 +52,14 @@ export class AuthModule {
 
         {
           provide: GoogleStrategy,
-          inject: [ConfigService, UserService],
-          useFactory: (configService: ConfigService<Config>, userService: UserService) => {
+          inject: [ConfigService, UserService, AuthService],
+          useFactory: (configService: ConfigService<Config>, userService: UserService, authService: AuthService) => {
             try {
               const clientID = configService.getOrThrow("GOOGLE_CLIENT_ID");
               const clientSecret = configService.getOrThrow("GOOGLE_CLIENT_SECRET");
               const callbackURL = configService.getOrThrow("GOOGLE_CALLBACK_URL");
 
-              return new GoogleStrategy(clientID, clientSecret, callbackURL, userService);
+              return new GoogleStrategy(clientID, clientSecret, callbackURL, userService, authService);
             } catch (error) {
               return new DummyStrategy();
             }

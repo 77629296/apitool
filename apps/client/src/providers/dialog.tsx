@@ -13,7 +13,7 @@ import { SkillsDialog } from "../pages/builder/sidebars/left/dialogs/skills";
 import { VolunteerDialog } from "../pages/builder/sidebars/left/dialogs/volunteer";
 import { ImportDialog } from "../pages/dashboard/projects/_dialogs/import";
 import { LockDialog } from "../pages/dashboard/projects/_dialogs/lock";
-import { ResumeDialog } from "../pages/dashboard/projects/_dialogs/resume";
+import { ProjectDialog } from "../pages/dashboard/projects/_dialogs/project";
 import { TwoFactorDialog } from "../pages/dashboard/settings/_dialogs/two-factor";
 import { useResumeStore } from "../stores/resume";
 
@@ -29,7 +29,7 @@ export const DialogProvider = ({ children }: Props) => {
       {children}
 
       <div id="dialog-root">
-        <ResumeDialog />
+        <ProjectDialog />
         <LockDialog />
         <ImportDialog />
         <TwoFactorDialog />

@@ -142,7 +142,6 @@ model UserGroupPermission {
 
 model User {
   id                   String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                 String                @db.VarChar
   picture              String?
   username             String                @unique
   email                String                @unique

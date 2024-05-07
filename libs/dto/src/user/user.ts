@@ -15,19 +15,19 @@ export const usernameSchema = z
 
 export const userSchema = z.object({
   id: idSchema,
-  name: z.string().min(1).max(255),
-  picture: z.literal("").or(z.null()).or(z.string().url()),
-  username: usernameSchema,
+  organizationId: idSchema,
+  picture: z.literal("").or(z.null()).or(z.undefined()).or(z.string().url()),
+  username: z.string().or(z.undefined()),
   email: z.string().email(),
   locale: z.string().default("en-US"),
   emailVerified: z.boolean().default(false),
   twoFactorEnabled: z.boolean().default(false),
-  // role: z.literal("").or(z.null()),
-  // organizationId: z.string().or(z.null()),
-  // phoneNumber: z.string().or(z.null()),
+  role: z.string(),
+  phoneNumber: z.string().or(z.null()),
+  password: z.string().or(z.null()).or(z.undefined()),
   provider: z.enum(["email", "github", "google"]).default("email"),
-  createdAt: z.date().or(z.dateString()),
-  updatedAt: z.date().or(z.dateString()),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
 export class UserDto extends createZodDto(userSchema) {}

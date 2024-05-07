@@ -15,6 +15,7 @@ import { MailModule } from "./mail/mail.module";
 import { TranslationModule } from "./translation/translation.module";
 import { UserModule } from "./user/user.module";
 import { UtilsModule } from "./utils/utils.module";
+import { OrganizationModule } from "./organization/organization.module";
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UtilsModule } from "./utils/utils.module";
     UserModule,
     TranslationModule,
     ContributorsModule,
+    OrganizationModule,
 
     ServeStaticModule.forRoot({
       renderPath: "/*",

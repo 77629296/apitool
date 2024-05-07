@@ -52,7 +52,6 @@ export class UserController {
       }
 
       return await this.userService.updateByEmail(email, {
-        name: updateUserDto.name,
         picture: updateUserDto.picture,
         username: updateUserDto.username,
         locale: updateUserDto.locale,

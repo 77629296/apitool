@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/macro";
 import { CaretDown, Flask, MagicWand, Plus } from "@phosphor-icons/react";
-import { createResumeSchema, ResumeDto } from "@apitool/dto";
+import { createOrganizationSchema, OrganizationDto } from "@apitool/dto";
 import { idSchema, sampleResume } from "@apitool/schema";
 import {
   AlertDialog,
@@ -42,12 +42,12 @@ import { useCreateResume, useDeleteResume, useUpdateResume } from "@/client/serv
 import { useImportResume } from "@/client/services/resume/import";
 import { useDialog } from "@/client/stores/dialog";
 
-const formSchema = createResumeSchema.extend({ id: idSchema.optional() });
+const formSchema = createOrganizationSchema.extend({ id: idSchema.optional() });
 
 type FormValues = z.infer<typeof formSchema>;
 
-export const ResumeDialog = () => {
-  const { isOpen, mode, payload, close } = useDialog<ResumeDto>("resume");
+export const ProjectDialog = () => {
+  const { isOpen, mode, payload, close } = useDialog<OrganizationDto>("resume");
 
   const isCreate = mode === "create";
   const isUpdate = mode === "update";

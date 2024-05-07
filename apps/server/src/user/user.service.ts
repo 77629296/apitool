@@ -1,9 +1,10 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
-import { ErrorMessage } from "@apitool/utils";
+import { ErrorMessage, processUsername } from "@apitool/utils";
 import { RedisService } from "@songkeys/nestjs-redis";
 import Redis from "ioredis";
 import { PrismaService } from "nestjs-prisma";
+import { CreateUserDto, OrganizationDto, UserDto } from "@apitool/dto";
 
 @Injectable()
 export class UserService {
@@ -29,14 +30,33 @@ export class UserService {
     return user;
   }
 
+  async findOne(identifier: string) {
+    const user = await (async (identifier: string) => {
+      // First, find the user by email
+      const user = await this.prisma.user.findUnique({
+        where: { email: identifier },
+        include: { secrets: true, organizationUsers: true },
+      });
+      // If the user exists, return it
+      if (user) return user;
+
+      // Otherwise, find the user by username
+      return await this.prisma.user.findUnique({
+        where: { username: identifier },
+        include: { secrets: true, organizationUsers: true },
+      });
+
+    })(identifier);
+    return user;
+  }
+
   async findOneByIdentifier(identifier: string) {
     const user = await (async (identifier: string) => {
       // First, find the user by email
       const user = await this.prisma.user.findUnique({
         where: { email: identifier },
-        include: { secrets: true },
+        include: { secrets: true, organizationUsers: true },
       });
-
       // If the user exists, return it
       if (user) return user;
 
@@ -44,10 +64,10 @@ export class UserService {
       // If the user doesn't exist, throw an error
       return await this.prisma.user.findUniqueOrThrow({
         where: { username: identifier },
-        include: { secrets: true },
+        include: { secrets: true, organizationUsers: true },
       });
-    })(identifier);
 
+    })(identifier);
     if (!user.secrets) {
       throw new InternalServerErrorException(ErrorMessage.SecretsNotFound);
     }
@@ -55,8 +75,59 @@ export class UserService {
     return user;
   }
 
-  async create(data: Prisma.UserCreateInput) {
-    return await this.prisma.user.create({ data, include: { secrets: true } });
+  async create({
+    userProfile,
+    organization,
+    secrets,
+    groups,
+    existingUser,
+    prisma,
+  }: {
+    userProfile: CreateUserDto,
+    secrets: Object,
+    organization: OrganizationDto,
+    groups: string[],
+    existingUser: UserDto | false,
+    prisma: any
+  }) {
+    let user: UserDto;
+    await this.prisma.$transaction(async () => {
+      if (!existingUser) {
+        user = await prisma.user.create({
+          data: {
+            ...userProfile,
+            organizationId: organization.id,
+            username: processUsername(userProfile.username ?? userProfile.email.split("@")[0]),
+            secrets,
+          },
+          include: {
+            secrets: true,
+          },
+        });
+      } else {
+        user = existingUser;
+      }
+      for (const group of groups) {
+        const orgGroupPermission = await prisma.groupPermission.findUnique({
+          where: {
+            organizationId_group: {
+              organizationId: organization.id,
+              group
+            }
+          },
+        });
+        if (!orgGroupPermission) {
+          throw new BadRequestException(`${group} group does not exist for current organization`);
+        }
+        await prisma.userGroupPermission.create({
+          data: {
+            groupPermissionId: orgGroupPermission.id,
+            userId: user.id,
+          }
+        });
+      }
+    })
+    return user!;
   }
 
   async updateByEmail(email: string, data: Prisma.UserUpdateArgs["data"]) {
