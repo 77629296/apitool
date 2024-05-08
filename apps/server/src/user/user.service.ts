@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { ErrorMessage, processUsername } from "@apitool/utils";
 import { RedisService } from "@songkeys/nestjs-redis";
 import Redis from "ioredis";
@@ -88,7 +88,7 @@ export class UserService {
     organization: OrganizationDto,
     groups: string[],
     existingUser: UserDto | false,
-    prisma: any
+    prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">
   }) {
     let user: UserDto;
     await this.prisma.$transaction(async () => {

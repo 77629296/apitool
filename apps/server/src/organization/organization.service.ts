@@ -6,6 +6,7 @@ import { WORKSPACE_USER_STATUS } from "@apitool/utils";
 import { RedisService } from "@songkeys/nestjs-redis";
 import Redis from "ioredis";
 import { PrismaService } from "nestjs-prisma";
+import { PrismaClient } from "@prisma/client";
 
 type UserFilterOptions = { searchText?: string };
 
@@ -21,7 +22,7 @@ export class OrganizationService {
   }
 
 
-  async createDefaultGroupPermissionsForOrganization(organization: OrganizationDto, prisma: any) {
+  async createDefaultGroupPermissionsForOrganization(organization: OrganizationDto, prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">) {
     const defaultGroups = ['all_users', 'admin'];
     return await this.prisma.$transaction(async (tx) => {
       const createdGroupPermissions: GroupPermissionDto[] = [];
@@ -41,7 +42,7 @@ export class OrganizationService {
     });
   }
 
-  async create(name: string, slug: string, user: UserDto | null, prisma: any): Promise<OrganizationDto> {
+  async create(name: string, slug: string, user: UserDto | null, prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">): Promise<OrganizationDto> {
     let organization: OrganizationDto;
     return await this.prisma.$transaction(async () => {
 
