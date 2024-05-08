@@ -3,13 +3,13 @@ import { AspectRatio } from "@apitool/ui";
 import { cn, templatesList } from "@apitool/utils";
 import { motion } from "framer-motion";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
 export const TemplateSection = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const currentTemplate = useResumeStore((state) => state.resume.data.metadata.template);
+  const setValue = useProjectStore((state) => state.setValue);
+  const currentTemplate = useProjectStore((state) => state.project.data.metadata.template);
 
   return (
     <section id="template" className="grid gap-y-6">

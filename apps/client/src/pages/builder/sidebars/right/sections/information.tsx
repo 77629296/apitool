@@ -31,7 +31,7 @@ const DonateCard = () => (
     </CardContent>
     <CardFooter>
       <a
-        href="https://opencollective.com/reactive-resume"
+        href="https://opencollective.com/reactive-project"
         className={cn(buttonVariants({ size: "sm" }))}
         rel="noopener noreferrer nofollow"
         target="_blank"
@@ -51,8 +51,8 @@ const IssuesCard = () => (
         <Trans>
           <p>I'm sure the app is not perfect, but I'd like for it to be.</p>
           <p>
-            If you faced any issues while creating your resume, or have an idea that would help you
-            and other users in creating your resume more easily, drop an issue on the repository or
+            If you faced any issues while creating your project, or have an idea that would help you
+            and other users in creating your project more easily, drop an issue on the repository or
             send me an email about it.
           </p>
         </Trans>
@@ -60,7 +60,7 @@ const IssuesCard = () => (
     </CardContent>
     <CardFooter className="space-x-4">
       <a
-        href="https://github.com/AmruthPillai/Reactive-Resume/issues/new/choose"
+        href="https://github.com/77629296/apitool/issues/new/choose"
         className={cn(buttonVariants({ size: "sm" }))}
         rel="noopener noreferrer nofollow"
         target="_blank"
@@ -94,7 +94,7 @@ const DocumentationCard = () => (
           </p>
           <p>
             There are also a lot of examples to help you get started, and features that you might
-            not know about which could help you build your perfect resume.
+            not know about which could help you build your perfect project.
           </p>
         </Trans>
       </CardDescription>

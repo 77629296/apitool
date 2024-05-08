@@ -17,7 +17,7 @@ import { cn } from "@apitool/utils";
 import fuzzy from "fuzzy";
 import { useMemo, useState } from "react";
 
-import { useLanguages } from "../services/resume/translation";
+import { useLanguages } from "../services/project/translation";
 
 type Props = {
   value: string;

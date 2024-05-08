@@ -2,7 +2,7 @@ import { t } from "@lingui/macro";
 import { basicsSchema } from "@apitool/schema";
 import { Input, Label } from "@apitool/ui";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { CustomFieldsSection } from "./custom/section";
 import { PictureSection } from "./picture/section";
@@ -10,8 +10,8 @@ import { getSectionIcon } from "./shared/section-icon";
 import { URLInput } from "./shared/url-input";
 
 export const BasicsSection = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const basics = useResumeStore((state) => state.resume.data.basics);
+  const setValue = useProjectStore((state) => state.setValue);
+  const basics = useProjectStore((state) => state.project.data.basics);
 
   return (
     <section id="basics" className="grid gap-y-6">

@@ -4,13 +4,13 @@ import { cn } from "@apitool/utils";
 import { HexColorPicker } from "react-colorful";
 
 import { colors } from "@/client/constants/colors";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
 export const ThemeSection = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const theme = useResumeStore((state) => state.resume.data.metadata.theme);
+  const setValue = useProjectStore((state) => state.setValue);
+  const theme = useProjectStore((state) => state.project.data.metadata.theme);
 
   return (
     <section id="theme" className="grid gap-y-6">

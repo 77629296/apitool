@@ -32,7 +32,7 @@ import {
 import get from "lodash.get";
 import { useState } from "react";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
@@ -92,8 +92,8 @@ type SectionProps = {
 };
 
 const Section = ({ id, isDragging = false }: SectionProps) => {
-  const name = useResumeStore((state) =>
-    get(state.resume.data.sections, `${id}.name`, id),
+  const name = useProjectStore((state) =>
+    get(state.project.data.sections, `${id}.name`, id),
   ) as string;
 
   return (
@@ -112,8 +112,8 @@ const Section = ({ id, isDragging = false }: SectionProps) => {
 };
 
 export const LayoutSection = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const layout = useResumeStore((state) => state.resume.data.metadata.layout);
+  const setValue = useProjectStore((state) => state.setValue);
+  const layout = useProjectStore((state) => state.project.data.metadata.layout);
 
   const [activeId, setActiveId] = useState<string | null>(null);
 

@@ -73,7 +73,7 @@ const InsertImageForm = ({ onInsert }: InsertImageProps) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <p className="prose prose-sm prose-zinc dark:prose-invert">
-          Insert an image from an external URL and use it on your resume.
+          Insert an image from an external URL and use it on your project.
         </p>
 
         <FormField

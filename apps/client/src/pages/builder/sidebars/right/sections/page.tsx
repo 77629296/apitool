@@ -10,13 +10,13 @@ import {
   Switch,
 } from "@apitool/ui";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
 export const PageSection = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const page = useResumeStore((state) => state.resume.data.metadata.page);
+  const setValue = useProjectStore((state) => state.setValue);
+  const page = useProjectStore((state) => state.project.data.metadata.page);
 
   return (
     <section id="theme" className="grid gap-y-6">

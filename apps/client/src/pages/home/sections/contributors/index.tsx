@@ -4,7 +4,7 @@ import { cn } from "@apitool/utils";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 
-import { useContributors } from "@/client/services/resume/contributors";
+import { useContributors } from "@/client/services/project/contributors";
 
 export const ContributorsSection = () => {
   const { github, crowdin, loading } = useContributors();

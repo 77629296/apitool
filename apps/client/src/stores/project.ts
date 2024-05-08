@@ -1,6 +1,6 @@
 import { t } from "@lingui/macro";
 import { v4 as uuidv4 } from 'uuid';
-import { ResumeDto } from "@apitool/dto";
+import { ProjectDto } from "@apitool/dto";
 import { CustomSectionGroup, defaultSection, SectionKey } from "@apitool/schema";
 import { removeItemInLayout } from "@apitool/utils";
 import _set from "lodash.set";
@@ -10,10 +10,10 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { useStoreWithEqualityFn } from "zustand/traditional";
 
-import { debouncedUpdateResume } from "../services/resume";
+import { debouncedUpdateProject } from "../services/project";
 
-type ResumeStore = {
-  resume: ResumeDto;
+type ProjectStore = {
+  project: ProjectDto;
 
   // Actions
   setValue: (path: string, value: unknown) => void;
@@ -23,19 +23,19 @@ type ResumeStore = {
   removeSection: (sectionId: SectionKey) => void;
 };
 
-export const useResumeStore = create<ResumeStore>()(
+export const useProjectStore = create<ProjectStore>()(
   temporal(
     immer((set) => ({
-      resume: {} as ResumeDto,
+      project: {} as ProjectDto,
       setValue: (path, value) => {
         set((state) => {
           if (path === "visibility") {
-            state.resume.visibility = value as "public" | "private";
+            state.project.visibility = value as "public" | "private";
           } else {
-            state.resume.data = _set(state.resume.data, path, value);
+            state.project.data = _set(state.project.data, path, value);
           }
 
-          debouncedUpdateResume(JSON.parse(JSON.stringify(state.resume)));
+          debouncedUpdateProject(JSON.parse(JSON.stringify(state.project)));
         });
       },
       addSection: () => {
@@ -47,11 +47,11 @@ export const useResumeStore = create<ResumeStore>()(
         };
 
         set((state) => {
-          const lastPageIndex = state.resume.data.metadata.layout.length - 1;
-          state.resume.data.metadata.layout[lastPageIndex][0].push(`custom.${section.id}`);
-          state.resume.data = _set(state.resume.data, `sections.custom.${section.id}`, section);
+          const lastPageIndex = state.project.data.metadata.layout.length - 1;
+          state.project.data.metadata.layout[lastPageIndex][0].push(`custom.${section.id}`);
+          state.project.data = _set(state.project.data, `sections.custom.${section.id}`, section);
 
-          debouncedUpdateResume(JSON.parse(JSON.stringify(state.resume)));
+          debouncedUpdateProject(JSON.parse(JSON.stringify(state.project)));
         });
       },
       removeSection: (sectionId: SectionKey) => {
@@ -59,10 +59,10 @@ export const useResumeStore = create<ResumeStore>()(
           const id = sectionId.split("custom.")[1];
 
           set((state) => {
-            removeItemInLayout(sectionId, state.resume.data.metadata.layout);
-            delete state.resume.data.sections.custom[id];
+            removeItemInLayout(sectionId, state.project.data.metadata.layout);
+            delete state.project.data.sections.custom[id];
 
-            debouncedUpdateResume(JSON.parse(JSON.stringify(state.resume)));
+            debouncedUpdateProject(JSON.parse(JSON.stringify(state.project)));
           });
         }
       },
@@ -70,12 +70,12 @@ export const useResumeStore = create<ResumeStore>()(
     {
       limit: 100,
       wrapTemporal: (fn) => devtools(fn),
-      partialize: ({ resume }) => ({ resume }),
+      partialize: ({ project }) => ({ project }),
     },
   ),
 );
 
-export const useTemporalResumeStore = <T>(
-  selector: (state: TemporalState<Pick<ResumeStore, "resume">>) => T,
+export const useTemporalProjectStore = <T>(
+  selector: (state: TemporalState<Pick<ProjectStore, "project">>) => T,
   equality?: (a: T, b: T) => boolean,
-) => useStoreWithEqualityFn(useResumeStore.temporal, selector, equality);
+) => useStoreWithEqualityFn(useProjectStore.temporal, selector, equality);

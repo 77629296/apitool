@@ -5,7 +5,7 @@ export const AUTH_PROVIDERS_KEY: QueryKey = ["auth", "providers"];
 
 export const LANGUAGES_KEY: QueryKey = ["translation", "languages"];
 
-export const APITOOL_KEY: QueryKey = ["resume"];
-export const APITOOLS_KEY: QueryKey = ["resumes"];
+export const PROJECT_KEY: QueryKey = ["project"];
+export const PROJECTS_KEY: QueryKey = ["projects"];
 
 export const ORGANIZATIONS_KEY: QueryKey = ["organizations"];

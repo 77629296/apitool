@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { Copyright } from "@/client/components/copyright";
 import { ThemeSwitch } from "@/client/components/theme-switch";
 
-import { ExportSection } from "./sections/export";
 import { InformationSection } from "./sections/information";
 import { LayoutSection } from "./sections/layout";
 import { NotesSection } from "./sections/notes";
@@ -42,8 +41,6 @@ export const RightSidebar = () => {
           <SharingSection />
           <Separator />
           <StatisticsSection />
-          <Separator />
-          <ExportSection />
           <Separator />
           <NotesSection />
           <Separator />

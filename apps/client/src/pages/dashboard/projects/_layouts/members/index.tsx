@@ -1,12 +1,11 @@
 import { sortByDate } from "@apitool/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useOrganizations } from "@/client/services/resume";
+import { useOrganizations } from "@/client/services/project";
 
 import { BaseListItem } from "./_components/base-item";
-import { CreateResumeListItem } from "./_components/create-item";
-import { ImportResumeListItem } from "./_components/import-item";
-import { ResumeListItem } from "./_components/resume-item";
+import { CreateProjectListItem } from "./_components/create-item";
+import { ProjectListItem } from "./_components/project-item";
 
 export const Members = () => {
   const { organizations, loading } = useOrganizations();
@@ -14,14 +13,7 @@ export const Members = () => {
   return (
     <div className="grid gap-y-2">
       <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}>
-        <CreateResumeListItem />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
-      >
-        <ImportResumeListItem />
+        <CreateProjectListItem />
       </motion.div>
 
       {loading &&
@@ -39,14 +31,14 @@ export const Members = () => {
         <AnimatePresence>
           {organizations
             .sort((a, b) => sortByDate(a, b, "updatedAt"))
-            .map((resume, index) => (
+            .map((project, index) => (
               <motion.div
-                key={resume.id}
+                key={project.id}
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0, transition: { delay: (index + 2) * 0.1 } }}
                 exit={{ opacity: 0, filter: "blur(8px)", transition: { duration: 0.5 } }}
               >
-                <ResumeListItem resume={resume} />
+                <ProjectListItem project={project} />
               </motion.div>
             ))}
         </AnimatePresence>

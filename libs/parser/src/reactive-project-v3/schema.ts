@@ -202,7 +202,7 @@ const metadataSchema = z
   })
   .optional();
 
-export const reactiveResumeV3Schema = z.object({
+export const reactiveProjectV3Schema = z.object({
   public: z.boolean(),
   basics: basicsSchema,
   sections: z.object({
@@ -223,4 +223,4 @@ export const reactiveResumeV3Schema = z.object({
   metadata: metadataSchema,
 });
 
-export type ReactiveResumeV3 = z.infer<typeof reactiveResumeV3Schema>;
+export type ReactiveProjectV3 = z.infer<typeof reactiveProjectV3Schema>;

@@ -8,7 +8,7 @@ import {
   PencilSimple,
   TrashSimple,
 } from "@phosphor-icons/react";
-import { ResumeDto } from "@apitool/dto";
+import { ProjectDto } from "@apitool/dto";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -21,42 +21,39 @@ import dayjs from "dayjs";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-import { useResumePreview } from "@/client/services/resume/preview";
 import { useDialog } from "@/client/stores/dialog";
 
 import { BaseCard } from "./base-card";
 
 type Props = {
-  resume: ResumeDto;
+  project: ProjectDto;
 };
 
-export const ResumeCard = ({ resume }: Props) => {
+export const ProjectCard = ({ project }: Props) => {
   const navigate = useNavigate();
-  const { open } = useDialog<ResumeDto>("resume");
-  const { open: lockOpen } = useDialog<ResumeDto>("lock");
+  const { open } = useDialog<ProjectDto>("project");
+  const { open: lockOpen } = useDialog<ProjectDto>("lock");
 
-  const { url, loading } = useResumePreview(resume.id);
-
-  const lastUpdated = dayjs().to(resume.updatedAt);
+  const lastUpdated = dayjs().to(project.updatedAt);
 
   const onOpen = () => {
-    navigate(`/builder/${resume.id}`);
+    navigate(`/builder/${project.id}`);
   };
 
   const onUpdate = () => {
-    open("update", { id: "resume", item: resume });
+    open("update", { id: "project", item: project });
   };
 
   const onDuplicate = () => {
-    open("duplicate", { id: "resume", item: resume });
+    open("duplicate", { id: "project", item: project });
   };
 
   const onLockChange = () => {
-    lockOpen(resume.locked ? "update" : "create", { id: "lock", item: resume });
+    lockOpen(project.locked ? "update" : "create", { id: "lock", item: project });
   };
 
   const onDelete = () => {
-    open("delete", { id: "resume", item: resume });
+    open("delete", { id: "project", item: project });
   };
 
   return (
@@ -64,37 +61,23 @@ export const ResumeCard = ({ resume }: Props) => {
       <ContextMenuTrigger>
         <BaseCard onClick={onOpen} className="space-y-0">
           <AnimatePresence presenceAffectsLayout>
-            {loading && (
-              <motion.div
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <CircleNotch
-                  size={64}
-                  weight="thin"
-                  opacity={0.5}
-                  className="animate-spin self-center justify-self-center"
-                />
-              </motion.div>
-            )}
-
-            {!loading && url && (
-              <motion.img
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                loading="lazy"
-                alt={resume.title}
-                className="size-full object-cover"
-                src={`${url}?cache=${new Date().getTime()}`}
+            <motion.div
+              layout
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <CircleNotch
+                size={64}
+                weight="thin"
+                opacity={0.5}
+                className="animate-spin self-center justify-self-center"
               />
-            )}
+            </motion.div>
           </AnimatePresence>
 
           <AnimatePresence>
-            {resume.locked && (
+            {project.locked && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -112,7 +95,7 @@ export const ResumeCard = ({ resume }: Props) => {
               "bg-gradient-to-t from-background/80 to-transparent",
             )}
           >
-            <h4 className="line-clamp-2 font-medium">{resume.title}</h4>
+            <h4 className="line-clamp-2 font-medium">{project.title}</h4>
             <p className="line-clamp-1 text-xs opacity-75">{t`Last updated ${lastUpdated}`}</p>
           </div>
         </BaseCard>
@@ -131,7 +114,7 @@ export const ResumeCard = ({ resume }: Props) => {
           <CopySimple size={14} className="mr-2" />
           {t`Duplicate`}
         </ContextMenuItem>
-        {resume.locked ? (
+        {project.locked ? (
           <ContextMenuItem onClick={onLockChange}>
             <LockOpen size={14} className="mr-2" />
             {t`Unlock`}

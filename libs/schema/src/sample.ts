@@ -1,6 +1,6 @@
-import { ResumeData } from ".";
+import { ProjectData } from ".";
 
-export const sampleResume: ResumeData = {
+export const sampleProject: ProjectData = {
   basics: {
     name: "John Doe",
     headline: "Creative and Innovative Web Developer",

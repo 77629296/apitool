@@ -16,7 +16,7 @@ import { useMemo, useRef } from "react";
 import { z } from "zod";
 
 import { useUploadImage } from "@/client/services/storage";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { PictureOptions } from "./options";
 
@@ -24,8 +24,8 @@ export const PictureSection = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { uploadImage } = useUploadImage();
 
-  const setValue = useResumeStore((state) => state.setValue);
-  const picture = useResumeStore((state) => state.resume.data.basics.picture);
+  const setValue = useProjectStore((state) => state.setValue);
+  const picture = useProjectStore((state) => state.project.data.basics.picture);
 
   const isValidUrl = useMemo(() => z.string().url().safeParse(picture.url).success, [picture.url]);
 

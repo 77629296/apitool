@@ -7,7 +7,7 @@ import { fonts } from "@apitool/utils";
 import { useCallback, useEffect, useState } from "react";
 import webfontloader from "webfontloader";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
@@ -33,8 +33,8 @@ export const TypographySection = () => {
   const [subsets, setSubsets] = useState<ComboboxOption[]>([]);
   const [variants, setVariants] = useState<ComboboxOption[]>([]);
 
-  const setValue = useResumeStore((state) => state.setValue);
-  const typography = useResumeStore((state) => state.resume.data.metadata.typography);
+  const setValue = useProjectStore((state) => state.setValue);
+  const typography = useProjectStore((state) => state.project.data.metadata.typography);
 
   const loadFontSuggestions = useCallback(async () => {
     fontSuggestions.forEach((font) => {

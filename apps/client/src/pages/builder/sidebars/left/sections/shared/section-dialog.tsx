@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { DialogName, useDialog } from "@/client/stores/dialog";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 type Props<T extends SectionItem> = {
   id: DialogName;
@@ -44,10 +44,10 @@ export const SectionDialog = <T extends SectionItem>({
 }: Props<T>) => {
   const { isOpen, mode, close, payload } = useDialog<T>(id);
 
-  const setValue = useResumeStore((state) => state.setValue);
-  const section = useResumeStore((state) => {
+  const setValue = useProjectStore((state) => state.setValue);
+  const section = useProjectStore((state) => {
     if (!id) return null;
-    return get(state.resume.data.sections, id);
+    return get(state.project.data.sections, id);
   }) as SectionWithItem<T> | null;
 
   const isCreate = mode === "create";

@@ -5,17 +5,17 @@ import { defaultMetadata, metadataSchema } from "./metadata";
 import { defaultSections, sectionsSchema } from "./sections";
 
 // Schema
-export const resumeDataSchema = z.object({
+export const projectDataSchema = z.object({
   basics: basicsSchema,
   sections: sectionsSchema,
   metadata: metadataSchema,
 });
 
 // Type
-export type ResumeData = z.infer<typeof resumeDataSchema>;
+export type ProjectData = z.infer<typeof projectDataSchema>;
 
 // Defaults
-export const defaultResumeData: ResumeData = {
+export const defaultProjectData: ProjectData = {
   basics: defaultBasics,
   sections: defaultSections,
   metadata: defaultMetadata,

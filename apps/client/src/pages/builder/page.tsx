@@ -1,36 +1,36 @@
 import { t } from "@lingui/macro";
-import { ResumeDto } from "@apitool/dto";
+import { ProjectDto } from "@apitool/dto";
 import { useCallback, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { LoaderFunction, redirect } from "react-router-dom";
 
 import { queryClient } from "@/client/libs/query-client";
-import { findResumeById } from "@/client/services/resume";
+import { findProjectById } from "@/client/services/project";
 import { useBuilderStore } from "@/client/stores/builder";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 export const BuilderPage = () => {
   const frameRef = useBuilderStore((state) => state.frame.ref);
   const setFrameRef = useBuilderStore((state) => state.frame.setRef);
 
-  const resume = useResumeStore((state) => state.resume);
-  const title = useResumeStore((state) => state.resume.title);
+  const project = useProjectStore((state) => state.project);
+  const title = useProjectStore((state) => state.project.name);
 
-  const updateResumeInFrame = useCallback(() => {
+  const updateProjectInFrame = useCallback(() => {
     if (!frameRef || !frameRef.contentWindow) return;
-    const message = { type: "SET_RESUME", payload: resume.data };
+    const message = { type: "SET_PROJECT", payload: project.data };
     (() => frameRef.contentWindow.postMessage(message, "*"))();
-  }, [frameRef, resume.data]);
+  }, [frameRef, project.data]);
 
-  // Send resume data to iframe on initial load
+  // Send project data to iframe on initial load
   useEffect(() => {
     if (!frameRef) return;
-    frameRef.addEventListener("load", updateResumeInFrame);
-    return () => frameRef.removeEventListener("load", updateResumeInFrame);
+    frameRef.addEventListener("load", updateProjectInFrame);
+    return () => frameRef.removeEventListener("load", updateProjectInFrame);
   }, [frameRef]);
 
-  // Send resume data to iframe on change of resume data
-  useEffect(updateResumeInFrame, [resume.data]);
+  // Send project data to iframe on change of project data
+  useEffect(updateProjectInFrame, [project.data]);
 
   return (
     <>
@@ -45,19 +45,19 @@ export const BuilderPage = () => {
   );
 };
 
-export const builderLoader: LoaderFunction<ResumeDto> = async ({ params }) => {
+export const builderLoader: LoaderFunction<ProjectDto> = async ({ params }) => {
   try {
     const id = params.id as string;
 
-    const resume = await queryClient.fetchQuery({
-      queryKey: ["resume", { id }],
-      queryFn: () => findResumeById({ id }),
+    const project = await queryClient.fetchQuery({
+      queryKey: ["project", { id }],
+      queryFn: () => findProjectById({ id }),
     });
 
-    useResumeStore.setState({ resume });
-    useResumeStore.temporal.getState().clear();
+    useProjectStore.setState({ project });
+    useProjectStore.temporal.getState().clear();
 
-    return resume;
+    return project;
   } catch (error) {
     return redirect("/dashboard");
   }

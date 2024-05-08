@@ -12,10 +12,10 @@ msgstr ""
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: reactive-resume\n"
+"X-Crowdin-Project: apitool\n"
 "X-Crowdin-Project-ID: 503410\n"
 "X-Crowdin-Language: en\n"
-"X-Crowdin-File: /[AmruthPillai.Reactive-Resume] v4/apps/client/src/locales/en-US/messages.po\n"
+"X-Crowdin-File: /[apitool] v4/apps/client/src/locales/en-US/messages.po\n"
 "X-Crowdin-File-ID: 450\n"
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:169
@@ -31,12 +31,12 @@ msgid "<0>I built APITool mostly by myself during my spare time, with a lot of h
 msgstr "<0>I built APITool mostly by myself during my spare time, with a lot of help from other great open-source contributors.</0><1>If you like the app and want to support keeping it free forever, please donate whatever you can afford to give.</1>"
 
 #: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:51
-msgid "<0>I'm sure the app is not perfect, but I'd like for it to be.</0><1>If you faced any issues while creating your resume, or have an idea that would help you and other users in creating your resume more easily, drop an issue on the repository or send me an email about it.</1>"
-msgstr "<0>I'm sure the app is not perfect, but I'd like for it to be.</0><1>If you faced any issues while creating your resume, or have an idea that would help you and other users in creating your resume more easily, drop an issue on the repository or send me an email about it.</1>"
+msgid "<0>I'm sure the app is not perfect, but I'd like for it to be.</0><1>If you faced any issues while creating your project, or have an idea that would help you and other users in creating your project more easily, drop an issue on the repository or send me an email about it.</1>"
+msgstr "<0>I'm sure the app is not perfect, but I'd like for it to be.</0><1>If you faced any issues while creating your project, or have an idea that would help you and other users in creating your project more easily, drop an issue on the repository or send me an email about it.</1>"
 
 #: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:90
-msgid "<0>The community has spent a lot of time writing the documentation for APITool, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect resume.</1>"
-msgstr "<0>The community has spent a lot of time writing the documentation for APITool, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect resume.</1>"
+msgid "<0>The community has spent a lot of time writing the documentation for APITool, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect project.</1>"
+msgstr "<0>The community has spent a lot of time writing the documentation for APITool, and I'm sure it will help you get started with the app.</0><1>There are also a lot of examples to help you get started, and features that you might not know about which could help you build your perfect project.</1>"
 
 #: apps/client/src/pages/dashboard/settings/_sections/security.tsx:146
 msgid "<0>Two-factor authentication is currently disabled.</0> You can enable it by adding an authenticator app to your account."
@@ -55,10 +55,9 @@ msgid "A free and open-source platform."
 msgstr "A free and open-source platform."
 
 #: apps/client/src/pages/home/page.tsx:18
-msgid "A free and open-source resume builder"
-msgstr "A free and open-source resume builder"
+msgid "A free and open-source project builder"
+msgstr "A free and open-source project builder"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:53
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:29
 msgid "A link has been copied to your clipboard."
 msgstr "A link has been copied to your clipboard."
@@ -78,11 +77,6 @@ msgstr "A user with this email address and/or username already exists."
 #: apps/client/src/pages/builder/sidebars/right/sections/page.tsx:43
 msgid "A4"
 msgstr "A4"
-
-#. Helper text to let the user know what filetypes are accepted. {accept} can be .pdf or .json.
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:270
-msgid "Accepts only {accept} files"
-msgstr "Accepts only {accept} files"
 
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:104
 msgid "Account"
@@ -119,18 +113,13 @@ msgstr "Add New Page"
 msgid "Already have an account?"
 msgstr "Already have an account?"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:144
-msgid "An error occurred while validating the file."
-msgstr "An error occurred while validating the file."
-
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:57
-msgid "Anyone with the link can view and download the resume."
-msgstr "Anyone with the link can view and download the resume."
+msgid "Anyone with the link can view and download the project."
+msgstr "Anyone with the link can view and download the project."
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:54
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:30
-msgid "Anyone with this link can view and download the resume. Share it on your profile or with recruiters."
-msgstr "Anyone with this link can view and download the resume. Share it on your profile or with recruiters."
+msgid "Anyone with this link can view and download the project. Share it on your profile or with recruiters."
+msgstr "Anyone with this link can view and download the project. Share it on your profile or with recruiters."
 
 #: apps/client/src/components/copyright.tsx:35
 #: apps/client/src/pages/auth/backup-otp/page.tsx:52
@@ -145,8 +134,8 @@ msgstr "Anyone with this link can view and download the resume. Share it on your
 #: apps/client/src/pages/dashboard/settings/page.tsx:15
 #: apps/client/src/pages/home/components/footer.tsx:17
 #: apps/client/src/pages/home/page.tsx:18
-#: apps/client/src/pages/public/page.tsx:71
-#: apps/client/src/pages/public/page.tsx:87
+#: apps/client/src/pages/public/page.tsx:57
+#: apps/client/src/pages/public/page.tsx:73
 msgid "APITool"
 msgstr "APITool"
 
@@ -163,21 +152,21 @@ msgstr "APITool thrives thanks to its vibrant community. This project owes its p
 msgid "Are you sure you want to delete this item?"
 msgstr "Are you sure you want to delete this item?"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:148
-msgid "Are you sure you want to delete your resume?"
-msgstr "Are you sure you want to delete your resume?"
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:133
+msgid "Are you sure you want to delete your project?"
+msgstr "Are you sure you want to delete your project?"
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:123
 msgid "Are you sure you want to disable two-factor authentication?"
 msgstr "Are you sure you want to disable two-factor authentication?"
 
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:38
-msgid "Are you sure you want to lock this resume?"
-msgstr "Are you sure you want to lock this resume?"
+msgid "Are you sure you want to lock this project?"
+msgstr "Are you sure you want to lock this project?"
 
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:39
-msgid "Are you sure you want to unlock this resume?"
-msgstr "Are you sure you want to unlock this resume?"
+msgid "Are you sure you want to unlock this project?"
+msgstr "Are you sure you want to unlock this project?"
 
 #: apps/client/src/pages/dashboard/settings/_sections/danger.tsx:94
 msgid "Are you sure?"
@@ -215,7 +204,7 @@ msgid "Backup Codes may contain only lowercase letters or numbers, and must be e
 msgstr "Backup Codes may contain only lowercase letters or numbers, and must be exactly 10 characters."
 
 #: apps/client/src/pages/builder/sidebars/left/index.tsx:56
-msgctxt "The basics section of a resume consists of User's Picture, Full Name, Location etc."
+msgctxt "The basics section of a project consists of User's Picture, Full Name, Location etc."
 msgid "Basics"
 msgstr "Basics"
 
@@ -231,7 +220,7 @@ msgstr "Border"
 msgid "Border Radius"
 msgstr "Border Radius"
 
-#: apps/client/src/pages/public/page.tsx:85
+#: apps/client/src/pages/public/page.tsx:71
 msgid "Built with"
 msgstr "Built with"
 
@@ -242,7 +231,7 @@ msgstr "By the community, for the community."
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:132
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:49
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:155
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:140
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:135
 msgid "Cancel"
 msgstr "Cancel"
@@ -252,7 +241,7 @@ msgstr "Cancel"
 msgid "Change Password"
 msgstr "Change Password"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:185
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:170
 msgid "Changed your mind about the name? Give it a new one."
 msgstr "Changed your mind about the name? Give it a new one."
 
@@ -297,16 +286,12 @@ msgstr "Continue"
 msgid "Copy"
 msgstr "Copy"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:126
-msgid "Copy Link to Resume"
-msgstr "Copy Link to Resume"
-
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:78
 msgid "Copy to Clipboard"
 msgstr "Copy to Clipboard"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:168
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:243
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:228
 msgid "Create"
 msgstr "Create"
 
@@ -319,10 +304,10 @@ msgstr "Create a new account"
 msgid "Create a new item"
 msgstr "Create a new item"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:177
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:162
 #: apps/client/src/pages/dashboard/projects/_layouts/members/_components/create-item.tsx:19
-msgid "Create a new resume"
-msgstr "Create a new resume"
+msgid "Create a new project"
+msgstr "Create a new project"
 
 #: apps/client/src/pages/auth/login/page.tsx:65
 msgctxt "This is a link to create a new account"
@@ -333,11 +318,11 @@ msgstr "Create one now"
 msgid "Create project"
 msgstr "Create project"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:258
-msgid "Create Sample Resume"
-msgstr "Create Sample Resume"
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:243
+msgid "Create Sample Project"
+msgstr "Create Sample Project"
 
-#: apps/client/src/stores/resume.ts:45
+#: apps/client/src/stores/project.ts:45
 msgid "Custom Section"
 msgstr "Custom Section"
 
@@ -364,10 +349,10 @@ msgid "Date or Date Range"
 msgstr "Date or Date Range"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:134
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:157
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:134
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:198
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:148
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:142
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:129
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:178
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:131
 msgid "Delete"
 msgstr "Delete"
 
@@ -392,7 +377,6 @@ msgstr "Disable"
 msgid "Disable 2FA"
 msgstr "Disable 2FA"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:302
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:219
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:128
 #: apps/client/src/pages/dashboard/settings/_sections/security.tsx:124
@@ -419,28 +403,15 @@ msgstr "Don't see your language? <0>Help translate the app.</0>"
 msgid "Donate to APITool"
 msgstr "Donate to APITool"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/export.tsx:56
-msgid "Download a JSON snapshot of your resume. This file can be used to import your resume in the future, or can even be shared with others to collaborate."
-msgstr "Download a JSON snapshot of your resume. This file can be used to import your resume in the future, or can even be shared with others to collaborate."
-
-#: apps/client/src/pages/builder/sidebars/right/sections/export.tsx:74
-msgid "Download a PDF of your resume. This file can be used to print your resume, send it to recruiters, or upload on job portals."
-msgstr "Download a PDF of your resume. This file can be used to print your resume, send it to recruiters, or upload on job portals."
-
-#: apps/client/src/pages/builder/_components/toolbar.tsx:138
-#: apps/client/src/pages/public/page.tsx:97
-msgid "Download PDF"
-msgstr "Download PDF"
-
 #: apps/client/src/pages/builder/sidebars/right/sections/statistics.tsx:58
 msgid "Downloads"
 msgstr "Downloads"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:170
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:245
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:102
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:182
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:132
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:230
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:97
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:162
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:115
 msgid "Duplicate"
 msgstr "Duplicate"
 
@@ -448,9 +419,9 @@ msgstr "Duplicate"
 msgid "Duplicate an existing item"
 msgstr "Duplicate an existing item"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:179
-msgid "Duplicate an existing resume"
-msgstr "Duplicate an existing resume"
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:164
+msgid "Duplicate an existing project"
+msgstr "Duplicate an existing project"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-list-item.tsx:90
 msgid "Edit"
@@ -492,22 +463,9 @@ msgstr "Enter the one-time password provided by your authenticator app below."
 msgid "Enter your email address and we will send you a link to reset your password if the account exists."
 msgstr "Enter your email address and we will send you a link to reset your password if the account exists."
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:283
-msgid "Errors"
-msgstr "Errors"
-
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:79
-#: apps/client/src/pages/builder/sidebars/right/sections/export.tsx:40
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:76
 msgid "Export"
 msgstr "Export"
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:255
-msgid "File"
-msgstr "File"
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:221
-msgid "Filetype"
-msgstr "Filetype"
 
 #: apps/client/src/pages/home/sections/hero/index.tsx:26
 msgid "Finally,"
@@ -530,8 +488,8 @@ msgid "Font Variants"
 msgstr "Font Variants"
 
 #: apps/client/src/pages/builder/sidebars/right/sections/notes.tsx:30
-msgid "For example, information regarding which companies you sent this resume to or the links to the job descriptions can be noted down here."
-msgstr "For example, information regarding which companies you sent this resume to or the links to the job descriptions can be noted down here."
+msgid "For example, information regarding which companies you sent this project to or the links to the job descriptions can be noted down here."
+msgstr "For example, information regarding which companies you sent this project to or the links to the job descriptions can be noted down here."
 
 #: apps/client/src/pages/auth/login/page.tsx:120
 msgid "Forgot Password?"
@@ -554,9 +512,9 @@ msgstr "Found a bug, or have an idea for a new feature?"
 msgid "Full Name"
 msgstr "Full Name"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:201
-msgid "Generate a random title for your resume"
-msgstr "Generate a random title for your resume"
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:186
+msgid "Generate a random title for your project"
+msgstr "Generate a random title for your project"
 
 #: apps/client/src/pages/home/sections/hero/call-to-action.tsx:33
 msgid "Get Started"
@@ -570,9 +528,9 @@ msgstr "GitHub"
 msgid "GitHub Stars"
 msgstr "GitHub Stars"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:186
-msgid "Give your old resume a new name."
-msgstr "Give your old resume a new name."
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:171
+msgid "Give your old project a new name."
+msgstr "Give your old project a new name."
 
 #: apps/client/src/pages/auth/verify-email/page.tsx:67
 #: apps/client/src/pages/home/sections/hero/call-to-action.tsx:18
@@ -631,16 +589,6 @@ msgstr "Icon"
 msgid "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 msgstr "If you disable two-factor authentication, you will no longer be required to enter a verification code when logging in."
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:309
-msgid "Import"
-msgstr "Import"
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:208
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/import-item.tsx:18
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/import-card.tsx:24
-msgid "Import an existing resume"
-msgstr "Import an existing resume"
-
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:186
 msgid "In case you are unable to scan this QR Code, you can also copy-paste this link into your authenticator app."
 msgstr "In case you are unable to scan this QR Code, you can also copy-paste this link into your authenticator app."
@@ -653,7 +601,7 @@ msgstr "In this section, you can change your password and enable/disable two-fac
 msgid "In this section, you can delete your account and all the data associated to your user, but please keep in mind that <0>this action is irreversible</0>."
 msgstr "In this section, you can delete your account and all the data associated to your user, but please keep in mind that <0>this action is irreversible</0>."
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:83
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:80
 #: apps/client/src/pages/builder/sidebars/right/sections/information.tsx:122
 msgid "Information"
 msgstr "Information"
@@ -709,10 +657,6 @@ msgctxt "Localized version of a placeholder email. For example, max.mustermann@e
 msgid "john.doe@example.com"
 msgstr "john.doe@example.com"
 
-#: apps/client/src/pages/builder/sidebars/right/sections/export.tsx:54
-msgid "JSON"
-msgstr "JSON"
-
 #: apps/client/src/pages/builder/sidebars/left/dialogs/custom-section.tsx:145
 #: apps/client/src/pages/builder/sidebars/left/dialogs/interests.tsx:63
 #: apps/client/src/pages/builder/sidebars/left/dialogs/projects.tsx:125
@@ -729,12 +673,12 @@ msgstr "Label"
 msgid "Language"
 msgstr "Language"
 
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:149
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:116
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:144
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:99
 msgid "Last updated {lastUpdated}"
 msgstr "Last updated {lastUpdated}"
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:65
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:62
 #: apps/client/src/pages/builder/sidebars/right/sections/layout.tsx:207
 msgid "Layout"
 msgstr "Layout"
@@ -764,11 +708,6 @@ msgstr "Light"
 msgid "Line Height"
 msgstr "Line Height"
 
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/import-item.tsx:23
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/import-card.tsx:29
-msgid "LinkedIn, JSON Resume, etc."
-msgstr "LinkedIn, JSON Resume, etc."
-
 #: apps/client/src/pages/builder/sidebars/left/dialogs/custom-section.tsx:98
 #: apps/client/src/pages/builder/sidebars/left/dialogs/experience.tsx:84
 #: apps/client/src/pages/builder/sidebars/left/dialogs/volunteer.tsx:79
@@ -777,15 +716,15 @@ msgid "Location"
 msgstr "Location"
 
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:51
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:122
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:192
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:142
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:117
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:172
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:125
 msgid "Lock"
 msgstr "Lock"
 
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:43
-msgid "Locking a resume will prevent any further changes to it. This is useful when you have already shared your resume with someone and you don't want to accidentally make any changes to it."
-msgstr "Locking a resume will prevent any further changes to it. This is useful when you have already shared your resume with someone and you don't want to accidentally make any changes to it."
+msgid "Locking a project will prevent any further changes to it. This is useful when you have already shared your project with someone and you don't want to accidentally make any changes to it."
+msgstr "Locking a project will prevent any further changes to it. This is useful when you have already shared your project with someone and you don't want to accidentally make any changes to it."
 
 #: apps/client/src/components/user-options.tsx:34
 #: apps/client/src/pages/home/sections/hero/call-to-action.tsx:23
@@ -856,7 +795,7 @@ msgstr "No results found"
 msgid "Note: This will make your account less secure."
 msgstr "Note: This will make your account less secure."
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:80
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:77
 #: apps/client/src/pages/builder/sidebars/right/sections/notes.tsx:17
 msgid "Notes"
 msgstr "Notes"
@@ -866,14 +805,12 @@ msgid "One-Time Password"
 msgstr "One-Time Password"
 
 #: apps/client/src/libs/axios.ts:34
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:188
-#: apps/client/src/services/resume/print.tsx:26
 msgid "Oops, the server returned an error."
 msgstr "Oops, the server returned an error."
 
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:84
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:174
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:124
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:79
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:154
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:107
 msgid "Open"
 msgstr "Open"
 
@@ -891,7 +828,7 @@ msgstr "or continue with"
 msgid "Organization"
 msgstr "Organization"
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:72
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:69
 #: apps/client/src/pages/builder/sidebars/right/sections/page.tsx:26
 msgid "Page"
 msgstr "Page"
@@ -906,10 +843,6 @@ msgstr "Page {0}"
 #: apps/client/src/pages/dashboard/settings/_sections/security.tsx:76
 msgid "Password"
 msgstr "Password"
-
-#: apps/client/src/pages/builder/sidebars/right/sections/export.tsx:72
-msgid "PDF"
-msgstr "PDF"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/basics.tsx:73
 msgid "Phone"
@@ -927,10 +860,6 @@ msgstr "Picture"
 #: apps/client/src/pages/auth/verify-email/page.tsx:59
 msgid "Please note that this step is completely optional."
 msgstr "Please note that this step is completely optional."
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:225
-msgid "Please select a file type"
-msgstr "Please select a file type"
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:226
 msgid "Please store your backup codes in a secure location. You can use one of these one-time use codes to login in case you lose access to your authenticator app."
@@ -961,11 +890,15 @@ msgstr "Primary Color"
 msgid "Profile"
 msgstr "Profile"
 
-#: apps/client/src/pages/dashboard/_components/sidebar.tsx:86
+#: apps/client/src/pages/dashboard/_components/sidebar.tsx:87
 #: apps/client/src/pages/dashboard/projects/page.tsx:20
 #: apps/client/src/pages/dashboard/projects/page.tsx:40
 msgid "Projects"
 msgstr "Projects"
+
+#: apps/client/src/pages/home/sections/statistics/index.tsx:14
+msgid "Projects Generated"
+msgstr "Projects Generated"
 
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:55
 msgid "Public"
@@ -979,7 +912,7 @@ msgstr "Publisher"
 msgid "Raise an issue"
 msgstr "Raise an issue"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:72
+#: apps/client/src/pages/builder/_components/toolbar.tsx:40
 msgid "Redo"
 msgstr "Redo"
 
@@ -993,9 +926,9 @@ msgid "Remove Page"
 msgstr "Remove Page"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-options.tsx:83
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:93
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:178
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:128
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:88
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:158
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:111
 msgid "Rename"
 msgstr "Rename"
 
@@ -1016,20 +949,16 @@ msgstr "Reset Layout"
 msgid "Reset your password"
 msgstr "Reset your password"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:92
+#: apps/client/src/pages/builder/_components/toolbar.tsx:60
 msgid "Reset Zoom"
 msgstr "Reset Zoom"
-
-#: apps/client/src/pages/home/sections/statistics/index.tsx:14
-msgid "Resumes Generated"
-msgstr "Resumes Generated"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/picture/options.tsx:143
 msgid "Rounded"
 msgstr "Rounded"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/shared/section-dialog.tsx:169
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:244
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:229
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:216
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:125
 msgid "Save Changes"
@@ -1073,7 +1002,7 @@ msgid "Send me a message"
 msgstr "Send me a message"
 
 #: apps/client/src/components/user-options.tsx:28
-#: apps/client/src/pages/dashboard/_components/sidebar.tsx:92
+#: apps/client/src/pages/dashboard/_components/sidebar.tsx:93
 #: apps/client/src/pages/dashboard/projects/page.tsx:49
 #: apps/client/src/pages/dashboard/settings/page.tsx:15
 #: apps/client/src/pages/dashboard/settings/page.tsx:25
@@ -1084,7 +1013,7 @@ msgstr "Settings"
 msgid "Setup two-factor authentication on your account"
 msgstr "Setup two-factor authentication on your account"
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:73
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:70
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:39
 msgid "Sharing"
 msgstr "Sharing"
@@ -1132,7 +1061,7 @@ msgstr "Signups are currently disabled by the administrator."
 msgid "Size (in px)"
 msgstr "Size (in px)"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:227
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:212
 msgid "Slug"
 msgstr "Slug"
 
@@ -1149,22 +1078,22 @@ msgstr "Square"
 msgid "Start building from scratch"
 msgstr "Start building from scratch"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:184
-msgid "Start building your resume by giving it a name."
-msgstr "Start building your resume by giving it a name."
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:169
+msgid "Start building your project by giving it a name."
+msgstr "Start building your project by giving it a name."
 
 #: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/create-card.tsx:29
 msgid "Start from scratch"
 msgstr "Start from scratch"
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:76
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:73
 #: apps/client/src/pages/builder/sidebars/right/sections/statistics.tsx:23
 msgid "Statistics"
 msgstr "Statistics"
 
 #: apps/client/src/pages/builder/sidebars/right/sections/statistics.tsx:38
-msgid "Statistics are available only for public resumes."
-msgstr "Statistics are available only for public resumes."
+msgid "Statistics are available only for public projects."
+msgstr "Statistics are available only for public projects."
 
 #: apps/client/src/pages/dashboard/settings/_dialogs/two-factor.tsx:160
 msgid "Store your backup codes securely"
@@ -1190,7 +1119,7 @@ msgstr "Support the app by donating what you can!"
 msgid "System"
 msgstr "System"
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:62
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:59
 #: apps/client/src/pages/builder/sidebars/right/sections/template.tsx:19
 msgid "Template"
 msgstr "Template"
@@ -1203,7 +1132,7 @@ msgstr "Text Color"
 msgid "The passwords you entered do not match."
 msgstr "The passwords you entered do not match."
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:71
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:68
 #: apps/client/src/pages/builder/sidebars/right/sections/theme.tsx:20
 #: apps/client/src/pages/dashboard/settings/_sections/profile.tsx:73
 msgid "Theme"
@@ -1217,40 +1146,40 @@ msgstr "There was an error connecting to the browser. Please make sure 'chrome' 
 msgid "This action can be reverted by clicking on the undo button in the floating toolbar."
 msgstr "This action can be reverted by clicking on the undo button in the floating toolbar."
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:150
-msgid "This action cannot be undone. This will permanently delete your resume and cannot be recovered."
-msgstr "This action cannot be undone. This will permanently delete your resume and cannot be recovered."
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:135
+msgid "This action cannot be undone. This will permanently delete your project and cannot be recovered."
+msgstr "This action cannot be undone. This will permanently delete your project and cannot be recovered."
 
 #: apps/client/src/services/errors/translate-error.ts:13
 msgid "This email address is associated with an OAuth account. Please sign in with your OAuth provider."
 msgstr "This email address is associated with an OAuth account. Please sign in with your OAuth provider."
 
 #: apps/client/src/pages/builder/_components/header.tsx:53
-msgid "This resume is locked, please unlock to make further changes."
-msgstr "This resume is locked, please unlock to make further changes."
+msgid "This project is locked, please unlock to make further changes."
+msgstr "This project is locked, please unlock to make further changes."
 
 #: apps/client/src/pages/builder/sidebars/right/sections/notes.tsx:23
-msgid "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
-msgstr "This section is reserved for your personal notes specific to this resume. The content here remains private and is not shared with anyone else."
+msgid "This section is reserved for your personal notes specific to this project. The content here remains private and is not shared with anyone else."
+msgstr "This section is reserved for your personal notes specific to this project. The content here remains private and is not shared with anyone else."
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:215
-msgid "Tip: You can name the resume referring to the position you are applying for."
-msgstr "Tip: You can name the resume referring to the position you are applying for."
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:200
+msgid "Tip: You can name the project referring to the position you are applying for."
+msgstr "Tip: You can name the project referring to the position you are applying for."
 
 #: apps/client/src/pages/builder/sidebars/left/dialogs/awards.tsx:37
 msgctxt "Name of the Award"
 msgid "Title"
 msgstr "Title"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:195
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:180
 msgid "Title"
 msgstr "Title"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:100
+#: apps/client/src/pages/builder/_components/toolbar.tsx:68
 msgid "Toggle Page Break Line"
 msgstr "Toggle Page Break Line"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:112
+#: apps/client/src/pages/builder/_components/toolbar.tsx:80
 msgid "Toggle Page Numbers"
 msgstr "Toggle Page Numbers"
 
@@ -1277,7 +1206,7 @@ msgstr "Type <0>delete</0> to confirm deleting your account."
 msgid "Type of Study"
 msgstr "Type of Study"
 
-#: apps/client/src/pages/builder/sidebars/right/index.tsx:68
+#: apps/client/src/pages/builder/sidebars/right/index.tsx:65
 #: apps/client/src/pages/builder/sidebars/right/sections/typography.tsx:66
 msgid "Typography"
 msgstr "Typography"
@@ -1286,20 +1215,20 @@ msgstr "Typography"
 msgid "Underline Links"
 msgstr "Underline Links"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:66
+#: apps/client/src/pages/builder/_components/toolbar.tsx:34
 msgid "Undo"
 msgstr "Undo"
 
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:52
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:112
-#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/resume-item.tsx:187
-#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/resume-card.tsx:137
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:107
+#: apps/client/src/pages/dashboard/projects/_layouts/members/_components/project-item.tsx:167
+#: apps/client/src/pages/dashboard/projects/_layouts/projects/_components/project-card.tsx:120
 msgid "Unlock"
 msgstr "Unlock"
 
 #: apps/client/src/pages/dashboard/projects/_dialogs/lock.tsx:44
-msgid "Unlocking a resume will allow you to make changes to it again."
-msgstr "Unlocking a resume will allow you to make changes to it again."
+msgid "Unlocking a project will allow you to make changes to it again."
+msgstr "Unlocking a project will allow you to make changes to it again."
 
 #: apps/client/src/pages/dashboard/settings/_sections/account.tsx:191
 msgid "Unverified"
@@ -1309,13 +1238,9 @@ msgstr "Unverified"
 msgid "Update an existing item"
 msgstr "Update an existing item"
 
-#: apps/client/src/pages/dashboard/projects/_dialogs/resume.tsx:178
-msgid "Update an existing resume"
-msgstr "Update an existing resume"
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:212
-msgid "Upload a file from one of the accepted sources to parse existing data and import it into APITool for easier editing."
-msgstr "Upload a file from one of the accepted sources to parse existing data and import it into APITool for easier editing."
+#: apps/client/src/pages/dashboard/projects/_dialogs/project.tsx:163
+msgid "Update an existing project"
+msgstr "Update an existing project"
 
 #: apps/client/src/pages/builder/sidebars/right/sections/sharing.tsx:73
 msgid "URL"
@@ -1343,14 +1268,6 @@ msgstr "Username"
 #: apps/client/src/pages/home/sections/statistics/index.tsx:13
 msgid "Users Signed Up"
 msgstr "Users Signed Up"
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:296
-msgid "Validate"
-msgstr "Validate"
-
-#: apps/client/src/pages/dashboard/projects/_dialogs/import.tsx:314
-msgid "Validated"
-msgstr "Validated"
 
 #: apps/client/src/pages/builder/sidebars/left/sections/custom/section.tsx:50
 msgid "Value"
@@ -1411,8 +1328,8 @@ msgid "You can also enter your username."
 msgstr "You can also enter your username."
 
 #: apps/client/src/pages/builder/sidebars/right/sections/statistics.tsx:40
-msgid "You can track the number of views your resume has received, or how many people have downloaded the resume by enabling public sharing."
-msgstr "You can track the number of views your resume has received, or how many people have downloaded the resume by enabling public sharing."
+msgid "You can track the number of views your project has received, or how many people have downloaded the project by enabling public sharing."
+msgstr "You can track the number of views your project has received, or how many people have downloaded the project by enabling public sharing."
 
 #: apps/client/src/pages/auth/verify-email/page.tsx:50
 msgid "You should have received an email from <0>APITool</0> with a link to verify your account."
@@ -1435,10 +1352,10 @@ msgstr "Your email address has been verified successfully."
 msgid "Your password has been updated successfully."
 msgstr "Your password has been updated successfully."
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:80
+#: apps/client/src/pages/builder/_components/toolbar.tsx:48
 msgid "Zoom In"
 msgstr "Zoom In"
 
-#: apps/client/src/pages/builder/_components/toolbar.tsx:86
+#: apps/client/src/pages/builder/_components/toolbar.tsx:54
 msgid "Zoom Out"
 msgstr "Zoom Out"

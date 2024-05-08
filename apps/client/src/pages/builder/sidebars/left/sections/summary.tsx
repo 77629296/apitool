@@ -2,15 +2,15 @@ import { defaultSections } from "@apitool/schema";
 import { RichInput } from "@apitool/ui";
 import { cn } from "@apitool/utils";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "./shared/section-icon";
 import { SectionOptions } from "./shared/section-options";
 
 export const SummarySection = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const section = useResumeStore(
-    (state) => state.resume.data.sections.summary ?? defaultSections.summary,
+  const setValue = useProjectStore((state) => state.setValue);
+  const section = useProjectStore(
+    (state) => state.project.data.sections.summary ?? defaultSections.summary,
   );
 
   return (

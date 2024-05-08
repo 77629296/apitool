@@ -16,7 +16,7 @@ import { ProjectsPage } from "../pages/dashboard/projects/page";
 import { SettingsPage } from "../pages/dashboard/settings/page";
 import { HomeLayout } from "../pages/home/layout";
 import { HomePage } from "../pages/home/page";
-import { publicLoader, PublicResumePage } from "../pages/public/page";
+import { publicLoader, PublicProjectPage } from "../pages/public/page";
 import { Providers } from "../providers";
 import { AuthGuard } from "./guards/auth";
 import { GuestGuard } from "./guards/guest";
@@ -75,14 +75,14 @@ export const routes = createRoutesFromElements(
         <Route element={<BuilderLayout />}>
           <Route path=":id" loader={builderLoader} element={<BuilderPage />} />
 
-          <Route index element={<Navigate to="/dashboard/resumes" replace />} />
+          <Route index element={<Navigate to="/dashboard/projects" replace />} />
         </Route>
       </Route>
     </Route>
 
     {/* Public Routes */}
     <Route path=":username">
-      <Route path=":slug" loader={publicLoader} element={<PublicResumePage />} />
+      <Route path=":slug" loader={publicLoader} element={<PublicProjectPage />} />
     </Route>
   </Route>,
 );

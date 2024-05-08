@@ -19,7 +19,7 @@ import { defaultSection, SectionKey, SectionWithItem } from "@apitool/schema";
 import { Button, ButtonProps, Tooltip } from "@apitool/ui";
 import get from "lodash.get";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 export const getSectionIcon = (id: SectionKey, props: IconProps = {}) => {
   switch (id) {
@@ -65,8 +65,8 @@ type SectionIconProps = ButtonProps & {
 };
 
 export const SectionIcon = ({ id, name, icon, ...props }: SectionIconProps) => {
-  const section = useResumeStore((state) =>
-    get(state.resume.data.sections, id, defaultSection),
+  const section = useProjectStore((state) =>
+    get(state.project.data.sections, id, defaultSection),
   ) as SectionWithItem;
 
   return (

@@ -5,7 +5,7 @@
   - The `id` column on the `Secrets` table would be dropped and recreated. This will lead to data loss if there is data in the column.
   - The primary key for the `User` table will be changed. If it partially fails, the table could be left without primary key constraint.
   - The `id` column on the `User` table would be dropped and recreated. This will lead to data loss if there is data in the column.
-  - You are about to drop the `Resume` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `Project` table. If the table is not empty, all the data it contains will be lost.
   - Changed the type of `userId` on the `Secrets` table. No cast exists, the column would be dropped and recreated, which cannot be done if there is data, since the column is required.
   - Changed the type of `provider` on the `User` table. No cast exists, the column would be dropped and recreated, which cannot be done if there is data, since the column is required.
 
@@ -17,7 +17,7 @@ CREATE TYPE "provider" AS ENUM ('email', 'github', 'google');
 CREATE TYPE "visibility" AS ENUM ('public', 'private');
 
 -- DropForeignKey
-ALTER TABLE "Resume" DROP CONSTRAINT "Resume_userId_fkey";
+ALTER TABLE "Project" DROP CONSTRAINT "Project_userId_fkey";
 
 -- DropForeignKey
 ALTER TABLE "Secrets" DROP CONSTRAINT "Secrets_userId_fkey";
@@ -50,7 +50,7 @@ ADD COLUMN     "provider" "provider" NOT NULL,
 ADD CONSTRAINT "User_pkey" PRIMARY KEY ("id");
 
 -- DropTable
-DROP TABLE "Resume";
+DROP TABLE "Project";
 
 -- DropEnum
 DROP TYPE "Provider";

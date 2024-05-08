@@ -23,7 +23,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import get from "lodash.get";
 
 import { useDialog } from "@/client/stores/dialog";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "./section-icon";
 import { SectionListItem } from "./section-list-item";
@@ -38,9 +38,9 @@ type Props<T extends SectionItem> = {
 export const SectionBase = <T extends SectionItem>({ id, title, description }: Props<T>) => {
   const { open } = useDialog(id);
 
-  const setValue = useResumeStore((state) => state.setValue);
-  const section = useResumeStore((state) =>
-    get(state.resume.data.sections, id),
+  const setValue = useProjectStore((state) => state.setValue);
+  const section = useProjectStore((state) =>
+    get(state.project.data.sections, id),
   ) as SectionWithItem<T>;
 
   const sensors = useSensors(

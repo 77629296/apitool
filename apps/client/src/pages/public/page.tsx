@@ -1,6 +1,5 @@
 import { t } from "@lingui/macro";
-import { CircleNotch, FilePdf } from "@phosphor-icons/react";
-import { ResumeDto } from "@apitool/dto";
+import { ProjectDto } from "@apitool/dto";
 import { Button } from "@apitool/ui";
 import { pageSizeMap } from "@apitool/utils";
 import { useCallback, useEffect, useRef } from "react";
@@ -10,26 +9,24 @@ import { Link, LoaderFunction, redirect, useLoaderData } from "react-router-dom"
 import { Icon } from "@/client/components/icon";
 import { ThemeSwitch } from "@/client/components/theme-switch";
 import { queryClient } from "@/client/libs/query-client";
-import { findResumeByUsernameSlug, usePrintResume } from "@/client/services/resume";
+import { findProjectByUsernameSlug } from "@/client/services/project";
 
-export const PublicResumePage = () => {
+export const PublicProjectPage = () => {
   const frameRef = useRef<HTMLIFrameElement>(null);
 
-  const { printResume, loading } = usePrintResume();
+  const { name, data: project } = useLoaderData() as ProjectDto;
+  const format = project.metadata.page.format;
 
-  const { id, title, data: resume } = useLoaderData() as ResumeDto;
-  const format = resume.metadata.page.format;
-
-  const updateResumeInFrame = useCallback(() => {
+  const updateProjectInFrame = useCallback(() => {
     if (!frameRef.current || !frameRef.current.contentWindow) return;
-    const message = { type: "SET_RESUME", payload: resume };
+    const message = { type: "SET_PROJECT", payload: project };
     (() => frameRef.current.contentWindow.postMessage(message, "*"))();
-  }, [frameRef, resume]);
+  }, [frameRef, project]);
 
   useEffect(() => {
     if (!frameRef.current) return;
-    frameRef.current.addEventListener("load", updateResumeInFrame);
-    return () => frameRef.current?.removeEventListener("load", updateResumeInFrame);
+    frameRef.current.addEventListener("load", updateProjectInFrame);
+    return () => frameRef.current?.removeEventListener("load", updateProjectInFrame);
   }, [frameRef]);
 
   useEffect(() => {
@@ -53,22 +50,11 @@ export const PublicResumePage = () => {
     };
   }, [frameRef]);
 
-  const onDownloadPdf = async () => {
-    const { url } = await printResume({ id });
-
-    const openInNewTab = (url: string) => {
-      const win = window.open(url, "_blank");
-      if (win) win.focus();
-    };
-
-    openInNewTab(url);
-  };
-
   return (
     <div>
       <Helmet>
         <title>
-          {title} - {t`APITool`}
+          {name} - {t`APITool`}
         </title>
       </Helmet>
 
@@ -91,12 +77,6 @@ export const PublicResumePage = () => {
 
       <div className="fixed bottom-5 right-5 print:hidden">
         <div className="flex items-center gap-x-4">
-          <Button variant="outline" className="gap-x-2 rounded-full" onClick={onDownloadPdf}>
-            {loading ? <CircleNotch size={16} className="animate-spin" /> : <FilePdf size={16} />}
-            {/* eslint-disable-next-line lingui/no-unlocalized-strings */}
-            <span>{t`Download PDF`}</span>
-          </Button>
-
           <ThemeSwitch />
         </div>
       </div>
@@ -104,17 +84,17 @@ export const PublicResumePage = () => {
   );
 };
 
-export const publicLoader: LoaderFunction<ResumeDto> = async ({ params }) => {
+export const publicLoader: LoaderFunction<ProjectDto> = async ({ params }) => {
   try {
     const username = params.username as string;
     const slug = params.slug as string;
 
-    const resume = await queryClient.fetchQuery({
-      queryKey: ["resume", { username, slug }],
-      queryFn: () => findResumeByUsernameSlug({ username, slug }),
+    const project = await queryClient.fetchQuery({
+      queryKey: ["project", { username, slug }],
+      queryFn: () => findProjectByUsernameSlug({ username, slug }),
     });
 
-    return resume;
+    return project;
   } catch (error) {
     return redirect("/");
   }

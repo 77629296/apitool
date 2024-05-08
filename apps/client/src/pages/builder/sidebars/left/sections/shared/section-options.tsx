@@ -30,18 +30,18 @@ import get from "lodash.get";
 import { useMemo } from "react";
 
 import { useDialog } from "@/client/stores/dialog";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 type Props = { id: SectionKey };
 
 export const SectionOptions = ({ id }: Props) => {
   const { open } = useDialog(id);
 
-  const setValue = useResumeStore((state) => state.setValue);
-  const removeSection = useResumeStore((state) => state.removeSection);
+  const setValue = useProjectStore((state) => state.setValue);
+  const removeSection = useProjectStore((state) => state.removeSection);
 
   const originalName = get(defaultSections, `${id}.name`, "") as SectionWithItem;
-  const section = useResumeStore((state) => get(state.resume.data.sections, id)) as SectionWithItem;
+  const section = useProjectStore((state) => get(state.project.data.sections, id)) as SectionWithItem;
 
   const hasItems = useMemo(() => "items" in section, [section]);
   const isCustomSection = useMemo(() => id.startsWith("custom"), [id]);

@@ -37,7 +37,7 @@ CREATE TABLE "Secrets" (
 );
 
 -- CreateTable
-CREATE TABLE "Resume" (
+CREATE TABLE "Project" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE "Resume" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Resume_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Project_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -64,16 +64,16 @@ CREATE UNIQUE INDEX "Secrets_resetToken_key" ON "Secrets"("resetToken");
 CREATE UNIQUE INDEX "Secrets_userId_key" ON "Secrets"("userId");
 
 -- CreateIndex
-CREATE INDEX "Resume_userId_idx" ON "Resume"("userId");
+CREATE INDEX "Project_userId_idx" ON "Project"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Resume_userId_id_key" ON "Resume"("userId", "id");
+CREATE UNIQUE INDEX "Project_userId_id_key" ON "Project"("userId", "id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Resume_userId_slug_key" ON "Resume"("userId", "slug");
+CREATE UNIQUE INDEX "Project_userId_slug_key" ON "Project"("userId", "slug");
 
 -- AddForeignKey
 ALTER TABLE "Secrets" ADD CONSTRAINT "Secrets_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Resume" ADD CONSTRAINT "Resume_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Project" ADD CONSTRAINT "Project_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -109,7 +109,7 @@ const referencesSchema = z.object({
   reference: z.string().optional(),
 });
 
-export const jsonResumeSchema = z.object({
+export const jsonProjectSchema = z.object({
   basics: basicsSchema.optional(),
   work: z.array(workSchema).optional(),
   volunteer: z.array(volunteerSchema).optional(),
@@ -123,4 +123,4 @@ export const jsonResumeSchema = z.object({
   references: z.array(referencesSchema).optional(),
 });
 
-export type JsonResume = z.infer<typeof jsonResumeSchema>;
+export type JsonProject = z.infer<typeof jsonProjectSchema>;

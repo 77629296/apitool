@@ -10,24 +10,24 @@ import {
   defaultProject,
   defaultPublication,
   defaultReference,
-  defaultResumeData,
+  defaultProjectData,
   defaultSkill,
   defaultVolunteer,
-  ResumeData,
+  ProjectData,
 } from "@apitool/schema";
 import { isUrl, Json } from "@apitool/utils";
 import { Schema } from "zod";
 
 import { Parser } from "../interfaces/parser";
-import { ReactiveResumeV3, reactiveResumeV3Schema } from "./schema";
+import { ReactiveProjectV3, reactiveProjectV3Schema } from "./schema";
 
 export * from "./schema";
 
-export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
+export class ReactiveProjectV3Parser implements Parser<Json, ReactiveProjectV3> {
   schema: Schema;
 
   constructor() {
-    this.schema = reactiveResumeV3Schema;
+    this.schema = reactiveProjectV3Schema;
   }
 
   readFile(file: File): Promise<Json> {
@@ -52,11 +52,11 @@ export class ReactiveResumeV3Parser implements Parser<Json, ReactiveResumeV3> {
   }
 
   validate(data: Json) {
-    return this.schema.parse(data) as ReactiveResumeV3;
+    return this.schema.parse(data) as ReactiveProjectV3;
   }
 
-  convert(data: ReactiveResumeV3) {
-    const result = JSON.parse(JSON.stringify(defaultResumeData)) as ResumeData;
+  convert(data: ReactiveProjectV3) {
+    const result = JSON.parse(JSON.stringify(defaultProjectData)) as ProjectData;
 
     // Basics
     result.basics.name = data.basics.name ?? "";

@@ -8,7 +8,7 @@ import {
   PencilSimple,
   TrashSimple,
 } from "@phosphor-icons/react";
-import { ResumeDto } from "@apitool/dto";
+import { ProjectDto } from "@apitool/dto";
 import {
   Button,
   ContextMenu,
@@ -21,49 +21,44 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   HoverCard,
-  HoverCardContent,
   HoverCardTrigger,
 } from "@apitool/ui";
 import dayjs from "dayjs";
-import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-import { useResumePreview } from "@/client/services/resume/preview";
 import { useDialog } from "@/client/stores/dialog";
 
 import { BaseListItem } from "./base-item";
 
 type Props = {
-  resume: ResumeDto;
+  project: ProjectDto;
 };
 
-export const ResumeListItem = ({ resume }: Props) => {
+export const ProjectListItem = ({ project }: Props) => {
   const navigate = useNavigate();
-  const { open } = useDialog<ResumeDto>("resume");
-  const { open: lockOpen } = useDialog<ResumeDto>("lock");
+  const { open } = useDialog<ProjectDto>("project");
+  const { open: lockOpen } = useDialog<ProjectDto>("lock");
 
-  const { url } = useResumePreview(resume.id);
-
-  const lastUpdated = dayjs().to(resume.updatedAt);
+  const lastUpdated = dayjs().to(project.updatedAt);
 
   const onOpen = () => {
-    navigate(`/builder/${resume.id}`);
+    navigate(`/builder/${project.id}`);
   };
 
   const onUpdate = () => {
-    open("update", { id: "resume", item: resume });
+    open("update", { id: "project", item: project });
   };
 
   const onDuplicate = () => {
-    open("duplicate", { id: "resume", item: resume });
+    open("duplicate", { id: "project", item: project });
   };
 
   const onLockChange = () => {
-    lockOpen(resume.locked ? "update" : "create", { id: "lock", item: resume });
+    lockOpen(project.locked ? "update" : "create", { id: "lock", item: project });
   };
 
   const onDelete = () => {
-    open("delete", { id: "resume", item: resume });
+    open("delete", { id: "project", item: project });
   };
 
   const dropdownMenu = (
@@ -101,7 +96,7 @@ export const ResumeListItem = ({ resume }: Props) => {
           <CopySimple size={14} className="mr-2" />
           {t`Duplicate`}
         </DropdownMenuItem>
-        {resume.locked ? (
+        {project.locked ? (
           <DropdownMenuItem
             onClick={(event) => {
               event.stopPropagation();
@@ -145,26 +140,11 @@ export const ResumeListItem = ({ resume }: Props) => {
             <BaseListItem
               onClick={onOpen}
               className="group"
-              title={resume.title}
+              title={project.name}
               description={t`Last updated ${lastUpdated}`}
               end={dropdownMenu}
             />
           </HoverCardTrigger>
-          <HoverCardContent align="end" className="p-0" sideOffset={-100} alignOffset={100}>
-            <AnimatePresence>
-              {url && (
-                <motion.img
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  loading="lazy"
-                  alt={resume.title}
-                  className="aspect-[1/1.4142] w-60 rounded-sm object-cover"
-                  src={`${url}?cache=${new Date().getTime()}`}
-                />
-              )}
-            </AnimatePresence>
-          </HoverCardContent>
         </HoverCard>
       </ContextMenuTrigger>
 
@@ -181,7 +161,7 @@ export const ResumeListItem = ({ resume }: Props) => {
           <CopySimple size={14} className="mr-2" />
           {t`Duplicate`}
         </ContextMenuItem>
-        {resume.locked ? (
+        {project.locked ? (
           <ContextMenuItem onClick={onLockChange}>
             <LockOpen size={14} className="mr-2" />
             {t`Unlock`}

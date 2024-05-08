@@ -1,7 +1,7 @@
 import { SectionKey } from "@apitool/schema";
 import { create } from "zustand";
 
-export type DialogName = "resume" | "lock" | "import" | "two-factor" | SectionKey;
+export type DialogName = "project" | "lock" | "two-factor" | SectionKey;
 
 export type DialogMode = "create" | "update" | "duplicate" | "delete";
 

@@ -7,8 +7,8 @@ import { useDialog } from "@/client/stores/dialog";
 
 import { BaseCard } from "./base-card";
 
-export const CreateResumeCard = () => {
-  const { open } = useDialog("resume");
+export const CreateProjectCard = () => {
+  const { open } = useDialog("project");
 
   return (
     <BaseCard onClick={() => open("create")}>

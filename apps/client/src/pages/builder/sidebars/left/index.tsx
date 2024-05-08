@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "@/client/components/icon";
 import { UserAvatar } from "@/client/components/user-avatar";
 import { UserOptions } from "@/client/components/user-options";
-import { useResumeStore } from "@/client/stores/resume";
+import { usePro, useProjectStorejectStore } from "@/client/stores/project";
 
 import { BasicsSection } from "./sections/basics";
 import { SectionBase } from "./sections/shared/section-base";
@@ -32,8 +32,8 @@ import { SummarySection } from "./sections/summary";
 export const LeftSidebar = () => {
   const containterRef = useRef<HTMLDivElement | null>(null);
 
-  const addSection = useResumeStore((state) => state.addSection);
-  const customSections = useResumeStore((state) => state.resume.data.sections.custom);
+  const addSection = useProjectStore((state) => state.addSection);
+  const customSections = useProjectStore((state) => state.project.data.sections.custom);
 
   const scrollIntoView = (selector: string) => {
     const section = containterRef.current?.querySelector(selector);
@@ -56,7 +56,7 @@ export const LeftSidebar = () => {
             name={t({
               message: "Basics",
               context:
-                "The basics section of a resume consists of User's Picture, Full Name, Location etc.",
+                "The basics section of a project consists of User's Picture, Full Name, Location etc.",
             })}
           />
           <SectionIcon id="summary" onClick={() => scrollIntoView("#summary")} />

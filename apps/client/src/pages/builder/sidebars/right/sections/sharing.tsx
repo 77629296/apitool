@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { useToast } from "@/client/hooks/use-toast";
 import { useUser } from "@/client/services/user";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
@@ -14,9 +14,9 @@ export const SharingSection = () => {
   const { toast } = useToast();
   const username = user?.username;
 
-  const setValue = useResumeStore((state) => state.setValue);
-  const slug = useResumeStore((state) => state.resume.slug);
-  const isPublic = useResumeStore((state) => state.resume.visibility === "public");
+  const setValue = useProjectStore((state) => state.setValue);
+  const slug = useProjectStore((state) => state.project.slug);
+  const isPublic = useProjectStore((state) => state.project.visibility === "public");
 
   // Constants
   const url = `${window.location.origin}/${username}/${slug}`;
@@ -27,7 +27,7 @@ export const SharingSection = () => {
     toast({
       variant: "success",
       title: t`A link has been copied to your clipboard.`,
-      description: t`Anyone with this link can view and download the resume. Share it on your profile or with recruiters.`,
+      description: t`Anyone with this link can view and download the project. Share it on your profile or with recruiters.`,
     });
   };
 
@@ -54,7 +54,7 @@ export const SharingSection = () => {
               <Label htmlFor="visibility" className="space-y-1">
                 <p>{t`Public`}</p>
                 <p className="text-xs opacity-60">
-                  {t`Anyone with the link can view and download the resume.`}
+                  {t`Anyone with the link can view and download the project.`}
                 </p>
               </Label>
             </div>
@@ -70,10 +70,10 @@ export const SharingSection = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Label htmlFor="resume-url">{t`URL`}</Label>
+              <Label htmlFor="project-url">{t`URL`}</Label>
 
               <div className="flex gap-x-1.5">
-                <Input id="resume-url" readOnly value={url} className="flex-1" />
+                <Input id="project-url" readOnly value={url} className="flex-1" />
 
                 <Tooltip content={t`Copy to Clipboard`}>
                   <Button size="icon" variant="ghost" onClick={onCopy}>

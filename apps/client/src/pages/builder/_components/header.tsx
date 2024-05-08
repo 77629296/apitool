@@ -5,11 +5,11 @@ import { cn } from "@apitool/utils";
 import { Link } from "react-router-dom";
 
 import { useBuilderStore } from "@/client/stores/builder";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 export const BuilderHeader = () => {
-  const title = useResumeStore((state) => state.resume.title);
-  const locked = useResumeStore((state) => state.resume.locked);
+  const title = useProjectStore((state) => state.project.name);
+  const locked = useProjectStore((state) => state.project.locked);
 
   const toggle = useBuilderStore((state) => state.toggle);
   const isDragging = useBuilderStore(
@@ -40,7 +40,7 @@ export const BuilderHeader = () => {
 
         <div className="flex items-center justify-center gap-x-1 lg:mx-auto">
           <Button asChild size="icon" variant="ghost">
-            <Link to="/dashboard/resumes">
+            <Link to="/dashboard/projects">
               <HouseSimple />
             </Link>
           </Button>
@@ -50,7 +50,7 @@ export const BuilderHeader = () => {
           <h1 className="font-medium">{title}</h1>
 
           {locked && (
-            <Tooltip content={t`This resume is locked, please unlock to make further changes.`}>
+            <Tooltip content={t`This project is locked, please unlock to make further changes.`}>
               <Lock size={14} className="ml-2 opacity-75" />
             </Tooltip>
           )}

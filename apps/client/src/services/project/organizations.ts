@@ -6,7 +6,7 @@ import { ORGANIZATIONS_KEY } from "@/client/constants/query-keys";
 import { axios } from "@/client/libs/axios";
 
 export const fetchOrganizations = async () => {
-  const response = await axios.get<OrganizationDto[], AxiosResponse<OrganizationDto[]>>("/resume");
+  const response = await axios.get<OrganizationDto[], AxiosResponse<OrganizationDto[]>>("/project");
 
   return response.data;
 };

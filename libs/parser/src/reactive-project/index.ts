@@ -1,14 +1,14 @@
-import { ResumeData, resumeDataSchema } from "@apitool/schema";
+import { ProjectData, projectDataSchema } from "@apitool/schema";
 import { Json } from "@apitool/utils";
 import { Schema } from "zod";
 
 import { Parser } from "../interfaces/parser";
 
-export class ReactiveResumeParser implements Parser<Json, ResumeData> {
+export class ReactiveProjectParser implements Parser<Json, ProjectData> {
   schema: Schema;
 
   constructor() {
-    this.schema = resumeDataSchema;
+    this.schema = projectDataSchema;
   }
 
   readFile(file: File): Promise<Json> {
@@ -33,10 +33,10 @@ export class ReactiveResumeParser implements Parser<Json, ResumeData> {
   }
 
   validate(data: Json) {
-    return this.schema.parse(data) as ResumeData;
+    return this.schema.parse(data) as ProjectData;
   }
 
-  convert(data: ResumeData) {
+  convert(data: ProjectData) {
     return data;
   }
 }

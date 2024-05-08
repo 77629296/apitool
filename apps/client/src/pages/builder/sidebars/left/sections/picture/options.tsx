@@ -10,7 +10,7 @@ import {
 } from "@apitool/ui";
 import { useMemo } from "react";
 
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStore } from "@/client/stores/project";
 
 // Aspect Ratio Helpers
 const stringToRatioMap = {
@@ -43,8 +43,8 @@ const borderRadiusToStringMap = {
 type BorderRadius = keyof typeof stringToBorderRadiusMap;
 
 export const PictureOptions = () => {
-  const setValue = useResumeStore((state) => state.setValue);
-  const picture = useResumeStore((state) => state.resume.data.basics.picture);
+  const setValue = useProjectStore((state) => state.setValue);
+  const picture = useProjectStore((state) => state.project.data.basics.picture);
 
   const aspectRatio = useMemo(() => {
     const ratio = picture.aspectRatio?.toString() as keyof typeof ratioToStringMap;

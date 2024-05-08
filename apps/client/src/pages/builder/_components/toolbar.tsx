@@ -2,13 +2,9 @@ import { t } from "@lingui/macro";
 import {
   ArrowClockwise,
   ArrowCounterClockwise,
-  CircleNotch,
   ClockClockwise,
-  CubeFocus,
-  FilePdf,
   Hash,
   LineSegment,
-  LinkSimple,
   MagnifyingGlassMinus,
   MagnifyingGlassPlus,
 } from "@phosphor-icons/react";
@@ -16,49 +12,21 @@ import { Button, Separator, Toggle, Tooltip } from "@apitool/ui";
 import { motion } from "framer-motion";
 
 import { useToast } from "@/client/hooks/use-toast";
-import { usePrintResume } from "@/client/services/resume";
 import { useBuilderStore } from "@/client/stores/builder";
-import { useResumeStore, useTemporalResumeStore } from "@/client/stores/resume";
+import { useProjectStore, useTemporalProjectStore } from "@/client/stores/project";
 
 export const BuilderToolbar = () => {
   const { toast } = useToast();
-  const setValue = useResumeStore((state) => state.setValue);
-  const undo = useTemporalResumeStore((state) => state.undo);
-  const redo = useTemporalResumeStore((state) => state.redo);
+  const setValue = useProjectStore((state) => state.setValue);
+  const undo = useTemporalProjectStore((state) => state.undo);
+  const redo = useTemporalProjectStore((state) => state.redo);
   const frameRef = useBuilderStore((state) => state.frame.ref);
 
-  const id = useResumeStore((state) => state.resume.id);
-  const isPublic = useResumeStore((state) => state.resume.visibility === "public");
-  const pageOptions = useResumeStore((state) => state.resume.data.metadata.page.options);
-
-  const { printResume, loading } = usePrintResume();
-
-  const onPrint = async () => {
-    const { url } = await printResume({ id });
-
-    const openInNewTab = (url: string) => {
-      const win = window.open(url, "_blank");
-      if (win) win.focus();
-    };
-
-    openInNewTab(url);
-  };
-
-  const onCopy = async () => {
-    const { url } = await printResume({ id });
-    await navigator.clipboard.writeText(url);
-
-    toast({
-      variant: "success",
-      title: t`A link has been copied to your clipboard.`,
-      description: t`Anyone with this link can view and download the resume. Share it on your profile or with recruiters.`,
-    });
-  };
+  const pageOptions = useProjectStore((state) => state.project.data.metadata.page.options);
 
   const onZoomIn = () => frameRef?.contentWindow?.postMessage({ type: "ZOOM_IN" }, "*");
   const onZoomOut = () => frameRef?.contentWindow?.postMessage({ type: "ZOOM_OUT" }, "*");
   const onResetView = () => frameRef?.contentWindow?.postMessage({ type: "RESET_VIEW" }, "*");
-  const onCenterView = () => frameRef?.contentWindow?.postMessage({ type: "CENTER_VIEW" }, "*");
 
   return (
     <motion.div className="fixed inset-x-0 bottom-0 mx-auto hidden py-6 text-center md:block">
@@ -119,32 +87,6 @@ export const BuilderToolbar = () => {
           >
             <Hash />
           </Toggle>
-        </Tooltip>
-
-        <Separator orientation="vertical" className="h-9" />
-
-        <Tooltip content={t`Copy Link to Resume`}>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="rounded-none"
-            onClick={onCopy}
-            disabled={!isPublic}
-          >
-            <LinkSimple />
-          </Button>
-        </Tooltip>
-
-        <Tooltip content={t`Download PDF`}>
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={onPrint}
-            disabled={loading}
-            className="rounded-none"
-          >
-            {loading ? <CircleNotch className="animate-spin" /> : <FilePdf />}
-          </Button>
         </Tooltip>
       </div>
     </motion.div>

@@ -4,16 +4,16 @@ import { Alert, AlertDescription, AlertTitle } from "@apitool/ui";
 import { cn } from "@apitool/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-import { useResumeStatistics } from "@/client/services/resume";
-import { useResumeStore } from "@/client/stores/resume";
+import { useProjectStatistics } from "@/client/services/project";
+import { useProjectStore } from "@/client/stores/project";
 
 import { getSectionIcon } from "../shared/section-icon";
 
 export const StatisticsSection = () => {
-  const id = useResumeStore((state) => state.resume.id);
-  const isPublic = useResumeStore((state) => state.resume.visibility === "public");
+  const id = useProjectStore((state) => state.project.id);
+  const isPublic = useProjectStore((state) => state.project.visibility === "public");
 
-  const { statistics } = useResumeStatistics(id, isPublic);
+  const { statistics } = useProjectStatistics(id, isPublic);
 
   return (
     <section id="statistics" className="grid gap-y-6">
@@ -35,9 +35,9 @@ export const StatisticsSection = () => {
             >
               <Alert variant="info">
                 <Info size={18} />
-                <AlertTitle>{t`Statistics are available only for public resumes.`}</AlertTitle>
+                <AlertTitle>{t`Statistics are available only for public projects.`}</AlertTitle>
                 <AlertDescription className="text-xs leading-relaxed">
-                  {t`You can track the number of views your resume has received, or how many people have downloaded the resume by enabling public sharing.`}
+                  {t`You can track the number of views your project has received, or how many people have downloaded the project by enabling public sharing.`}
                 </AlertDescription>
               </Alert>
             </motion.div>

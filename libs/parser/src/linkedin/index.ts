@@ -6,10 +6,10 @@ import {
   defaultLanguage,
   defaultProfile,
   defaultProject,
-  defaultResumeData,
+  defaultProjectData,
   defaultSkill,
-  ResumeData,
-  resumeDataSchema,
+  ProjectData,
+  projectDataSchema,
 } from "@apitool/schema";
 import { extractUrl, Json, parseArrayLikeCSVEntry, parseCSV } from "@apitool/utils";
 import * as JSZip from "jszip";
@@ -54,7 +54,7 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
   }
 
   convert(data: LinkedIn) {
-    const result = JSON.parse(JSON.stringify(defaultResumeData)) as ResumeData;
+    const result = JSON.parse(JSON.stringify(defaultProjectData)) as ProjectData;
 
     const avoidTooShort = (name: string, len: number) => {
       if (!name || name.length < len) return "Unknown";
@@ -173,6 +173,6 @@ export class LinkedInParser implements Parser<JSZip, LinkedIn> {
       }
     }
 
-    return resumeDataSchema.parse(result);
+    return projectDataSchema.parse(result);
   }
 }

@@ -9,24 +9,24 @@ import {
   defaultProfile,
   defaultPublication,
   defaultReference,
-  defaultResumeData,
+  defaultProjectData,
   defaultSkill,
   defaultVolunteer,
-  ResumeData,
+  ProjectData,
 } from "@apitool/schema";
 import { Json } from "@apitool/utils";
 import { Schema } from "zod";
 
 import { Parser } from "../interfaces/parser";
-import { JsonResume, jsonResumeSchema } from "./schema";
+import { JsonProject, jsonProjectSchema } from "./schema";
 
 export * from "./schema";
 
-export class JsonResumeParser implements Parser<Json, JsonResume> {
+export class JsonProjectParser implements Parser<Json, JsonProject> {
   schema: Schema;
 
   constructor() {
-    this.schema = jsonResumeSchema;
+    this.schema = jsonProjectSchema;
   }
 
   readFile(file: File): Promise<Json> {
@@ -51,11 +51,11 @@ export class JsonResumeParser implements Parser<Json, JsonResume> {
   }
 
   validate(data: Json) {
-    return this.schema.parse(data) as JsonResume;
+    return this.schema.parse(data) as JsonProject;
   }
 
-  convert(data: JsonResume) {
-    const result = JSON.parse(JSON.stringify(defaultResumeData)) as ResumeData;
+  convert(data: JsonProject) {
+    const result = JSON.parse(JSON.stringify(defaultProjectData)) as ProjectData;
 
     // Basics
     result.basics.name = data.basics?.name ?? "";
