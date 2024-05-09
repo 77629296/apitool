@@ -9,6 +9,7 @@ export const projectSchema = z.object({
   icon: z.string().or(z.null()),
   isPublic: z.boolean(),
   isMaintenanceOn: z.boolean(),
+  currentVersionId: z.string(),
   organizationId: z.string(),
   userId: z.string(),
   createdAt: z.date().or(z.dateString()),

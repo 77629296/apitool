@@ -67,6 +67,7 @@ export const ProjectCard = ({ project }: Props) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
+              {/* icon */}
               <CircleNotch
                 size={64}
                 weight="thin"
@@ -95,7 +96,7 @@ export const ProjectCard = ({ project }: Props) => {
               "bg-gradient-to-t from-background/80 to-transparent",
             )}
           >
-            <h4 className="line-clamp-2 font-medium">{project.title}</h4>
+            <h4 className="line-clamp-2 font-medium">{project.name}</h4>
             <p className="line-clamp-1 text-xs opacity-75">{t`Last updated ${lastUpdated}`}</p>
           </div>
         </BaseCard>

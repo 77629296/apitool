@@ -24,7 +24,7 @@ export class OrganizationService {
 
   async createDefaultGroupPermissionsForOrganization(organization: OrganizationDto, prisma: Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">) {
     const defaultGroups = ['all_users', 'admin'];
-    return await this.prisma.$transaction(async (tx) => {
+    return await this.prisma.$transaction(async () => {
       const createdGroupPermissions: GroupPermissionDto[] = [];
       for (const group of defaultGroups) {
         const isAdmin = group === 'admin';

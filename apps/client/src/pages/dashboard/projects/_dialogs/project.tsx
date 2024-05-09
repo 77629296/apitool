@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/macro";
 import { CaretDown, Flask, MagicWand, Plus } from "@phosphor-icons/react";
-import { createOrganizationSchema, ProjectDto } from "@apitool/dto";
+import { createProjectSchema, ProjectDto } from "@apitool/dto";
 import { idSchema } from "@apitool/schema";
 import {
   AlertDialog,
@@ -13,6 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   Button,
+  Checkbox,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -41,7 +42,7 @@ import { z } from "zod";
 import { useCreateProject, useDeleteProject, useUpdateProject } from "@/client/services/project";
 import { useDialog } from "@/client/stores/dialog";
 
-const formSchema = createOrganizationSchema.extend({ id: idSchema.optional() });
+const formSchema = createProjectSchema.extend({ id: idSchema.optional() });
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -61,7 +62,7 @@ export const ProjectDialog = () => {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", slug: "" },
+    defaultValues: { name: "", slug: "", isPublic: true, isMaintenanceOn: true },
   });
 
   useEffect(() => {
@@ -75,7 +76,12 @@ export const ProjectDialog = () => {
 
   const onSubmit = async (values: FormValues) => {
     if (isCreate) {
-      await createProject({ slug: values.slug, name: values.name, visibility: "private" });
+      await createProject({
+        slug: values.slug,
+        name: values.name,
+        isPublic: values.isPublic,
+        isMaintenanceOn: values.isMaintenanceOn
+      });
     }
 
     if (isUpdate) {
@@ -83,8 +89,8 @@ export const ProjectDialog = () => {
 
       await updateProject({
         ...payload.item,
-        title: values.name,
-        slug: values.slug,
+        name: values.name,
+        slug: values.slug || '',
       });
     }
 
@@ -102,7 +108,7 @@ export const ProjectDialog = () => {
   };
 
   const onReset = () => {
-    if (isCreate) form.reset({ name: "", slug: "" });
+    if (isCreate) form.reset({ name: "", slug: "", isPublic: true, isMaintenanceOn: true });
     if (isUpdate)
       form.reset({ id: payload.item?.id, name: payload.item?.name, slug: payload.item?.slug });
     if (isDuplicate)
@@ -217,7 +223,42 @@ export const ProjectDialog = () => {
                 </FormItem>
               )}
             />
-
+            <FormField
+              name="isPublic"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t`isPublic`}</FormLabel>
+                  <FormControl>
+                    <Checkbox
+                      className="ml-2"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="isMaintenanceOn"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>{t`isMaintenanceOn`}</FormLabel>
+                    <FormControl>
+                      <Checkbox
+                        className="ml-2"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
             <DialogFooter>
               <div className="flex items-center">
                 <Button

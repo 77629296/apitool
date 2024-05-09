@@ -17,6 +17,7 @@ import { UserModule } from "./user/user.module";
 import { UtilsModule } from "./utils/utils.module";
 import { OrganizationModule } from "./organization/organization.module";
 import { ProjectModule } from "./project/project.module";
+import { ProjectEnvironmentModule } from "./project-environment/project-environment.module";
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ProjectModule } from "./project/project.module";
     UtilsModule,
     HealthModule,
     ProjectModule,
+    ProjectEnvironmentModule,
 
     // Feature Modules
     AuthModule.register(),

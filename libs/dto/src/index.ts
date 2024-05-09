@@ -6,4 +6,5 @@ export * from "./user";
 export * from "./organization";
 export * from "./group-permission";
 export * from './project'
+export * from './project-environment'
 
