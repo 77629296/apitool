@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "@lingui/macro";
-import { CaretDown, Flask, MagicWand, Plus } from "@phosphor-icons/react";
+import { MagicWand, Plus } from "@phosphor-icons/react";
 import { createProjectSchema, ProjectDto } from "@apitool/dto";
 import { idSchema } from "@apitool/schema";
 import {
@@ -62,22 +62,16 @@ export const ProjectDialog = () => {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", slug: "", isPublic: true, isMaintenanceOn: true },
+    defaultValues: { name: "", isPublic: false, isMaintenanceOn: true },
   });
 
   useEffect(() => {
     if (isOpen) onReset();
   }, [isOpen, payload]);
 
-  useEffect(() => {
-    const slug = kebabCase(form.watch("name"));
-    form.setValue("slug", slug);
-  }, [form.watch("name")]);
-
   const onSubmit = async (values: FormValues) => {
     if (isCreate) {
       await createProject({
-        slug: values.slug,
         name: values.name,
         isPublic: values.isPublic,
         isMaintenanceOn: values.isMaintenanceOn
@@ -90,43 +84,34 @@ export const ProjectDialog = () => {
       await updateProject({
         ...payload.item,
         name: values.name,
-        slug: values.slug || '',
       });
     }
 
     if (isDuplicate) {
       if (!payload.item?.id) return;
     }
-
-    if (isDelete) {
-      if (!payload.item?.id) return;
-
-      await deleteProject({ id: payload.item?.id });
-    }
-
     close();
   };
 
+  const handleDelete = async () => {
+    if (!payload.item?.id) return;
+    await deleteProject({ id: payload.item?.id });
+    close();
+  }
+
   const onReset = () => {
-    if (isCreate) form.reset({ name: "", slug: "", isPublic: true, isMaintenanceOn: true });
+    if (isCreate) form.reset({ name: "", isPublic: false, isMaintenanceOn: true });
     if (isUpdate)
-      form.reset({ id: payload.item?.id, name: payload.item?.name, slug: payload.item?.slug });
+      form.reset({ id: payload.item?.id, name: payload.item?.name });
     if (isDuplicate)
-      form.reset({ name: `${payload.item?.name} (Copy)`, slug: `${payload.item?.slug}-copy` });
+      form.reset({ name: `${payload.item?.name} (Copy)`});
     if (isDelete)
-      form.reset({ id: payload.item?.id, name: payload.item?.name, slug: payload.item?.slug });
+      form.reset({ id: payload.item?.id, name: payload.item?.name });
   };
 
   const onGenerateRandomName = () => {
     const name = generateRandomName();
     form.setValue("name", name);
-    form.setValue("slug", kebabCase(name));
-  };
-
-  const onCreateSample = async () => {
-    const randomName = generateRandomName();
-    const { name, slug } = form.getValues();
-    close();
   };
 
   if (isDelete) {
@@ -144,7 +129,7 @@ export const ProjectDialog = () => {
 
               <AlertDialogFooter>
                 <AlertDialogCancel>{t`Cancel`}</AlertDialogCancel>
-                <AlertDialogAction variant="error" onClick={form.handleSubmit(onSubmit)}>
+                <AlertDialogAction variant="error" onClick={handleDelete}>
                   {t`Delete`}
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -211,19 +196,6 @@ export const ProjectDialog = () => {
             />
 
             <FormField
-              name="slug"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t`Slug`}</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
               name="isPublic"
               control={form.control}
               render={({ field }) => (
@@ -270,22 +242,6 @@ export const ProjectDialog = () => {
                   {isUpdate && t`Save Changes`}
                   {isDuplicate && t`Duplicate`}
                 </Button>
-
-                {isCreate && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button type="button" size="icon" className="rounded-l-none border-l">
-                        <CaretDown />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent side="right" align="center">
-                      <DropdownMenuItem onClick={onCreateSample}>
-                        <Flask className="mr-2" />
-                        {t`Create Sample Project`}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
               </div>
             </DialogFooter>
           </form>

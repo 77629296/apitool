@@ -4,7 +4,7 @@ import { z } from "nestjs-zod/z";
 
 export const createProjectSchema = z.object({
   name: z.string().min(1),
-  slug: z.string().min(1).transform(kebabCase).nullable(),
+  slug: z.string().min(1).transform(kebabCase).nullable().optional(),
   icon: z.string().or(z.null()).optional(),
   isPublic: z.boolean(),
   isMaintenanceOn: z.boolean(),

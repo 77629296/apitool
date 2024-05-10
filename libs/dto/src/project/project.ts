@@ -5,8 +5,8 @@ import { z } from "nestjs-zod/z";
 export const projectSchema = z.object({
   id: idSchema,
   name: z.string(),
-  slug: z.string(),
-  icon: z.string().or(z.null()),
+  slug: z.string().or(z.null()).optional(),
+  icon: z.string().or(z.null()).optional(),
   isPublic: z.boolean(),
   isMaintenanceOn: z.boolean(),
   currentVersionId: z.string(),

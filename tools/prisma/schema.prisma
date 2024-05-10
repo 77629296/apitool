@@ -78,12 +78,12 @@ model Project {
   slug                    String?                  @unique @db.VarChar
   userId                  String                   @db.Uuid
   currentVersionId        String?                  @db.Uuid
-  isPublic                Boolean?
+  isPublic                Boolean                  @default(false)
   organizationId          String                   @db.Uuid
   createdAt               DateTime?                @default(now()) @db.Timestamp(6)
   updatedAt               DateTime?                @default(now()) @db.Timestamp(6)
   icon                    String?                  @db.VarChar(255)
-  isMaintenanceOn         Boolean                  @default(false)
+  isMaintenanceOn         Boolean                  @default(true)
   projectGroupPermissions ProjectGroupPermission[]
   projectUsers            ProjectUser[]
   projectVersions         ProjectVersion[]
@@ -145,7 +145,7 @@ model User {
   picture              String?
   username             String                @unique
   email                String                @unique
-  organizationId       String?               @db.Uuid
+  organizationId       String               @db.Uuid
   role                 String                @default("") @db.VarChar
   locale               String                @default("en-US")
   emailVerified        Boolean               @default(false)

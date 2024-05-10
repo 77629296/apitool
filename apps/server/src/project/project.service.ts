@@ -200,4 +200,8 @@ export class ProjectService {
       });
     })
   }
+
+  async remove(userId: string, id: string) {
+    return this.prisma.project.delete({ where: { userId, id } });
+  }
 }
