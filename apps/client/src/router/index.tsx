@@ -8,9 +8,9 @@ import { RegisterPage } from "../pages/auth/register/page";
 import { ResetPasswordPage } from "../pages/auth/reset-password/page";
 import { VerifyEmailPage } from "../pages/auth/verify-email/page";
 import { VerifyOtpPage } from "../pages/auth/verify-otp/page";
-import { BuilderLayout } from "../pages/builder/layout";
-import { BuilderPage } from "../pages/builder/page";
-import { builderLoader } from "../pages/builder/page";
+import { BuilderLayout } from "../pages/project/layout";
+import { ProjectPage } from "../pages/project/page";
+import { projectLoader } from "../pages/project/page";
 import { DashboardLayout } from "../pages/dashboard/layout";
 import { ProjectsPage } from "../pages/dashboard/projects/page";
 import { SettingsPage } from "../pages/dashboard/settings/page";
@@ -63,6 +63,7 @@ export const routes = createRoutesFromElements(
       <Route element={<AuthGuard />}>
         <Route element={<DashboardLayout />}>
           <Route path="projects" element={<ProjectsPage />} />
+          <Route path="projects/:id" element={<ProjectsPage />} />
           <Route path="settings" element={<SettingsPage />} />
 
           <Route index element={<Navigate to="/dashboard/projects" replace />} />
@@ -70,10 +71,10 @@ export const routes = createRoutesFromElements(
       </Route>
     </Route>
 
-    <Route path="builder">
+    <Route path="project">
       <Route element={<AuthGuard />}>
         <Route element={<BuilderLayout />}>
-          <Route path=":id" loader={builderLoader} element={<BuilderPage />} />
+          <Route path=":id" loader={projectLoader} element={<ProjectPage />} />
 
           <Route index element={<Navigate to="/dashboard/projects" replace />} />
         </Route>

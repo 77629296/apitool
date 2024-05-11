@@ -37,7 +37,7 @@ export const ProjectCard = ({ project }: Props) => {
   const lastUpdated = dayjs().to(project.updatedAt);
 
   const onOpen = () => {
-    navigate(`/builder/${project.id}`);
+    navigate(`/project/${project.id}`);
   };
 
   const onUpdate = () => {

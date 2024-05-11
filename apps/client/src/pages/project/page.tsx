@@ -9,7 +9,7 @@ import { findProjectById } from "@/client/services/project";
 import { useBuilderStore } from "@/client/stores/builder";
 import { useProjectStore } from "@/client/stores/project";
 
-export const BuilderPage = () => {
+export const ProjectPage = () => {
   const frameRef = useBuilderStore((state) => state.frame.ref);
   const setFrameRef = useBuilderStore((state) => state.frame.setRef);
 
@@ -45,7 +45,7 @@ export const BuilderPage = () => {
   );
 };
 
-export const builderLoader: LoaderFunction<ProjectDto> = async ({ params }) => {
+export const projectLoader: LoaderFunction<ProjectDto> = async ({ params }) => {
   try {
     const id = params.id as string;
 
