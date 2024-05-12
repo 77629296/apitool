@@ -1,7 +1,7 @@
 import { t } from "@lingui/macro";
 import { v4 as uuidv4 } from 'uuid';
 import { CopySimple, PencilSimple, Plus } from "@phosphor-icons/react";
-import { SectionItem, SectionWithItem } from "@apitool/schema";
+import { SectionItem } from "@apitool/schema";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,13 +19,10 @@ import {
   DialogTitle,
   Form,
 } from "@apitool/ui";
-import { produce } from "immer";
-import get from "lodash.get";
 import { useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { DialogName, useDialog } from "@/client/stores/dialog";
-import { useProjectStore } from "@/client/stores/project";
 
 type Props<T extends SectionItem> = {
   id: DialogName;
@@ -44,12 +41,6 @@ export const SectionDialog = <T extends SectionItem>({
 }: Props<T>) => {
   const { isOpen, mode, close, payload } = useDialog<T>(id);
 
-  const setValue = useProjectStore((state) => state.setValue);
-  const section = useProjectStore((state) => {
-    if (!id) return null;
-    return get(state.project.data.sections, id);
-  }) as SectionWithItem<T> | null;
-
   const isCreate = mode === "create";
   const isUpdate = mode === "update";
   const isDelete = mode === "delete";
@@ -60,19 +51,10 @@ export const SectionDialog = <T extends SectionItem>({
   }, [isOpen, payload]);
 
   const onSubmit = async (values: T) => {
-    if (!section) return;
-
     if (isCreate || isDuplicate) {
       if (pendingKeyword && "keywords" in values) {
         values.keywords.push(pendingKeyword);
       }
-
-      setValue(
-        `sections.${id}.items`,
-        produce(section.items, (draft: T[]): void => {
-          draft.push({ ...values, id: uuidv4() });
-        }),
-      );
     }
 
     if (isUpdate) {
@@ -81,28 +63,10 @@ export const SectionDialog = <T extends SectionItem>({
       if (pendingKeyword && "keywords" in values) {
         values.keywords.push(pendingKeyword);
       }
-
-      setValue(
-        `sections.${id}.items`,
-        produce(section.items, (draft: T[]): void => {
-          const index = draft.findIndex((item) => item.id === payload.item?.id);
-          if (index === -1) return;
-          draft[index] = values;
-        }),
-      );
     }
 
     if (isDelete) {
       if (!payload.item?.id) return;
-
-      setValue(
-        `sections.${id}.items`,
-        produce(section.items, (draft: T[]): void => {
-          const index = draft.findIndex((item) => item.id === payload.item?.id);
-          if (index === -1) return;
-          draft.splice(index, 1);
-        }),
-      );
     }
 
     close();

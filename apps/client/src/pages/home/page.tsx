@@ -2,9 +2,7 @@ import { t } from "@lingui/macro";
 import { useLingui } from "@lingui/react";
 import { Helmet } from "react-helmet-async";
 
-import { ContributorsSection } from "./sections/contributors";
 import { HeroSection } from "./sections/hero";
-import { StatisticsSection } from "./sections/statistics";
 
 export const HomePage = () => {
   const { i18n } = useLingui();

@@ -17,6 +17,7 @@ import { ProjectService } from "./project.service";
 import { CreateProjectDto, ProjectDto, UpdateProjectDto } from "@apitool/dto";
 import { PrismaService } from "nestjs-prisma";
 import { Project } from "./decorators/project";
+import { ProjectGuard } from "./guards/project.guard";
 
 @ApiTags("Project")
 @Controller("project")
@@ -33,7 +34,7 @@ export class ProjectController {
   }
 
   @Get(":id")
-  @UseGuards(TwoFactorGuard)
+  @UseGuards(TwoFactorGuard, ProjectGuard)
   findOne(@Project() project: ProjectDto) {
     return project;
   }

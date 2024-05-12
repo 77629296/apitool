@@ -23,6 +23,14 @@ export class ProjectService {
     this.redis = this.redisService.getClient();
   }
 
+  findOne(id: string, userId?: string) {
+    if (userId) {
+      return this.prisma.project.findUniqueOrThrow({ where: { userId, id } });
+    }
+
+    return this.prisma.project.findUniqueOrThrow({ where: { id } });
+  }
+
   findAll(userId: string) {
     return this.prisma.project.findMany({ where: { userId }, orderBy: { updatedAt: "desc" } });
   }
