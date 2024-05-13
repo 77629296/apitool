@@ -39,8 +39,6 @@ export const ProjectPage = () => {
           {title} - {t`APITool`}
         </title>
       </Helmet>
-
-      builder
     </>
   );
 };

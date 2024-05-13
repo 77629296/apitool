@@ -17,10 +17,6 @@ type ProjectStore = {
 
   // Actions
   setValue: (path: string, value: unknown) => void;
-
-  // Custom Section Actions
-  addSection: () => void;
-  removeSection: (sectionId: SectionKey) => void;
 };
 
 export const useProjectStore = create<ProjectStore>()(
@@ -29,42 +25,9 @@ export const useProjectStore = create<ProjectStore>()(
       project: {} as ProjectDto,
       setValue: (path, value) => {
         set((state) => {
-          if (path === "visibility") {
-            state.project.visibility = value as "public" | "private";
-          } else {
-            state.project.data = _set(state.project.data, path, value);
-          }
-
+          state.project.data = _set(state.project.data, path, value);
           debouncedUpdateProject(JSON.parse(JSON.stringify(state.project)));
         });
-      },
-      addSection: () => {
-        const section: CustomSectionGroup = {
-          ...defaultSection,
-          id: uuidv4(),
-          name: t`Custom Section`,
-          items: [],
-        };
-
-        set((state) => {
-          const lastPageIndex = state.project.data.metadata.layout.length - 1;
-          state.project.data.metadata.layout[lastPageIndex][0].push(`custom.${section.id}`);
-          state.project.data = _set(state.project.data, `sections.custom.${section.id}`, section);
-
-          debouncedUpdateProject(JSON.parse(JSON.stringify(state.project)));
-        });
-      },
-      removeSection: (sectionId: SectionKey) => {
-        if (sectionId.startsWith("custom.")) {
-          const id = sectionId.split("custom.")[1];
-
-          set((state) => {
-            removeItemInLayout(sectionId, state.project.data.metadata.layout);
-            delete state.project.data.sections.custom[id];
-
-            debouncedUpdateProject(JSON.parse(JSON.stringify(state.project)));
-          });
-        }
       },
     })),
     {
