@@ -2,12 +2,11 @@ import { Button, ScrollArea, Separator } from "@apitool/ui";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { CaretDown } from '@phosphor-icons/react';
 
 import { Icon } from "@/client/components/icon";
 import { UserAvatar } from "@/client/components/user-avatar";
 import { UserOptions } from "@/client/components/user-options";
-import { SectionIcon } from "../right/shared/section-icon";
+import { SectionIcon } from "./sections/section-icon";
 
 export const LeftSidebar = () => {
   const containterRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +40,7 @@ export const LeftSidebar = () => {
       <ScrollArea orientation="vertical" className="h-screen flex-1 pb-16 lg:pb-0">
         <div ref={containterRef} className="grid gap-y-6 p-6 @container/left">
           menu
-          <NavigationMenu.Root orientation="vertical">
+          <NavigationMenu.Root orientation="vertical" >
             <NavigationMenu.List>
               <NavigationMenu.Item>
                 <NavigationMenu.Trigger>Item one</NavigationMenu.Trigger>
