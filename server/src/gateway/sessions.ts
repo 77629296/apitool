@@ -109,6 +109,10 @@ export function appendMessage(
   };
   session.messages.push(message);
   session.updatedAt = message.ts;
+  // first user line becomes the label when the user never named it
+  if (role === "user" && session.title === "untitled" && session.messages.length === 1) {
+    session.title = text.length > 40 ? `${text.slice(0, 40)}…` : text;
+  }
   scheduleSave();
   return { ok: true, session, message };
 }

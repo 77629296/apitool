@@ -24,6 +24,7 @@ import {
   hasActiveRun,
   startStubReply,
 } from "./methods.js";
+import { getSession } from "./sessions.js";
 
 const TICK_INTERVAL_MS = 15_000;
 
@@ -312,6 +313,17 @@ async function onRequest(
         message: result.payload.message,
       },
     });
+
+    // updatedAt / auto-title — keep session lists in sync without a manual list
+    const session = getSession(result.payload.sessionId);
+    if (session) {
+      const { messages: _messages, ...summary } = session;
+      broadcastEvent({
+        type: "event",
+        event: "sessions",
+        payload: { action: "updated", session: summary },
+      });
+    }
 
     let runId: string | null = null;
     const msg = result.payload.message as { role?: string; text?: string };
