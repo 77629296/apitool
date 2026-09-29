@@ -153,19 +153,16 @@ button:disabled {
 
 .session-row {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
+  align-items: stretch;
+  gap: 4px;
   width: 100%;
-  padding: 10px 12px;
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
   color: #1c1917;
-  text-align: left;
 }
 
-.session-row:hover:not(:disabled) {
+.session-row:hover {
   background: #f5f2eb;
 }
 
@@ -174,9 +171,53 @@ button:disabled {
   background: #f5f2eb;
 }
 
+.session-select {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.session-delete {
+  flex-shrink: 0;
+  align-self: center;
+  margin-right: 6px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: #78716c;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.session-delete:hover:not(:disabled) {
+  border-color: #e7e0d5;
+  color: #1c1917;
+}
+
 .session-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 14px;
   font-weight: 550;
+}
+
+.session-busy {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a8a29e;
 }
 
 .session-meta {

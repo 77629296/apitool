@@ -40,6 +40,7 @@ export default function App() {
   const [lastSessionsEvent, setLastSessionsEvent] = useState<unknown>(null);
   const [streamText, setStreamText] = useState("");
   const [activeRun, setActiveRun] = useState<{ sessionId: string; runId: string } | null>(null);
+  const [busyIds, setBusyIds] = useState<Record<string, true>>({});
   const [title, setTitle] = useState("");
   const [selectedId, setSelectedId] = useState("");
   const [chatText, setChatText] = useState("");
@@ -92,7 +93,9 @@ export default function App() {
       }
       if (event === "chat.delta") {
         const p = payload as { sessionId?: string; runId?: string; text?: string } | undefined;
-        if (!p?.sessionId || p.sessionId !== selectedIdRef.current) return;
+        if (!p?.sessionId) return;
+        setBusyIds((prev) => (prev[p.sessionId!] ? prev : { ...prev, [p.sessionId!]: true }));
+        if (p.sessionId !== selectedIdRef.current) return;
         if (typeof p.runId === "string" && p.runId !== streamRunRef.current) {
           streamRunRef.current = p.runId;
           setStreamText(typeof p.text === "string" ? p.text : "");
@@ -112,9 +115,21 @@ export default function App() {
           message?: { role?: string };
         } | undefined;
         const sessionId = p?.sessionId;
+        const runDone = Boolean(p?.aborted || p?.message?.role === "assistant");
+        if (sessionId && runDone) {
+          setBusyIds((prev) => {
+            if (!prev[sessionId]) return prev;
+            const next = { ...prev };
+            delete next[sessionId];
+            return next;
+          });
+        }
         if (sessionId && sessionId === selectedIdRef.current) {
-          streamRunRef.current = null;
-          setStreamText("");
+          // user message chat events only refresh history; leave streaming alone
+          if (runDone) {
+            streamRunRef.current = null;
+            setStreamText("");
+          }
           void client.request("chat.history", { sessionId }).then((res) => {
             setHistory(res.ok ? res.payload : res.error);
           });
@@ -122,7 +137,7 @@ export default function App() {
         setActiveRun((prev) => {
           if (!prev) return null;
           if (p?.runId && p.runId === prev.runId) return null;
-          if (sessionId === prev.sessionId && (p?.aborted || p?.message?.role === "assistant")) {
+          if (sessionId === prev.sessionId && runDone) {
             return null;
           }
           return prev;
@@ -208,17 +223,26 @@ export default function App() {
     setSessionError(null);
   }
 
-  async function removeSession() {
+  async function removeSession(id = selectedId) {
     const client = clientRef.current;
-    if (!client || !selectedId) return;
-    const res = await client.request("sessions.delete", { id: selectedId });
+    if (!client || !id) return;
+    const res = await client.request("sessions.delete", { id });
     if (!res.ok) {
       setSessionError(res.error);
       return;
     }
-    setSelectedId("");
-    setSessionDetail(null);
-    setHistory(null);
+    if (id === selectedIdRef.current) {
+      setSelectedId("");
+      setSessionDetail(null);
+      setHistory(null);
+    }
+    setBusyIds((prev) => {
+      if (!prev[id]) return prev;
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+    setActiveRun((prev) => (prev?.sessionId === id ? null : prev));
     await refreshSessions();
   }
 
@@ -262,6 +286,7 @@ export default function App() {
     if (typeof payload?.runId === "string") {
       streamRunRef.current = payload.runId;
       setActiveRun({ sessionId: selectedId, runId: payload.runId });
+      setBusyIds((prev) => ({ ...prev, [selectedId]: true }));
       setStreamText("");
     }
     setChatText("");
@@ -343,7 +368,11 @@ export default function App() {
           <button type="button" onClick={() => void getSession()} disabled={!ready || !selectedId}>
             get
           </button>
-          <button type="button" onClick={() => void removeSession()} disabled={!ready || !selectedId}>
+          <button
+            type="button"
+            onClick={() => void removeSession()}
+            disabled={!ready || !selectedId}
+          >
             delete
           </button>
         </div>
@@ -355,18 +384,34 @@ export default function App() {
               <p className="thread-empty">还没有 session</p>
             ) : (
               sessions.map((s) => (
-                <button
+                <div
                   key={s.id}
-                  type="button"
                   className={`session-row${s.id === selectedId ? " session-row-active" : ""}`}
-                  onClick={() => setSelectedId(s.id)}
-                  disabled={!ready}
                 >
-                  <span className="session-title">{s.title}</span>
-                  <span className="session-meta">
-                    {s.id.slice(0, 8)} · {new Date(s.updatedAt).toLocaleString()}
-                  </span>
-                </button>
+                  <button
+                    type="button"
+                    className="session-select"
+                    onClick={() => setSelectedId(s.id)}
+                    disabled={!ready}
+                  >
+                    <span className="session-title">
+                      {s.title}
+                      {busyIds[s.id] ? <span className="session-busy">running</span> : null}
+                    </span>
+                    <span className="session-meta">
+                      {s.id.slice(0, 8)} · {new Date(s.updatedAt).toLocaleString()}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="session-delete"
+                    aria-label="delete session"
+                    onClick={() => void removeSession(s.id)}
+                    disabled={!ready}
+                  >
+                    ×
+                  </button>
+                </div>
               ))
             )}
           </div>
