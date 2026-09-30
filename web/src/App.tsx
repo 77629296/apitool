@@ -42,10 +42,12 @@ export default function App() {
   const [activeRun, setActiveRun] = useState<{ sessionId: string; runId: string } | null>(null);
   const [busyIds, setBusyIds] = useState<Record<string, true>>({});
   const [title, setTitle] = useState("");
+  const [editTitle, setEditTitle] = useState("");
   const [selectedId, setSelectedId] = useState("");
   const [chatText, setChatText] = useState("");
   const selectedIdRef = useRef(selectedId);
   selectedIdRef.current = selectedId;
+  const titleDirtyRef = useRef(false);
   const streamRunRef = useRef<string | null>(null);
   const threadEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -157,8 +159,10 @@ export default function App() {
     streamRunRef.current = null;
     setStreamText("");
     setSessionDetail(null);
+    titleDirtyRef.current = false;
     if (!selectedId || !client || connStatus !== "ready") {
       setHistory(null);
+      setEditTitle("");
       return;
     }
     void client.request("chat.history", { sessionId: selectedId }).then((res) => {
@@ -166,6 +170,17 @@ export default function App() {
       setHistory(res.ok ? res.payload : res.error);
     });
   }, [selectedId, connStatus]);
+
+  const selectedSession = sessions.find((s) => s.id === selectedId) ?? null;
+
+  useEffect(() => {
+    if (!selectedSession) {
+      if (!selectedId) setEditTitle("");
+      return;
+    }
+    // auto-title / remote patch — only mirror when the user isn't mid-edit
+    if (!titleDirtyRef.current) setEditTitle(selectedSession.title);
+  }, [selectedSession, selectedId]);
 
   const messages = readMessages(history);
 
@@ -248,18 +263,23 @@ export default function App() {
 
   async function renameSession() {
     const client = clientRef.current;
-    if (!client || !selectedId || !title.trim()) return;
+    const next = editTitle.trim();
+    const current = sessions.find((s) => s.id === selectedId);
+    if (!client || !selectedId || !next) return;
+    if (current && next === current.title) {
+      titleDirtyRef.current = false;
+      return;
+    }
     const res = await client.request("sessions.patch", {
       id: selectedId,
-      title: title.trim(),
+      title: next,
     });
     if (!res.ok) {
       setSessionError(res.error);
       return;
     }
-    setTitle("");
+    titleDirtyRef.current = false;
     await refreshSessions();
-    await getSession();
   }
 
   async function loadHistory() {
@@ -353,13 +373,6 @@ export default function App() {
           <button type="button" onClick={() => void createSession()} disabled={!ready}>
             create
           </button>
-          <button
-            type="button"
-            onClick={() => void renameSession()}
-            disabled={!ready || !selectedId || !title.trim()}
-          >
-            rename
-          </button>
           <button type="button" onClick={() => void refreshSessions()} disabled={!ready}>
             list
           </button>
@@ -422,6 +435,31 @@ export default function App() {
 
       <section>
         <h2>chat</h2>
+        {selectedId ? (
+          <div className="chat-header">
+            <input
+              className="chat-title"
+              value={editTitle}
+              onChange={(e) => {
+                titleDirtyRef.current = true;
+                setEditTitle(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  void renameSession();
+                }
+              }}
+              onBlur={() => void renameSession()}
+              placeholder="session title"
+              disabled={!ready}
+            />
+            <span className="chat-id">{selectedId.slice(0, 8)}</span>
+            {sessionBusy ? <span className="session-busy">running</span> : null}
+          </div>
+        ) : (
+          <p className="thread-empty">先选一个 session</p>
+        )}
         <div className="actions">
           <input
             value={chatText}
