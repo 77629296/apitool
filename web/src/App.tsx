@@ -460,8 +460,8 @@ export default function App() {
         ) : (
           <p className="thread-empty">先选一个 session</p>
         )}
-        <div className="actions">
-          <input
+        <div className="composer">
+          <textarea
             value={chatText}
             onChange={(e) => setChatText(e.target.value)}
             onKeyDown={(e) => {
@@ -470,26 +470,33 @@ export default function App() {
                 void sendChat();
               }
             }}
-            placeholder="message text"
+            placeholder="message text · Enter 发送 · Shift+Enter 换行"
+            rows={3}
             disabled={!ready || !selectedId || sessionBusy}
           />
-          <button
-            type="button"
-            onClick={() => void sendChat()}
-            disabled={!ready || !selectedId || !chatText.trim() || sessionBusy}
-          >
-            send
-          </button>
-          <button
-            type="button"
-            onClick={() => void abortChat()}
-            disabled={!ready || !selectedId || !sessionBusy}
-          >
-            abort
-          </button>
-          <button type="button" onClick={() => void loadHistory()} disabled={!ready || !selectedId}>
-            history
-          </button>
+          <div className="composer-actions">
+            <button
+              type="button"
+              onClick={() => void sendChat()}
+              disabled={!ready || !selectedId || !chatText.trim() || sessionBusy}
+            >
+              send
+            </button>
+            <button
+              type="button"
+              onClick={() => void abortChat()}
+              disabled={!ready || !selectedId || !sessionBusy}
+            >
+              abort
+            </button>
+            <button
+              type="button"
+              onClick={() => void loadHistory()}
+              disabled={!ready || !selectedId}
+            >
+              history
+            </button>
+          </div>
         </div>
         {messages ? (
           <div className="thread">

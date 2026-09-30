@@ -48,7 +48,8 @@ pre {
 }
 
 input,
-select {
+select,
+textarea {
   flex: 1;
   min-width: 0;
   padding: 8px 12px;
@@ -56,6 +57,25 @@ select {
   border-radius: 6px;
   background: #fffdf8;
   color: #1c1917;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+  line-height: 1.45;
+}
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.composer-actions {
+  display: flex;
+  gap: 10px;
 }
 
 button {
