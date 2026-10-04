@@ -3,6 +3,7 @@ import { GatewayClient } from "./gateway-client";
 import "./App.css";
 
 const WS_URL = import.meta.env.VITE_GATEWAY_URL ?? "ws://127.0.0.1:18790";
+const SELECTED_KEY = "mini-openclaw.selectedSession";
 
 type SessionRow = {
   id: string;
@@ -25,6 +26,23 @@ function readMessages(history: unknown): ChatMessage[] | null {
   return Array.isArray(messages) ? (messages as ChatMessage[]) : null;
 }
 
+function readStoredSelected(): string {
+  try {
+    return localStorage.getItem(SELECTED_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function writeStoredSelected(id: string): void {
+  try {
+    if (id) localStorage.setItem(SELECTED_KEY, id);
+    else localStorage.removeItem(SELECTED_KEY);
+  } catch {
+    // private mode / blocked storage — selection just won't survive reload
+  }
+}
+
 export default function App() {
   const clientRef = useRef<GatewayClient | null>(null);
   const [connStatus, setConnStatus] = useState("idle");
@@ -43,13 +61,25 @@ export default function App() {
   const [busyIds, setBusyIds] = useState<Record<string, true>>({});
   const [title, setTitle] = useState("");
   const [editTitle, setEditTitle] = useState("");
-  const [selectedId, setSelectedId] = useState("");
+  const [selectedId, setSelectedId] = useState(readStoredSelected);
   const [chatText, setChatText] = useState("");
   const selectedIdRef = useRef(selectedId);
   selectedIdRef.current = selectedId;
+  const chatTextRef = useRef(chatText);
+  chatTextRef.current = chatText;
+  const draftsRef = useRef<Record<string, string>>({});
   const titleDirtyRef = useRef(false);
   const streamRunRef = useRef<string | null>(null);
   const threadEndRef = useRef<HTMLDivElement | null>(null);
+
+  function selectSession(id: string) {
+    const prev = selectedIdRef.current;
+    if (prev && prev !== id) {
+      draftsRef.current[prev] = chatTextRef.current;
+    }
+    setSelectedId(id);
+    setChatText(id ? (draftsRef.current[id] ?? "") : "");
+  }
 
   useEffect(() => {
     const client = new GatewayClient({ url: WS_URL });
@@ -63,7 +93,12 @@ export default function App() {
           return;
         }
         const list = res.payload as { sessions?: SessionRow[] };
-        setSessions(list.sessions ?? []);
+        const rows = list.sessions ?? [];
+        setSessions(rows);
+        const wanted = selectedIdRef.current;
+        if (wanted && !rows.some((s) => s.id === wanted)) {
+          selectSession("");
+        }
         setSessionError(null);
       });
     };
@@ -78,7 +113,7 @@ export default function App() {
         const action = (payload as { action?: string; id?: string } | undefined)?.action;
         const deletedId = (payload as { id?: string } | undefined)?.id;
         if (action === "deleted" && deletedId && deletedId === selectedIdRef.current) {
-          setSelectedId("");
+          selectSession("");
           setSessionDetail(null);
           setHistory(null);
         }
@@ -155,6 +190,10 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    writeStoredSelected(selectedId);
+  }, [selectedId]);
+
+  useEffect(() => {
     const client = clientRef.current;
     streamRunRef.current = null;
     setStreamText("");
@@ -221,7 +260,7 @@ export default function App() {
       return;
     }
     const payload = res.payload as { session?: SessionRow };
-    if (payload.session) setSelectedId(payload.session.id);
+    if (payload.session) selectSession(payload.session.id);
     setTitle("");
     await refreshSessions();
   }
@@ -247,10 +286,11 @@ export default function App() {
       return;
     }
     if (id === selectedIdRef.current) {
-      setSelectedId("");
+      selectSession("");
       setSessionDetail(null);
       setHistory(null);
     }
+    delete draftsRef.current[id];
     setBusyIds((prev) => {
       if (!prev[id]) return prev;
       const next = { ...prev };
@@ -309,6 +349,7 @@ export default function App() {
       setBusyIds((prev) => ({ ...prev, [selectedId]: true }));
       setStreamText("");
     }
+    draftsRef.current[selectedId] = "";
     setChatText("");
     await loadHistory();
     await refreshSessions();
@@ -404,7 +445,7 @@ export default function App() {
                   <button
                     type="button"
                     className="session-select"
-                    onClick={() => setSelectedId(s.id)}
+                    onClick={() => selectSession(s.id)}
                     disabled={!ready}
                   >
                     <span className="session-title">
