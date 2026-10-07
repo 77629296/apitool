@@ -71,6 +71,7 @@ export default function App() {
   const titleDirtyRef = useRef(false);
   const streamRunRef = useRef<string | null>(null);
   const threadEndRef = useRef<HTMLDivElement | null>(null);
+  const composerRef = useRef<HTMLTextAreaElement | null>(null);
 
   function selectSession(id: string) {
     const prev = selectedIdRef.current;
@@ -79,6 +80,11 @@ export default function App() {
     }
     setSelectedId(id);
     setChatText(id ? (draftsRef.current[id] ?? "") : "");
+  }
+
+  function focusComposer() {
+    // wait for disabled→enabled after selectedId flips
+    requestAnimationFrame(() => composerRef.current?.focus());
   }
 
   useEffect(() => {
@@ -227,6 +233,13 @@ export default function App() {
     threadEndRef.current?.scrollIntoView({ block: "end" });
   }, [messages, streamText, selectedId]);
 
+  useEffect(() => {
+    const el = composerRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
+  }, [chatText, selectedId]);
+
   async function call(method: "health" | "status") {
     const client = clientRef.current;
     if (!client) return;
@@ -260,7 +273,10 @@ export default function App() {
       return;
     }
     const payload = res.payload as { session?: SessionRow };
-    if (payload.session) selectSession(payload.session.id);
+    if (payload.session) {
+      selectSession(payload.session.id);
+      focusComposer();
+    }
     setTitle("");
     await refreshSessions();
   }
@@ -351,6 +367,7 @@ export default function App() {
     }
     draftsRef.current[selectedId] = "";
     setChatText("");
+    focusComposer();
     await loadHistory();
     await refreshSessions();
   }
@@ -365,7 +382,9 @@ export default function App() {
     const res = await client.request("chat.abort", params);
     if (!res.ok) {
       setSessionError(res.error);
+      return;
     }
+    focusComposer();
   }
 
   const ready = connStatus === "ready";
@@ -445,7 +464,10 @@ export default function App() {
                   <button
                     type="button"
                     className="session-select"
-                    onClick={() => selectSession(s.id)}
+                    onClick={() => {
+                      selectSession(s.id);
+                      focusComposer();
+                    }}
                     disabled={!ready}
                   >
                     <span className="session-title">
@@ -503,17 +525,24 @@ export default function App() {
         )}
         <div className="composer">
           <textarea
+            ref={composerRef}
+            className="composer-input"
             value={chatText}
             onChange={(e) => setChatText(e.target.value)}
             onKeyDown={(e) => {
+              if (e.key === "Escape" && sessionBusy) {
+                e.preventDefault();
+                void abortChat();
+                return;
+              }
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                void sendChat();
+                if (!sessionBusy) void sendChat();
               }
             }}
-            placeholder="message text · Enter 发送 · Shift+Enter 换行"
+            placeholder="message text · Enter 发送 · Shift+Enter 换行 · Esc 中止"
             rows={3}
-            disabled={!ready || !selectedId || sessionBusy}
+            disabled={!ready || !selectedId}
           />
           <div className="composer-actions">
             <button

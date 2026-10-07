@@ -66,6 +66,13 @@ textarea {
   line-height: 1.45;
 }
 
+textarea.composer-input {
+  resize: none;
+  overflow-y: auto;
+  min-height: 72px;
+  max-height: 200px;
+}
+
 .composer {
   display: flex;
   flex-direction: column;
